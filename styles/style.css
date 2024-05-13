@@ -1,0 +1,144 @@
+header nav {
+  box-sizing: border-box;
+  height: 8vh;
+}
+
+/* Tres columnas de acción */
+
+.col-md-4.main-column {
+  border-right: 1px solid rgb(148, 148, 148);
+  box-sizing: border-box;
+  margin-top: 1vh;
+  height: 91vh;
+}
+
+/* Area de selección de excel */
+
+.zoneExcelPicker {
+  margin-top: 50px;
+  border: 2px dashed #ccc;
+  text-align: center;
+  cursor: pointer;
+}
+
+.zoneExcelPicker:hover {
+  border: 2px solid #397e58;
+  color: #2a724a;
+}
+
+/* Formulario de cliente */
+
+.accordion textarea {
+  resize: none;
+  height: 80px;
+}
+
+/* Ára de selección de imagen */
+
+.zoneImagePicker {
+  margin-top: 50px;
+  border: 2px dashed #ccc;
+  text-align: center;
+  cursor: pointer;
+}
+
+.zoneImagePicker:hover {
+  border: 2px solid #305e8a;
+  color: #296bc7;
+}
+
+.product-search-counter .container-fluid.p-0 {
+  height: 11vh;
+}
+
+.col-md-4.overflow-auto.overflow-y-scroll.main-column {
+  height: 85vh;
+}
+
+.action-buttons-container {
+  position: fixed;
+  bottom: 0;
+  height: 7vh;
+  width: 30vw;
+  border-radius: 5px 5px 0 0;
+  color: white;
+  z-index: 5;
+}
+
+.action-buttons {
+  width: 50%;
+  height: 4vh;
+  font-size: 2dvh;
+}
+
+#prices {
+  position: fixed;
+  bottom: 4vh;
+  height: 7vh;
+  width: 30vw;
+  border-radius: 5px 5px 0 0;
+  color: white;
+  z-index: 5;
+}
+
+#prices span {
+  font-size: 2dvh;
+}
+
+.productSelected {
+  animation: achicar-agrandar 0.3s ease-in-out; /* Duración de 1 segundo con aceleración y desaceleración suave */
+}
+
+.product {
+  animation: achicar-agrandar 0.3s ease-in-out; /* Duración de 1 segundo con aceleración y desaceleración suave */
+}
+
+.productRemove {
+  animation: achicar 0.12s ease-in-out; /* Duración de 1 segundo con aceleración y desaceleración suave */
+}
+
+@keyframes achicar-agrandar {
+  0% {
+    transform: scale(0.9); /* Comienza achicado al 50% de su tamaño original */
+  }
+  50% {
+    transform: scale(1.05); /* Aumenta al 120% del tamaño original */
+  }
+  100% {
+    transform: scale(1); /* Regresa al tamaño original */
+  }
+}
+
+@keyframes achicar {
+  0% {
+    transform: scale(0.8); /* Comienza achicado al 50% de su tamaño original */
+  }
+  50% {
+    transform: scale(0.4); /* Aumenta al 120% del tamaño original */
+  }
+  100% {
+    transform: scale(0.2); /* Regresa al tamaño original */
+  }
+}
+
+.modal-dialog {
+  width: 97%;
+  height: 97%;
+  max-width: none;
+}
+.modal-content {
+  height: 97%;
+}
+
+.client-table td,
+.client-table th {
+  padding: 0;
+}
+
+.quote-amount-column {
+  width: 4%;
+}
+
+.quote-main-column {
+  width: 32%;
+}

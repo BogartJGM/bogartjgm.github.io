@@ -1,0 +1,418 @@
+<!-- Rama limpiar codigo -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La Pape Coti</title>
+
+    <link rel="stylesheet" href="./css_bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <script src="./js/xlsx.full.min.js"></script>
+    <script src="./js/today-form-button.js"></script>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Header -->
+        <header class="p-0">
+          <nav class="navbar">La Pape Coti</nav>
+        </header>
+        <!-- Primera columna principal -->
+        <div class="col-md-4 overflow-y-scroll main-column">
+          <!-- Barra de búsqueda -->
+          <div class="input-group sticky-top">
+            <input
+              id="product-search-bar"
+              class="form-control"
+              type="text"
+              placeholder="Buscar producto"
+              autocomplete="off"
+            />
+            <!-- Dropdown -->
+            <button
+              class="btn btn-sm btn-outline-success dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Excel
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <button
+                  id="select-excel-file"
+                  class="dropdown-item"
+                  type="button"
+                >
+                  Elegir excel
+                </button>
+              </li>
+              <li>
+                <button id="reset-to-excel" class="dropdown-item" type="button">
+                  Reestablecer a Excel
+                </button>
+              </li>
+            </ul>
+          </div>
+          <!-- Zona de selección de excel -->
+          <div
+            id="select-excel-file-area"
+            class="d-flex align-items-center justify-content-center py-5 rounded-4 zoneExcelPicker"
+          >
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="100"
+                height="100"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-file-text"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                ></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              <p>Haz clic para seleccionar el excel</p>
+            </div>
+          </div>
+          <!-- Contenedor de tarjeta de productos -->
+          <div id="product-container"></div>
+        </div>
+        <!-- Segunda columna principal -->
+        <div class="col-md-4 overflow-y-hidden main-column">
+          <!-- Acordeon de formulario para datos de cliente -->
+          <div id="accordion-client-data" class="accordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed p-2"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapse-form-client"
+                  aria-expanded="false"
+                  aria-controls="flush-collapse-form-client"
+                >
+                  Datos cliente
+                </button>
+              </h2>
+              <!-- Body del acordeon -->
+              <div
+                id="flush-collapse-form-client"
+                class="accordion-collapse collapse"
+                data-bs-parent="#accordion-client-data"
+              >
+                <div class="accordion-body p-3">
+                  <!-- Formulario -->
+                  <div class="mb-2">
+                    <label class="form-label mb-0" for="client-name">
+                      Nombre cliente
+                    </label>
+                    <input
+                      id="client-name"
+                      class="form-control"
+                      type="text"
+                      placeholder="Nombre"
+                    />
+                  </div>
+                  <div class="mb-2">
+                    <label class="form-label mb-0" for="client-school-name">
+                      Escuela
+                    </label>
+                    <div class="input-group">
+                      <input
+                        id="client-school-name"
+                        class="form-control"
+                        type="text"
+                        placeholder="Nombre escuela"
+                      />
+                      <input
+                        id="client-grade-group"
+                        class="form-control"
+                        type="text"
+                        placeholder="Grado y grupo"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-2">
+                    <label class="form-label mb-0" for="quote-date-start">
+                      Fecha
+                    </label>
+                    <div class="input-group">
+                      <div class="form-floating">
+                        <input
+                          id="quote-date-start"
+                          class="form-control"
+                          type="date"
+                        />
+                        <label for="quote-date-start">
+                          Fecha de cotización
+                        </label>
+                      </div>
+                      <button
+                        class="btn btn-outline-secondary"
+                        type="button"
+                        onclick="getDay()"
+                      >
+                        Hoy
+                      </button>
+                      <div class="form-floating">
+                        <input
+                          id="quote-date-end"
+                          class="form-control"
+                          type="date"
+                          disabled
+                        />
+                        <label for="quote-date-end">Válida hasta</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-2">
+                    <label class="form-label mb-0" for="discount">
+                      Descuento
+                    </label>
+                    <div class="input-group">
+                      <input
+                        id="discount"
+                        class="form-control"
+                        type="text"
+                        placeholder="Descuento"
+                        value="10"
+                      />
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="form-label mb-0" for="client-notes">
+                      Notas
+                    </label>
+                    <textarea id="client-notes" class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            id="select-img-file-area"
+            class="d-flex align-items-center justify-content-center rounded-4 py-5 zoneImagePicker"
+          >
+            <div>
+              <svg
+                class="bi bi-file-earmark-image"
+                xmlns="http://www.w3.org/2000/svg"
+                width="100"
+                height="100"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                <path
+                  d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1z"
+                />
+              </svg>
+              <p>Haz clic para seleccionar la imagen</p>
+            </div>
+          </div>
+        </div>
+        <!-- Tercera columna principal -->
+        <div class="col-md-4 overflow-y-scroll overflow-x-hidden main-column">
+          <!-- Buscador y contador -->
+          <div class="sticky-top product-search-counter">
+            <div class="input-group">
+              <input
+                id="selected-product-search-bar"
+                class="form-control"
+                type="text"
+                placeholder="Buscar producto"
+                autocomplete="off"
+                disabled
+              />
+              <button
+                id="import-coti"
+                class="btn btn-sm btn-outline-success"
+                type="button"
+              >
+                Impor. coti
+              </button>
+            </div>
+            <div class="bg-primary-subtle border rounded-1 container-fluid">
+              <div class="row">
+                <div class="col-md-10">
+                  <span>Productos seleccionados</span>
+                </div>
+                <div class="col-md-2">
+                  <span id="selected-product-counter">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Contenedor de productos seleccionados -->
+          <div id="selected-product-container"></div>
+          <!-- Label de total para calidad E y calidad A -->
+          <div id="prices" class="justify-content-center container-fluid">
+            <div class="row">
+              <div class="input-group p-0">
+                <div class="col-md-6 bg-secondary p-1 text-white form-control">
+                  <span>Calidad E: $</span>
+                  <span id="economic-quality-sum">0</span>
+                </div>
+                <div class="col-md-6 bg-warning p-1 text-white form-control">
+                  <span>Calidad A: $</span>
+                  <span id="high-quality-sum">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Botones para descargar cotización y para ver imagen -->
+          <div
+            class="d-flex align-items-center justify-content-center action-buttons-container"
+          >
+            <div class="input-group">
+              <button
+                id="download-coti"
+                class="btn btn-success p-0 action-buttons"
+                type="button"
+                disabled
+              >
+                Dscargar cotización
+              </button>
+              <button
+                id="show-image"
+                class="btn btn-primary p-0 action-buttons"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#expand-image"
+                disabled
+              >
+                Ver imagen
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="expand-image" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal header -->
+          <div class="modal-header">
+            <button id="download-image" class="btn btn-success">
+              Descargar en imagen
+            </button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <!-- Cuerpo del modal -->
+          <div id="quote-image" class="modal-body overflow-y-auto">
+            <div class="row">
+              <!-- Datos de cliente -->
+              <div class="col-md-5">
+                <table class="table table-sm table-bordered p-0 client-table">
+                  <tr>
+                    <th scope="col">Datos cliente</th>
+                    <th scope="col">Cotizada el</th>
+                    <th scope="col">Validez hasta</th>
+                  </tr>
+                  <tr>
+                    <td id="customer-data-table">Datos cliente</td>
+                    <td id="customer-quote-start-table">Datos cotizada el</td>
+                    <td id="customer-quote-end-table">Dato validez hasta</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-5">
+                Después de esta fecha, no serán válidos los precios de la
+                cotización actual en caso de que estos hayan cambiado
+              </div>
+              <!-- Cotización -->
+              <div class="col-md-12">
+                <table class="table table-bordered">
+                  <thead class="text-center">
+                    <tr>
+                      <th class="quote-amount-column"></th>
+                      <th class="quote-main-column"></th>
+                      <th class="quote-main-column" colspan="3">
+                        CALIDAD ECONÓMICA
+                      </th>
+                      <th class="quote-main-column" colspan="3">
+                        CALIDAD ALTA
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>CANTIDAD</th>
+                      <th>PRODUCTO</th>
+                      <th>MARCA</th>
+                      <th>P UNI</th>
+                      <th>IMPORTE</th>
+                      <th>MARCA</th>
+                      <th>P UNI</th>
+                      <th>IMPORTE</th>
+                    </tr>
+                  </thead>
+                  <tbody id="selected-products-table"></tbody>
+                  <tfoot class="text-end">
+                    <tr>
+                      <td colspan="2">COSTO TOTAL</td>
+                      <td></td>
+                      <td></td>
+                      <td id="total-economic-quality-cost"></td>
+                      <td></td>
+                      <td></td>
+                      <td id="total-high-quality-cost"></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" class="text-danger">
+                        CON DESCUENTO DE
+                        <span id="table-cell-discount">10</span>%
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td
+                        id="total-economic-quality-cost-discount"
+                        class="text-danger"
+                      ></td>
+                      <td></td>
+                      <td></td>
+                      <td
+                        id="total-high-quality-cost-discount"
+                        class="text-danger"
+                      ></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">PUEDES APARTARLA CON</td>
+                      <td></td>
+                      <td></td>
+                      <td id="initial-economic-quality-deposit"></td>
+                      <td></td>
+                      <td></td>
+                      <td id="initial-high-quality-deposit"></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/main.js" type="module"></script>
+    <script src="./js_bootstrap/popper.js"></script>
+    <script src="./js_bootstrap/bootstrap.js"></script>
+    <script src="./js/html2canvas.min.js"></script>
+  </body>
+</html>
