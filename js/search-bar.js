@@ -1,3 +1,5 @@
+import { givePosition } from "./give-position.js";
+
 /**
  * Adds input event listener to a text input field.
  * Retrieves product cards with .search class and compares their text content with the input text.
@@ -52,6 +54,8 @@ export function search(inputSearchBar, cardsClasses) {
         }
       }
     });
+
+    givePosition("product-container");
   });
 }
 

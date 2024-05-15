@@ -17,7 +17,7 @@ export function anadirProductSelected(productCardDiv) {
 
   // Copia @productCardDiv (param1) y obtiene elementos dentro de esa copia
   const productCardCopy = productCardDiv.cloneNode(true);
-  const buttonSelectedCard = productCardCopy.querySelectorAll("button.btn.btn-success.col-2")[0];
+  const buttonSelectedCard = productCardCopy.querySelectorAll("button.btn.btn-success.col-3")[0];
   const buttonsEdit = productCardCopy.querySelectorAll(".buttonEdit");
   const tdsEditable = productCardCopy.querySelectorAll(".search");
   const priceTds = productCardCopy.querySelectorAll(".price");

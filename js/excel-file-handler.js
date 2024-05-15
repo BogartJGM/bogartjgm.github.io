@@ -3,6 +3,7 @@ import "./xlsx.full.min.js";
 // Importing functions from external files
 import { createProductCard } from "./create-product-card.js";
 import { removeAttributeFromElementById } from "./utils.js";
+import { givePosition } from "./give-position.js";
 
 /**
  * Initializes the functionality to load and process an Excel file.
@@ -81,6 +82,8 @@ function handleFileLoad(fileEvent) {
   productsData.forEach((product) => {
     createProductCard(product, "product-container");
   });
+  givePosition("product-container");
+
 
   removeAttributeFromElementById("product-search-bar", "disabled");
 }

@@ -12,25 +12,39 @@ import { handleButtonClick, handleFocusOut, handleTdInput, handleTdKeyDown } fro
 export function createProductCard(productJson, containerProductId) {
   // Creating DOM elements for the product card
   const cardDiv = document.createElement("div");
+  const divActionsContainer = document.createElement("div");
+  const divActionsRow = document.createElement("div");
+  const spanPosition = document.createElement("span");
+  const btnDown = document.createElement("button");
+  const btnUp = document.createElement("button");
+  const addButton = document.createElement("button");
+
   const productNameDiv = document.createElement("div");
   const inputGroupDiv = document.createElement("div");
   const productNameSpan = document.createElement("span");
   const quantityInput = document.createElement("input");
-  const addButton = document.createElement("button");
   const rowTable = document.createElement("div");
   const qualityEDiv = createQualityTable("CALIDAD E", productJson["MARCA"], productJson["P UNI"]);
   const qualityADiv = createQualityTable("CALIDAD A", productJson["MARCA_1"], productJson["P UNI_1"]);
 
   // Adding classes and attributes
   cardDiv.classList.add("card", "p-2", "product");
+  divActionsContainer.classList.add("row", "mb-1");
+  divActionsRow.classList.add("input-group", "input-group-sm", "justify-content-between");
+  spanPosition.classList.add("input-group-text", "col-md-1", "posicion");
+  btnDown.classList.add("btn", "btn-primary", "col-md-4");
+  btnDown.textContent = "aaaa"
+  btnUp.classList.add("btn", "btn-primary", "col-md-4");
+  btnUp.textContent = "aaaa"
+  addButton.classList.add("btn", "btn-success", "col-3");
+
   productNameDiv.classList.add("form", "mb-1");
   inputGroupDiv.classList.add("input-group", "input-group-sm");
-  productNameSpan.classList.add("input-group-text", "col-8", "search");
+  productNameSpan.classList.add("input-group-text", "col-10", "search");
   quantityInput.setAttribute("type", "number");
   quantityInput.setAttribute("placeholder", "1");
   quantityInput.dataset.cantidadAnterior = 1;
   quantityInput.classList.add("form-control", "col-2", "cantidad");
-  addButton.classList.add("btn", "btn-success", "col-2");
   rowTable.classList.add("row");
 
   // Setting content
@@ -41,7 +55,7 @@ export function createProductCard(productJson, containerProductId) {
     anadirProductSelected(cardDiv);
   });
   quantityInput.addEventListener("input", () => {
-    if(quantityInput.value == "") {
+    if (quantityInput.value == "") {
       quantityInput.dataset.cantidadAnterior = 1;
     } else {
       quantityInput.dataset.cantidadAnterior = quantityInput.value;
@@ -49,12 +63,18 @@ export function createProductCard(productJson, containerProductId) {
   });
 
   // Structuring the DOM
+  divActionsRow.appendChild(spanPosition);
+  divActionsRow.appendChild(btnDown);
+  divActionsRow.appendChild(btnUp);
+  divActionsRow.appendChild(addButton);
+  divActionsContainer.appendChild(divActionsRow);
+
   inputGroupDiv.appendChild(productNameSpan);
   inputGroupDiv.appendChild(quantityInput);
-  inputGroupDiv.appendChild(addButton);
   productNameDiv.appendChild(inputGroupDiv);
   rowTable.appendChild(qualityEDiv);
   rowTable.appendChild(qualityADiv);
+  cardDiv.appendChild(divActionsContainer);
   cardDiv.appendChild(productNameDiv);
   cardDiv.appendChild(rowTable);
 
