@@ -1,4 +1,9 @@
-import { increaseTotalQualityE, dicreaseTotalQualityE, increaseTotalQualityA, dicreaseTotalQualityA} from "./modify-total-quality-of-qualities.js";
+import { 
+  increaseTotalQualityE,
+  dicreaseTotalQualityE,
+  increaseTotalQualityA,
+  dicreaseTotalQualityA
+} from "./modify-total-quality-of-qualities.js";
 
 /**
  *
@@ -27,39 +32,43 @@ export function handleTdKeyDown(tdElement, event) {
 
     const selection = window.getSelection();
     selection.removeAllRanges();
-        
+
     // Poner valor por defecto si el textContent está vacío
     if (!tdElement.textContent) {
       tdElement.textContent = Object.values(tdElement.dataset)[0];
     }
-    let productIndex = tdElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.dataset.arrayPosition;
-    // Modificar el JSON de localstorage
-    if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E" && (tdElement.classList[0] == "price")) {
-      const dataChange = JSON.parse(localStorage.getItem("productsData"));
-      dataChange[productIndex].definedPriceE = tdElement.textContent;
-      localStorage.setItem("productsData", JSON.stringify(dataChange));
-      console.log("Nombre de precio E modificado")
-    } else if (tdElement.classList[0] == "price"){
-      const dataChange = JSON.parse(localStorage.getItem("productsData"));
-      dataChange[productIndex].definedPriceA = tdElement.textContent;
-      localStorage.setItem("productsData", JSON.stringify(dataChange));
-      console.log("Nombre de precio A modificado")
-    } else if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E" && "CALIDAD E" && tdElement.classList.contains("qualityName")) {
-      const dataChange = JSON.parse(localStorage.getItem("productsData"));
-      dataChange[productIndex].definedNameE = tdElement.textContent;
-      localStorage.setItem("productsData", JSON.stringify(dataChange));
-      console.log("Nombre de calidad E modificado")
-    } else {
-      const dataChange = JSON.parse(localStorage.getItem("productsData"));
-      dataChange[productIndex].definedNameA = tdElement.textContent;
-      localStorage.setItem("productsData", JSON.stringify(dataChange));
-      console.log("Nombre de calidad A modificado")
+
+    // Modificar el JSON solo si son eventos de los porductos de columna de productos para seleccionar
+    if (tdElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.id == "product-container") {
+      let productIndex = tdElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.dataset.arrayPosition;
+      // Modificar el JSON de localstorage
+      if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E" && (tdElement.classList[0] == "price")) {
+        const dataChange = JSON.parse(localStorage.getItem("productsData"));
+        dataChange[productIndex].definedPriceE = tdElement.textContent;
+        localStorage.setItem("productsData", JSON.stringify(dataChange));
+        console.log("Nombre de precio E modificado")
+      } else if (tdElement.classList[0] == "price") {
+        const dataChange = JSON.parse(localStorage.getItem("productsData"));
+        dataChange[productIndex].definedPriceA = tdElement.textContent;
+        localStorage.setItem("productsData", JSON.stringify(dataChange));
+        console.log("Nombre de precio A modificado")
+      } else if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E" && "CALIDAD E" && tdElement.classList.contains("qualityName")) {
+        const dataChange = JSON.parse(localStorage.getItem("productsData"));
+        dataChange[productIndex].definedNameE = tdElement.textContent;
+        localStorage.setItem("productsData", JSON.stringify(dataChange));
+        console.log("Nombre de calidad E modificado")
+      } else {
+        const dataChange = JSON.parse(localStorage.getItem("productsData"));
+        dataChange[productIndex].definedNameA = tdElement.textContent;
+        localStorage.setItem("productsData", JSON.stringify(dataChange));
+        console.log("Nombre de calidad A modificado")
+      }
     }
 
     if (!(tdElement.textContent == tdElement.dataset.previousPrice) && (tdElement.classList[0] == "price")) {
       let cantidad = tdElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".cantidad").value == "" ? 1 : Number(tdElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".cantidad").value);
       let previousPrice = Number(tdElement.dataset.previousPrice);
-      let precioActual = Number(tdElement.textContent); 
+      let precioActual = Number(tdElement.textContent);
 
       if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E") {
         dicreaseTotalQualityE(cantidad, previousPrice);
@@ -91,39 +100,41 @@ export function handleFocusOut(tdElement) {
   if (!tdElement.textContent) {
     tdElement.textContent = Object.values(tdElement.dataset)[0];
   }
-  let productIndex = tdElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.dataset.arrayPosition;
-  // Modificar el JSON de localstorage
-  // si el td es de calidad E precio
-  if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E" && (tdElement.classList[0] == "price")) {
-    const dataChange = JSON.parse(localStorage.getItem("productsData"));
-    dataChange[productIndex].definedPriceE = tdElement.textContent;
-    localStorage.setItem("productsData", JSON.stringify(dataChange));
-    console.log("Nombre de precio E modificado")
-    // si el td es de calidad A precio
-  } else if (tdElement.classList[0] == "price"){
-    const dataChange = JSON.parse(localStorage.getItem("productsData"));
-    dataChange[productIndex].definedPriceA = tdElement.textContent;
-    localStorage.setItem("productsData", JSON.stringify(dataChange));
-    console.log("Nombre de precio A modificado")
-    // si el td es de calidad E nombre
-  } else if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E" && "CALIDAD E" && tdElement.classList.contains("qualityName")) {
-    const dataChange = JSON.parse(localStorage.getItem("productsData"));
-    dataChange[productIndex].definedNameE = tdElement.textContent;
-    localStorage.setItem("productsData", JSON.stringify(dataChange));
-    console.log("Nombre de calidad E modificado")
-    // si el td es de calidad A nombre
-  } else {
-    const dataChange = JSON.parse(localStorage.getItem("productsData"));
-    dataChange[productIndex].definedNameA = tdElement.textContent;
-    localStorage.setItem("productsData", JSON.stringify(dataChange));
-    console.log("Nombre de calidad A modificado")
+
+  // Modificar el JSON solo si son eventos de los porductos de columna de productos para seleccionar
+  if (tdElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.id == "product-container") {
+    let productIndex = tdElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.dataset.arrayPosition;
+    // Modificar el JSON de localstorage
+    if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E" && (tdElement.classList[0] == "price")) {
+      const dataChange = JSON.parse(localStorage.getItem("productsData"));
+      dataChange[productIndex].definedPriceE = tdElement.textContent;
+      localStorage.setItem("productsData", JSON.stringify(dataChange));
+      console.log("Nombre de precio E modificado")
+    } else if (tdElement.classList[0] == "price") {
+      const dataChange = JSON.parse(localStorage.getItem("productsData"));
+      dataChange[productIndex].definedPriceA = tdElement.textContent;
+      localStorage.setItem("productsData", JSON.stringify(dataChange));
+      console.log("Nombre de precio A modificado")
+    } else if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E" && "CALIDAD E" && tdElement.classList.contains("qualityName")) {
+      const dataChange = JSON.parse(localStorage.getItem("productsData"));
+      dataChange[productIndex].definedNameE = tdElement.textContent;
+      localStorage.setItem("productsData", JSON.stringify(dataChange));
+      console.log("Nombre de calidad E modificado")
+    } else {
+      const dataChange = JSON.parse(localStorage.getItem("productsData"));
+      dataChange[productIndex].definedNameA = tdElement.textContent;
+      localStorage.setItem("productsData", JSON.stringify(dataChange));
+      console.log("Nombre de calidad A modificado")
+    }
   }
 
-  // Si el td es del producto es modificado y el producto está en la columna de productos seleccionados
+  // Si el td es del producto es modificado y el producto está en la columna de productos seleccionados. E
+  // En los productos que están en la columna de selección, el previousPrice siempre va a hacer igual al precio actual.
+  // En los productos seleccionados no, porque su evento solo llama a este método
   if (!(tdElement.textContent == tdElement.dataset.previousPrice) && (tdElement.classList[0] == "price")) {
     let cantidad = tdElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".cantidad").value == "" ? 1 : Number(tdElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".cantidad").value);
     let previousPrice = Number(tdElement.dataset.previousPrice);
-    let precioActual = Number(tdElement.textContent); 
+    let precioActual = Number(tdElement.textContent);
 
     if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E") {
       dicreaseTotalQualityE(cantidad, previousPrice);

@@ -135,7 +135,7 @@ function createQualityTable(title, name, price, setData) {
   tdName.style.width = "90%";
   tdName.style.overflowWrap = "break-word";
   tdPrice.dataset.originalPrice = price;
-  tdPrice.dataset.previousPrice = price;
+  tdPrice.dataset.previousPrice = setData.definedPrice ? setData.definedPrice : price;
   tdPrice.classList.add("price", "search");
   tdPrice.style.width = "90%";
   tdPrice.style.overflowWrap = "break-word";
