@@ -96,11 +96,9 @@ function handleFileLoad(fileEvent) {
   localStorage.setItem('productsData', productsDataString);
 
   // Create product cards and append them to the DOM
-  JSON.parse(localStorage.getItem('productsData')).forEach((product) => {
-    createProductCard(product, "product-container");
+  JSON.parse(localStorage.getItem('productsData')).forEach((product, index) => {
+    createProductCard(product, "product-container", index);
   });
-  givePosition("product-container");
-
 
   removeAttributeFromElementById("product-search-bar", "disabled");
 }

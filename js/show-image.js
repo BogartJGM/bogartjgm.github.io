@@ -31,7 +31,7 @@ export function showImage() {
   selectedProducts.forEach((product) => {
     const datosProducto = {};
     const cantidad = product.querySelector(".cantidad").value == "" ? 1 : Number(product.querySelector(".cantidad").value);
-    const nombreProducto = product.querySelector(".input-group-text.col-8").textContent;
+    const nombreProducto = product.querySelector(".input-group-text.col-10").textContent;
     const marcaCE = product.querySelectorAll(".qualityName")[0].textContent;
     const precioUCE = Number(product.querySelectorAll(".price")[0].textContent);
     const marcaCA = product.querySelectorAll(".qualityName")[1].textContent;

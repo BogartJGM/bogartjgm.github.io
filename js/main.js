@@ -20,10 +20,9 @@ const buttonDownloadImage = document.getElementById("download-image");
 const productsDataString = localStorage.getItem("productsData");
 if (productsDataString) {
   inputExcelPicker.remove();
-  JSON.parse(productsDataString).forEach((product) => {
-    createProductCard(product, "product-container");
+  JSON.parse(productsDataString).forEach((product, index) => {
+    createProductCard(product, "product-container", index);
   });
-  givePosition("product-container");
 }
 initExcelInputs(inputDropdownExcelPicker, inputExcelPicker);
 

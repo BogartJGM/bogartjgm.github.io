@@ -9,7 +9,7 @@ import { handleButtonClick, handleFocusOut, handleTdInput, handleTdKeyDown } fro
  * @param {object} productJson - The JSON object containing the data for creating the product card.
  * @param {string} containerProductId - The id of the container element where the product card will be appended.
  */
-export function createProductCard(productJson, containerProductId) {
+export function createProductCard(productJson, containerProductId, index) {
   // Creating DOM elements for the product card
   const cardDiv = document.createElement("div");
   const divActionsContainer = document.createElement("div");
@@ -24,8 +24,15 @@ export function createProductCard(productJson, containerProductId) {
   const productNameSpan = document.createElement("span");
   const quantityInput = document.createElement("input");
   const rowTable = document.createElement("div");
-  const qualityEDiv = createQualityTable("CALIDAD E", productJson["MARCA"], productJson["P UNI"]);
-  const qualityADiv = createQualityTable("CALIDAD A", productJson["MARCA_1"], productJson["P UNI_1"]);
+
+  const setDataE = {};
+  setDataE.definedName = productJson.definedNameE;
+  setDataE.definedPrice = productJson.definedPriceE;
+  const setDataA = {};
+  setDataA.definedName = productJson.definedNameA;
+  setDataA.definedPrice = productJson.definedPriceA;
+  const qualityEDiv = createQualityTable("CALIDAD E", productJson["MARCA"], productJson["P UNI"], setDataE);
+  const qualityADiv = createQualityTable("CALIDAD A", productJson["MARCA_1"], productJson["P UNI_1"], setDataA);
 
   // Adding classes and attributes
   cardDiv.classList.add("card", "p-2", "product");
@@ -46,10 +53,12 @@ export function createProductCard(productJson, containerProductId) {
   quantityInput.dataset.cantidadAnterior = 1;
   quantityInput.classList.add("form-control", "col-2", "cantidad");
   rowTable.classList.add("row");
+  rowTable.dataset.arrayPosition = index;
 
   // Setting content
   productNameSpan.textContent = productJson["PRODUCTO"];
   addButton.textContent = "+";
+  spanPosition.textContent = String(index + 1);
 
   addButton.addEventListener("click", () => {
     anadirProductSelected(cardDiv);
@@ -90,7 +99,7 @@ export function createProductCard(productJson, containerProductId) {
  * @param {string} price - The price of the product.
  * @returns {HTMLDivElementement} - The created quality table.
  */
-function createQualityTable(title, name, price) {
+function createQualityTable(title, name, price, setData) {
   // Creating DOM elements for the quality table
   const svgPen = createSVG("http://www.w3.org/2000/svg", "16", "16", "0 0 16 16", "path", "d", "M13.646 1.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.36.146h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .146-.354l10-10zM13 2l1 1-10 10h-2v-2l10-10 1 1v1h1v-2h-2");
   const svgPen2 = createSVG("http://www.w3.org/2000/svg", "16", "16", "0 0 16 16", "path", "d", "M13.646 1.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.36.146h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .146-.354l10-10zM13 2l1 1-10 10h-2v-2l10-10 1 1v1h1v-2h-2");
@@ -137,15 +146,12 @@ function createQualityTable(title, name, price) {
 
   // Setting content
   th1.textContent = title;
-  tdName.textContent = name;
-  tdPrice.textContent = price;
+  tdName.textContent = setData.definedName ? setData.definedName : name;
+  tdPrice.textContent = setData.definedPrice ? setData.definedPrice : price;
 
   // Adding events
   buttonPen.addEventListener("click", function () {
     handleButtonClick(tdName);
-  });
-  buttonPen2.addEventListener("click", function () {
-    handleButtonClick(tdPrice);
   });
   tdName.addEventListener("keydown", function (e) {
     handleTdKeyDown(tdName, e);
@@ -155,6 +161,9 @@ function createQualityTable(title, name, price) {
   });
   tdName.addEventListener("focusout", function () {
     handleFocusOut(tdName);
+  });
+  buttonPen2.addEventListener("click", function () {
+    handleButtonClick(tdPrice);
   });
   tdPrice.addEventListener("keydown", function (e) {
     tdPrice.dataset.previousPrice = e.target.textContent;
