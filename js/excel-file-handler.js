@@ -12,7 +12,10 @@ import { givePosition } from "./give-position.js";
  */
 export function initExcelInputs(inputDropdownExcelPicker, inputExcelPicker) {
   inputDropdownExcelPicker.addEventListener("click", handleinputExcelPickerClick);
-  inputExcelPicker.addEventListener("click", handleinputExcelPickerClick);
+
+  if (inputDropdownExcelPicker) {
+    inputExcelPicker.addEventListener("click", handleinputExcelPickerClick);
+  }
 }
 
 /**
@@ -27,7 +30,7 @@ function handleinputExcelPickerClick() {
   temporaryExcelFileInput.addEventListener("change", (e) => {
     handleFileChange(e.target.files)
     console.log("event.target | Evento de click sobre un input type file: " + e.target);
-    console.log("Typeof event.target: " + typeof(e.target));
+    console.log("Typeof event.target: " + typeof (e.target));
   });
   temporaryExcelFileInput.click();
 }
@@ -64,6 +67,17 @@ function handleFileLoad(fileEvent) {
 
   // Convert spreadsheet content to JSON object
   const productsData = XLSX.utils.sheet_to_json(firstSheet, { raw: true });
+  productsData.sort(function (a, b) {
+    const productA = a.PRODUCTO.toUpperCase(); // Convertir a mayúsculas para asegurar un ordenamiento sin importar la capitalización
+    const productB = b.PRODUCTO.toUpperCase();
+    if (productA < productB) {
+        return -1;
+    }
+    if (productA > productB) {
+        return 1;
+    }
+    return 0;
+  });
 
   /* Each time the file is loaded, the excelPicker is cleared and the reload dataset is added to the div.products. 
   This dataset is used by the createProductCard function so that in the event of adding a new file, it reloads the product cards and the search
@@ -78,8 +92,11 @@ function handleFileLoad(fileEvent) {
     productContainer.innerHTML = "";
   }
 
+  const productsDataString = JSON.stringify(productsData);
+  localStorage.setItem('productsData', productsDataString);
+
   // Create product cards and append them to the DOM
-  productsData.forEach((product) => {
+  JSON.parse(localStorage.getItem('productsData')).forEach((product) => {
     createProductCard(product, "product-container");
   });
   givePosition("product-container");
