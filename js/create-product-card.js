@@ -40,9 +40,9 @@ export function createProductCard(productJson, containerProductId, index) {
   divActionsRow.classList.add("input-group", "input-group-sm", "justify-content-between");
   spanPosition.classList.add("input-group-text", "col-md-1", "posicion");
   btnDown.classList.add("btn", "btn-primary", "col-md-4");
-  btnDown.textContent = "aaaa"
+  btnDown.textContent = "bajah"
   btnUp.classList.add("btn", "btn-primary", "col-md-4");
-  btnUp.textContent = "aaaa"
+  btnUp.textContent = "subih"
   addButton.classList.add("btn", "btn-success", "col-3");
 
   productNameDiv.classList.add("form", "mb-1");

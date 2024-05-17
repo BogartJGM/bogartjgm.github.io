@@ -30,7 +30,15 @@
               placeholder="Buscar producto"
               autocomplete="off"
             />
-            <button class="btn btn-sm btn-outline-secondary">Nuevo</button>
+            <button
+              id="create-product"
+              class="btn btn-sm btn-outline-secondary"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#expand-create-product"
+            >
+              Nuevo
+            </button>
             <!-- Dropdown -->
             <button
               class="btn btn-sm btn-outline-success dropdown-toggle"
@@ -302,14 +310,79 @@
       </div>
     </div>
 
-    <div class="modal fade" id="expand-image" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal fade" id="expand-create-product" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered create-product-modal">
+        <div class="modal-content create-product-modal">
           <!-- Modal header -->
           <div class="modal-header">
-            <button id="download-image" class="btn btn-success">
-              Descargar en imagen
-            </button>
+            <h5 class="m-0">Crear producto</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div id="product-data" class="modal-body overflow-y-auto">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="product-name" class="form-label fw-bold">Nombre producto</label>
+                    <input type="text" class="form-control" id="product-name" placeholder="Productito productón productote">
+                  </div>
+                  <div class="bg-primary-subtle border rounded-1 container-fluid">
+                    <label for="name-quality-e" class="form-label m-0">Marca calidad Económica</label>
+                  </div>
+                  <div class="row g-2">
+                    <div class="col-md-8">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="name-quality-e" placeholder="" value="">
+                        <label for="name-quality-e">Nombre marca</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" class="form-control" id="price-quality-e" placeholder="" value="">
+                        <label for="price-quality-e">Precio</label>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="hr">
+                  <div class="bg-warning-subtle border rounded-1 container-fluid">
+                    <label for="name-quality-e" class="form-label m-0">Marca calidad Alta</label>
+                  </div>
+                  <div class="row g-2">
+                    <div class="col-md-8">
+                      <div class="form-floating">
+                        <input type="email" class="form-control" id="name-quality-a" placeholder="" value="">
+                        <label for="name-quality-a">Nombre marca</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="email" class="form-control" id="price-quality-a" placeholder="" value="">
+                        <label for="price-quality-a">Precio</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button id="add-product" type="button" class="btn btn-primary" data-bs-dismiss="modal">Añadir producto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="expand-image" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog show-image-modal">
+        <div class="modal-content show-image-modal">
+          <!-- Modal header -->
+          <div class="modal-header">
+            <h3>Cotización</h3>
             <button
               type="button"
               class="btn-close"
@@ -407,6 +480,21 @@
               </div>
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button id="download-image" class="btn btn-success">
+              Descargar en imagen
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="position-fixed top-0 start-50 translate-middle-x p-4" style="z-index: 11">
+      <div id="product-toast" class="toast bg-success">
+        <div class="toast-body">
+          <button type="button" class="btn-close pe-3" data-bs-dismiss="toast" aria-label="Close"></button>
+          <span class="span h6 text-light">Producto creado</span>
         </div>
       </div>
     </div>

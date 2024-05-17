@@ -121,12 +121,12 @@ header nav {
   }
 }
 
-.modal-dialog {
+.modal-dialog.show-image-modal {
   width: 97%;
   height: 97%;
   max-width: none;
 }
-.modal-content {
+.modal-content.show-image-modal {
   height: 97%;
 }
 

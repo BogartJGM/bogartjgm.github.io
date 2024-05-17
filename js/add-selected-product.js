@@ -22,6 +22,14 @@ export function anadirProductSelected(productCardDiv) {
   const tdsEditable = productCardCopy.querySelectorAll(".search");
   const priceTds = productCardCopy.querySelectorAll(".price");
   const cantidad = productCardCopy.querySelector(".cantidad");
+  const posicion = productCardCopy.querySelector(".posicion");
+
+  // Determinar posición
+  if (productSelectedContainer.innerHTML) {
+    posicion.textContent = (productSelectedContainer.childElementCount + 1);
+  } else {
+    posicion.textContent = "1";
+  }
 
   // Activar barra de búsqueda de productos seleccionados y botón de descargar cotización
   if (productSelectedSearchBar.attributes["disabled"]) {
