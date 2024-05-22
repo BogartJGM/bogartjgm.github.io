@@ -1,4 +1,5 @@
 import { anadirProductSelected } from "./add-selected-product.js";
+import { givePosition } from "./give-position.js";
 import { handleButtonClick, handleFocusOut, handleTdInput, handleTdKeyDown } from "./table-events-handlers.js";
 
 /**
@@ -15,8 +16,8 @@ export function createProductCard(productJson, containerProductId, index) {
   const divActionsContainer = document.createElement("div");
   const divActionsRow = document.createElement("div");
   const spanPosition = document.createElement("span");
-  const btnDown = document.createElement("button");
-  const btnUp = document.createElement("button");
+  // const btnDown = document.createElement("button");
+  const deletetThisCard = document.createElement("button");
   const addButton = document.createElement("button");
 
   const productNameDiv = document.createElement("div");
@@ -37,21 +38,23 @@ export function createProductCard(productJson, containerProductId, index) {
   // Adding classes and attributes
   cardDiv.classList.add("card", "p-2", "product");
   divActionsContainer.classList.add("row", "mb-1");
-  divActionsRow.classList.add("input-group", "input-group-sm", "justify-content-between");
+  divActionsRow.classList.add("input-group", "input-group-sm", "justify-content-between", "actionButtonsContainer");
   spanPosition.classList.add("input-group-text", "col-md-1", "posicion");
-  btnDown.classList.add("btn", "btn-primary", "col-md-4");
-  btnDown.textContent = "aaaa"
-  btnUp.classList.add("btn", "btn-primary", "col-md-4");
-  btnUp.textContent = "aaaa"
-  addButton.classList.add("btn", "btn-success", "col-3");
+  deletetThisCard.classList.add("btn", "btn-danger", "col-md-4", "eliminar");
+  deletetThisCard.textContent = "Eliminar"
+  // btnUp.classList.add("btn", "btn-primary", "col-md-4");
+  // btnUp.textContent = "subih"
+
+  addButton.classList.add("btn", "btn-success", "col-3", "add-product");
 
   productNameDiv.classList.add("form", "mb-1");
   inputGroupDiv.classList.add("input-group", "input-group-sm");
-  productNameSpan.classList.add("input-group-text", "col-10", "search");
+  productNameSpan.classList.add("input-group-text", "col-10", "search", "product");
   quantityInput.setAttribute("type", "number");
   quantityInput.setAttribute("placeholder", "1");
   quantityInput.dataset.cantidadAnterior = 1;
   quantityInput.classList.add("form-control", "col-2", "cantidad");
+  quantityInput.min = "1";
   rowTable.classList.add("row");
   rowTable.dataset.arrayPosition = index;
 
@@ -70,11 +73,40 @@ export function createProductCard(productJson, containerProductId, index) {
       quantityInput.dataset.cantidadAnterior = quantityInput.value;
     }
   });
+  quantityInput.addEventListener("keydown", (event) => {
+    if (event.key == "Enter") {
+      event.preventDefault();
+      addButton.click();
+    }
+  });
+  deletetThisCard.addEventListener("click", () => {
+    cardDiv.classList.remove("productSelected");
+    cardDiv.classList.add("productRemove");
+
+    setTimeout(function () {
+      cardDiv.remove();
+      // Comprobar si existen elementos seleccionados. Si no existen, desactivar barra de búsqueda y botones
+
+      const productsDataString = JSON.parse(localStorage.getItem("productsData")) || [];
+
+      productsDataString.forEach((product, index) => {
+
+        if (product["PRODUCTO"] == productNameSpan.textContent) {
+          productsDataString.splice(index, 1);
+          
+          localStorage.setItem("productsData", JSON.stringify(productsDataString));
+          return;
+        }
+      });
+      givePosition(document.getElementById(containerProductId));
+    }, 100);
+  });
+  
 
   // Structuring the DOM
   divActionsRow.appendChild(spanPosition);
-  divActionsRow.appendChild(btnDown);
-  divActionsRow.appendChild(btnUp);
+  divActionsRow.appendChild(deletetThisCard);
+  // divActionsRow.appendChild(btnUp);
   divActionsRow.appendChild(addButton);
   divActionsContainer.appendChild(divActionsRow);
 

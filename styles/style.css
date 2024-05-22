@@ -1,6 +1,5 @@
-header nav {
-  box-sizing: border-box;
-  height: 8vh;
+.main-container {
+  margin-top: 1vh;
 }
 
 /* Tres columnas de acción */
@@ -8,8 +7,25 @@ header nav {
 .col-md-4.main-column {
   border-right: 1px solid rgb(148, 148, 148);
   box-sizing: border-box;
-  margin-top: 1vh;
-  height: 91vh;
+  height: 99vh;
+}
+
+.search-bar {
+  height: 6vh;
+}
+
+/* Tercera columna */
+
+.col-md-4.main-column .products-placeholder {
+  height: 93vh;
+}
+
+.label-product-counter {
+  height: 4vh;
+}
+
+.col-md-4.main-column .selected-product-placeholder {
+  height: 79vh;
 }
 
 /* Area de selección de excel */
@@ -55,11 +71,13 @@ header nav {
   height: 85vh;
 }
 
+.current-price-container .col-md-6 {
+  font-size: 2vh;
+}
+
 .action-buttons-container {
-  position: fixed;
-  bottom: 0;
-  height: 7vh;
-  width: 30vw;
+  height: 5vh;
+  /* width: 30vw; */
   border-radius: 5px 5px 0 0;
   color: white;
   z-index: 5;
@@ -72,9 +90,9 @@ header nav {
 }
 
 #prices {
-  position: fixed;
-  bottom: 4vh;
-  height: 7vh;
+  /* position: fixed;
+  bottom: 4vh; */
+  height: 5vh;
   width: 30vw;
   border-radius: 5px 5px 0 0;
   color: white;
@@ -121,12 +139,18 @@ header nav {
   }
 }
 
-.modal-dialog {
-  width: 97%;
-  height: 97%;
+/* Imagen a descargar  */
+
+.modal.fade {
+  overflow: hidden;
+}
+
+.modal-dialog.show-image-modal {
+  width: 96%;
+  height: 96%;
   max-width: none;
 }
-.modal-content {
+.modal-content.show-image-modal {
   height: 97%;
 }
 
@@ -141,4 +165,8 @@ header nav {
 
 .quote-main-column {
   width: 32%;
+}
+
+.searched-product {
+  outline: 5px solid yellow;
 }

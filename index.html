@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,16 +12,12 @@
   </head>
 
   <body>
-    <div class="container-fluid">
+    <div class="container-fluid main-container">
       <div class="row">
-        <!-- Header -->
-        <header class="p-0">
-          <nav class="navbar">La Pape Coti</nav>
-        </header>
         <!-- Primera columna principal -->
-        <div class="col-md-4 overflow-y-scroll main-column">
+        <div class="col-md-4 main-column">
           <!-- Barra de búsqueda -->
-          <div class="input-group sticky-top">
+          <div class="input-group search-bar">
             <input
               id="product-search-bar"
               class="form-control"
@@ -29,7 +25,15 @@
               placeholder="Buscar producto"
               autocomplete="off"
             />
-            <button class="btn btn-sm btn-outline-secondary">Nuevo</button>
+            <button
+              id="create-product"
+              class="btn btn-sm btn-outline-secondary"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#expand-create-product"
+            >
+              Nuevo
+            </button>
             <!-- Dropdown -->
             <button
               class="btn btn-sm btn-outline-success dropdown-toggle"
@@ -86,12 +90,12 @@
             </div>
           </div>
           <!-- Contenedor de tarjeta de productos -->
-          <div id="product-container"></div>
+          <div id="product-container" class="overflow-y-scroll overflow-x-hidden products-placeholder"></div>
         </div>
         <!-- Segunda columna principal -->
         <div class="col-md-4 overflow-y-hidden main-column">
           <!-- Acordeon de formulario para datos de cliente -->
-          <div id="accordion-client-data" class="accordion">
+          <div id="accordion-client-data" class="accordion pt-1">
             <div class="accordion-item">
               <h2 class="accordion-header">
                 <button
@@ -224,10 +228,10 @@
           </div>
         </div>
         <!-- Tercera columna principal -->
-        <div class="col-md-4 overflow-y-scroll overflow-x-hidden main-column">
+        <div class="col-md-4 main-column third overflow-x-hidden">
           <!-- Buscador y contador -->
           <div class="sticky-top product-search-counter">
-            <div class="input-group">
+            <div class="input-group search-bar">
               <input
                 id="selected-product-search-bar"
                 class="form-control"
@@ -244,7 +248,7 @@
                 Impor. coti
               </button>
             </div>
-            <div class="bg-primary-subtle border rounded-1 container-fluid">
+            <div class="bg-primary-subtle border rounded-1 container-fluid label-product-counter">
               <div class="row">
                 <div class="col-md-10">
                   <span>Productos seleccionados</span>
@@ -256,16 +260,16 @@
             </div>
           </div>
           <!-- Contenedor de productos seleccionados -->
-          <div id="selected-product-container"></div>
+          <div id="selected-product-container" class="selected-product-placeholder overflow-y-scroll overflow-x-hidden"></div>
           <!-- Label de total para calidad E y calidad A -->
-          <div id="prices" class="justify-content-center container-fluid">
+          <div id="prices" class="justify-content-center container-fluid current-price-container">
             <div class="row">
               <div class="input-group p-0">
-                <div class="col-md-6 bg-secondary p-1 text-white form-control">
+                <div class="col-md-6 bg-secondary p-1 text-white form-control text-center">
                   <span>Calidad E: $</span>
                   <span id="economic-quality-sum">0</span>
                 </div>
-                <div class="col-md-6 bg-warning p-1 text-white form-control">
+                <div class="col-md-6 bg-warning p-1 text-white form-control text-center">
                   <span>Calidad A: $</span>
                   <span id="high-quality-sum">0</span>
                 </div>
@@ -273,42 +277,107 @@
             </div>
           </div>
           <!-- Botones para descargar cotización y para ver imagen -->
-          <div
-            class="d-flex align-items-center justify-content-center action-buttons-container"
-          >
-            <div class="input-group">
-              <button
-                id="download-coti"
-                class="btn btn-success p-0 action-buttons"
-                type="button"
-                disabled
-              >
-                Dscargar cotización
-              </button>
-              <button
-                id="show-image"
-                class="btn btn-primary p-0 action-buttons"
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#expand-image"
-                disabled
-              >
-                Ver imagen
-              </button>
+          <div class="justify-content-center container-fluid action-buttons-container">
+            <div class="row">
+              <div class="btn-group" role="group">
+                  <button
+                  id="download-coti"
+                  class="btn btn-success p-0 action-buttons"
+                  type="button"
+                  disabled
+                  >
+                    Descargar cotización
+                  </button>
+                  <button
+                    id="show-image"
+                    class="btn btn-primary p-0 action-buttons"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#expand-image"
+                    disabled
+                  >
+                    Ver imagen
+                  </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="expand-image" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal fade" id="expand-create-product" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered create-product-modal">
+        <div class="modal-content create-product-modal">
           <!-- Modal header -->
           <div class="modal-header">
-            <button id="download-image" class="btn btn-success">
-              Descargar en imagen
-            </button>
+            <h5 class="m-0">Crear producto</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div id="product-data" class="modal-body overflow-y-auto">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="product-name" class="form-label fw-bold">Nombre producto</label>
+                    <input type="text" class="form-control" id="product-name" placeholder="Productito productón productote">
+                  </div>
+                  <div class="bg-primary-subtle border rounded-1 container-fluid">
+                    <label for="name-quality-e" class="form-label m-0">Marca calidad Económica</label>
+                  </div>
+                  <div class="row g-2">
+                    <div class="col-md-8">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="name-quality-e" placeholder="" value="">
+                        <label for="name-quality-e">Nombre marca</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="number" class="form-control" id="price-quality-e" placeholder="" value="">
+                        <label for="price-quality-e">Precio</label>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="hr">
+                  <div class="bg-warning-subtle border rounded-1 container-fluid">
+                    <label for="name-quality-e" class="form-label m-0">Marca calidad Alta</label>
+                  </div>
+                  <div class="row g-2">
+                    <div class="col-md-8">
+                      <div class="form-floating">
+                        <input type="email" class="form-control" id="name-quality-a" placeholder="" value="">
+                        <label for="name-quality-a">Nombre marca</label>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating">
+                        <input type="email" class="form-control" id="price-quality-a" placeholder="" value="">
+                        <label for="price-quality-a">Precio</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button id="add-product" type="button" class="btn btn-primary" data-bs-dismiss="modal">Añadir producto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="expand-image" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog show-image-modal">
+        <div class="modal-content show-image-modal">
+          <!-- Modal header -->
+          <div class="modal-header">
+            <h3>Cotización</h3>
             <button
               type="button"
               class="btn-close"
@@ -316,8 +385,8 @@
             ></button>
           </div>
           <!-- Cuerpo del modal -->
-          <div id="quote-image" class="modal-body overflow-y-auto">
-            <div class="row">
+          <div class="modal-body overflow-y-auto">
+            <div id="quote-image" class="row">
               <!-- Datos de cliente -->
               <div class="col-md-5">
                 <table class="table table-sm table-bordered p-0 client-table">
@@ -406,6 +475,21 @@
               </div>
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button id="download-image" class="btn btn-success">
+              Descargar en imagen
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="position-fixed top-0 start-50 translate-middle-x p-4" style="z-index: 11">
+      <div id="product-toast" class="toast bg-success">
+        <div class="toast-body">
+          <button type="button" class="btn-close pe-3" data-bs-dismiss="toast" aria-label="Close"></button>
+          <span class="span h6 text-light">Producto creado</span>
         </div>
       </div>
     </div>
@@ -413,6 +497,5 @@
     <script src="./js/main.js" type="module"></script>
     <script src="./js_bootstrap/popper.js"></script>
     <script src="./js_bootstrap/bootstrap.js"></script>
-    <script src="./js/html2canvas.min.js"></script>
   </body>
 </html>

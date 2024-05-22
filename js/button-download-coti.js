@@ -1,9 +1,30 @@
+import "../js/html2canvas.min.js"
+
 export function descargarImagenCotizacion() {
-  html2canvas(document.getElementById("quote-image")).then(function (canvas) {
+  const quoteImageElement = document.getElementById("quote-image");
+  
+  // Clonar el elemento
+  const clone = quoteImageElement.cloneNode(true);
+  
+  // Asegurarse de que el clon esté fuera de la pantalla y visible
+  clone.style.position = 'absolute';
+  clone.style.top = '0';
+  clone.style.left = '0';
+  clone.style.width = `${quoteImageElement.scrollWidth}px`;
+  clone.style.height = `${quoteImageElement.scrollHeight}px`;
+  clone.style.overflow = 'visible';
+  clone.style.zIndex = '-1';
+  document.body.appendChild(clone);
+
+  // Usar html2canvas para capturar el clon
+  html2canvas(clone).then(function (canvas) {
     // Crea un enlace para descargar la imagen
-    var link = document.createElement("a");
-    link.download = "imagen_cotizacion.png"; // Cambiar nombre al que me diga lili
+    let link = document.createElement("a");
+    link.download = "imagen_cotizacion.png";
     link.href = canvas.toDataURL();
     link.click();
+    
+    // Limpiar el DOM removiendo el clon
+    document.body.removeChild(clone);
   });
 }
