@@ -1,6 +1,6 @@
 import { createProductCard } from "./create-product-card.js";
 
-export function addProduct() {
+export function addProductToLocalStorage() {
   // Mostrar notificación de producto agregado
   const toastElement = document.getElementById('product-toast');
   const toast = new bootstrap.Toast(toastElement);

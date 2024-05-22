@@ -1,5 +1,3 @@
-import { givePosition } from "./give-position.js";
-
 /**
  * Adds input event listener to a text input field.
  * Retrieves product cards with .search class and compares their text content with the input text.
@@ -43,19 +41,40 @@ export function search(inputSearchBar, cardsClasses) {
         // Si el producto tiene menor socre según el Math.round, se oculta, si no, se muestra
         if (productWordScore < Math.round((inputArrayWords.length / 5) * 4)) {
           productCard.style.display = "none"; // Hide card if score is below threshold
+          productCard.classList.add("hided");
         } else {
           if (productCard.style.display) {
             productCard.removeAttribute("style"); // Show card if score is above threshold
+            productCard.classList.remove("hided");
           }
         }
       } else {
         if (productCard.style.display) {
           productCard.removeAttribute("style"); // Show all cards if search input is empty
+          productCard.classList.remove("hided");
         }
       }
     });
 
-    givePosition("product-container");
+    if (cardsClasses == "div.card.p-2.product") {
+      if (inputSearchBarValue != "") {
+        const previousProductoBuscado = document.querySelector(".searched-product");
+        if (previousProductoBuscado) {
+          previousProductoBuscado.classList.remove("searched-product");
+        }
+
+        const primerProductBuscado = document.querySelector("" + cardsClasses + ":not(.hided)");
+        if (primerProductBuscado) {
+          primerProductBuscado.querySelector(".add-product").classList.add("searched-product");
+          primerProductBuscado.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        const previousProductoBuscado = document.querySelector(".searched-product");
+        if (previousProductoBuscado) {
+          previousProductoBuscado.classList.remove("searched-product");
+        }
+      }
+    }
   });
 }
 
