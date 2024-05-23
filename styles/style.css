@@ -2,45 +2,80 @@
   margin-top: 1vh;
 }
 
-/* Tres columnas de acción */
+/* Barras de búsqueda */
+.search-bar {
+  height: 6vh;
+}
 
+/* Diseño de las tres columnas principales*/
 .col-md-4.main-column {
   border-right: 1px solid rgb(148, 148, 148);
   box-sizing: border-box;
   height: 99vh;
 }
 
-.search-bar {
-  height: 6vh;
-}
-
-/* Primera columna */
-
-.animated-col {
-  transition: all 0.5s ease; /* Agregar transición */
-}
-
-.custom-checkbox:checked {
-  background-color: green; /* Color cuando está activo */
-  border-color: green; /* Borde cuando está activo */
-}
-
-.custom-checkbox:not(:checked) {
-  background-color: white; /* Color cuando no está activo */
-  border-color: #198754; /* Borde cuando no está activo */
-}
-
-/* Tercera columna */
-
-.col-md-4.main-column .products-placeholder {
+/* *********Primera columna********* */
+/* ********************************* */
+.col-md-4.main-column .products-placeholder {                   /* Tamaño de la columna de selección de productos*/
   height: 93vh;
 }
 
-.label-product-counter {
+.zoneExcelPicker {                                              /* Area de selección de excel */
+  margin-top: 50px;
+  border: 2px dashed #ccc;
+  text-align: center;
+  cursor: pointer;
+}
+
+.zoneExcelPicker:hover {
+  border: 2px solid #397e58;
+  color: #2a724a;
+}
+
+.animated-col {                                                 /*  Animación cuando se deseleccione un checkbox */
+  transition: all 0.5s ease; 
+}
+
+.custom-checkbox:checked {                                      /* Estilos para el checkbox está checked */
+  background-color: green;
+  border-color: green;
+}
+
+.custom-checkbox:not(:checked) {                                /* Estilos para cuando el chackbox no está checked */
+  background-color: white;
+  border-color: #198754;
+}
+
+/* *********Segunda columna********* */
+/* ********************************* */
+.accordion textarea {                                           /* Formulario de cliente */
+  resize: none;
+  height: 80px;
+}
+
+.zoneImagePicker {                                              /* Ára de selección de imagen */
+  margin-top: 50px;
+  border: 2px dashed #ccc;
+  text-align: center;
+  cursor: pointer;
+}
+
+.zoneImagePicker:hover {
+  border: 2px solid #305e8a;
+  color: #296bc7;
+}
+
+/* *********Tercera columna********* */
+/* ********************************* */
+.product-search-counter .container-fluid.p-0 {                  /* Tamaño para el contenedor de buscador de productos y el contador de productos */
+  height: 11vh;
+}
+
+.label-product-counter {                                        /* Tamaño del contador de productos */
   height: 4vh;
 }
 
-.col-md-4.main-column .selected-product-placeholder {
+.col-md-4.main-column .selected-product-placeholder {           /* Tamaño del contenedor de los productos que se seleccoinen*/
   height: 79vh;
 }
 
@@ -69,73 +104,16 @@
   }
 }
 
-input.cantidad {
+input.cantidad {                                                /* Animación para el aumento de cant. productos*/
   transition: border-color 0.5s ease-in-out;
 }
 
-input.cantidad.changed {
+input.cantidad.changed {                                        /* Animación para el aumento de cant. productos*/
   animation: borderChange 0.5s forwards;
-}
-
-/* Area de selección de excel */
-
-.zoneExcelPicker {
-  margin-top: 50px;
-  border: 2px dashed #ccc;
-  text-align: center;
-  cursor: pointer;
-}
-
-.zoneExcelPicker:hover {
-  border: 2px solid #397e58;
-  color: #2a724a;
-}
-
-/* Formulario de cliente */
-
-.accordion textarea {
-  resize: none;
-  height: 80px;
-}
-
-/* Ára de selección de imagen */
-
-.zoneImagePicker {
-  margin-top: 50px;
-  border: 2px dashed #ccc;
-  text-align: center;
-  cursor: pointer;
-}
-
-.zoneImagePicker:hover {
-  border: 2px solid #305e8a;
-  color: #296bc7;
-}
-
-.product-search-counter .container-fluid.p-0 {
-  height: 11vh;
-}
-
-.col-md-4.overflow-auto.overflow-y-scroll.main-column {
-  height: 85vh;
 }
 
 .current-price-container .col-md-6 {
   font-size: 2vh;
-}
-
-.action-buttons-container {
-  height: 5vh;
-  /* width: 30vw; */
-  border-radius: 5px 5px 0 0;
-  color: white;
-  z-index: 5;
-}
-
-.action-buttons {
-  width: 50%;
-  height: 4vh;
-  font-size: 2dvh;
 }
 
 #prices {
@@ -152,16 +130,18 @@ input.cantidad.changed {
   font-size: 2dvh;
 }
 
-.productSelected {
-  animation: achicar-agrandar 0.3s ease-in-out; /* Duración de 1 segundo con aceleración y desaceleración suave */
+.action-buttons-container {
+  height: 5vh;
+  /* width: 30vw; */
+  border-radius: 5px 5px 0 0;
+  color: white;
+  z-index: 5;
 }
 
-.product {
-  animation: achicar-agrandar 0.3s ease-in-out; /* Duración de 1 segundo con aceleración y desaceleración suave */
-}
-
-.productRemove {
-  animation: achicar 0.12s ease-in-out; /* Duración de 1 segundo con aceleración y desaceleración suave */
+.action-buttons {
+  width: 50%;
+  height: 4vh;
+  font-size: 2dvh;
 }
 
 @keyframes achicar-agrandar {
@@ -188,8 +168,20 @@ input.cantidad.changed {
   }
 }
 
-/* Imagen a descargar  */
+.productSelected {
+  animation: achicar-agrandar 0.3s ease-in-out; /* Duración de 1 segundo con aceleración y desaceleración suave */
+}
 
+.product {
+  animation: achicar-agrandar 0.3s ease-in-out; /* Duración de 1 segundo con aceleración y desaceleración suave */
+}
+
+.productRemove {
+  animation: achicar 0.12s ease-in-out; /* Duración de 1 segundo con aceleración y desaceleración suave */
+}
+
+/* *********Modal de imagen a descargar********* */
+/* ********************************************* */
 .modal.fade {
   overflow: hidden;
 }
