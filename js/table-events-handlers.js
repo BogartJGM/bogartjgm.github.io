@@ -6,6 +6,69 @@ import {
 } from "./modify-total-quality-of-qualities.js";
 
 /**
+ * 
+ * @param { Event } ev 
+ */
+export function handleCheckedClick(ev) {
+  const checkbox = ev.target;
+  const checkboxState = checkbox.checked;
+  
+  const qualityTitle = checkbox.parentElement.previousSibling;
+  const qualityContainer = qualityTitle.parentElement.parentElement.parentElement.parentElement.parentElement;
+  const qualityBody = qualityContainer.querySelector("tbody");
+  const otherQualityContainer = qualityContainer.nextSibling ? qualityContainer.nextSibling : qualityContainer.previousSibling;
+  const otherQualityTitle = otherQualityContainer.querySelector(".title");
+  const otherQualityCheckbox = otherQualityTitle.nextElementSibling.firstChild;
+
+  if (checkboxState) {
+    qualityTitle.style.display = "";
+    qualityContainer.classList.remove("col-md-2");
+    qualityContainer.classList.add("col-md-6");
+    qualityBody.style.opacity = "";
+    checkbox.setAttribute("checked", "true");
+
+    otherQualityTitle.textContent = otherQualityTitle.dataset.originalTitle;
+    otherQualityContainer.classList.remove("col-md-9");
+    otherQualityContainer.classList.add("col-md-6");
+    otherQualityCheckbox.disabled = "";
+    otherQualityCheckbox.setAttribute("checked", "true");
+  } else {
+    qualityTitle.style.display = "none";
+    qualityContainer.classList.remove("col-md-6");
+    qualityContainer.classList.add("col-md-2");
+    qualityBody.style.opacity = 0.2;
+    checkbox.setAttribute("checked", "false");
+    
+    otherQualityTitle.textContent = "CALIDAD A Y E";
+    otherQualityContainer.classList.remove("col-md-6");
+    otherQualityContainer.classList.add("col-md-9");
+    otherQualityCheckbox.disabled = true;
+    otherQualityCheckbox.setAttribute("checked", "true");
+  }
+}
+/*
+const table = ev.target.closest('.row');
+
+  // Cambiar las clases col-md de las tablas
+  const tables = table.querySelectorAll('.table-responsive');
+  if (tables.length === 2) {
+    tables[0].parentNode.classList.remove('col-md-6');
+    tables[1].parentNode.classList.remove('col-md-6');
+    tables[0].parentNode.classList.add('col-md-2');
+    tables[0].style.opacity = "0.2";
+    tables[1].parentNode.classList.add('col-md-9');
+    tables[1].querySelector(".title").textContent = "CALIDAD E Y A"
+  }
+
+  // Ocultar el <th> que contiene el textContent "CALIDAD E"
+  const ths = table.querySelectorAll('th');
+  ths.forEach(th => {
+    if (th.textContent.trim() === 'CALIDAD E') {
+      th.style.display = 'none';
+    }
+  });
+*/
+/**
  *
  * @param {HTMLTableCellElement} tdElement - Elemento td a hacerle focus edit
  */

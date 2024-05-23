@@ -73,6 +73,15 @@ export function superLoadSearchBar(searchBar) {
           event.preventDefault();
           // Acción para Enter
           searchedProduct.click();
+
+          searchBar.value = "";
+          let eventito = new Event('input', {
+            bubbles: true,
+            cancelable: true,
+            value: ""
+          });
+    
+          searchBar.dispatchEvent(eventito);
           break;
         default:
           // Acción para otras teclas (opcional)

@@ -12,7 +12,9 @@ export function showImage() {
   // Costos totales de calidad
   const spanTotalQualityE = document.getElementById("economic-quality-sum");
   const spanTotalQualityA = document.getElementById("high-quality-sum");
-  // Tabla header
+
+  /** TABLA */
+  // Header
   const tablaDatosCliente = document.getElementById("customer-data-table");
   const tablaCotizadoEn = document.getElementById("customer-quote-start-table");
   const tablaValidoHasta = document.getElementById("customer-quote-end-table");
@@ -26,16 +28,21 @@ export function showImage() {
   const tablaApartadoCA = document.getElementById("initial-high-quality-deposit");
 
   // Vaciar tabla antes de añadir de nuevo los productos
-   tablaCotizacionProducts.innerHTML = "";
+  tablaCotizacionProducts.innerHTML = "";
 
   selectedProducts.forEach((product) => {
     const datosProducto = {};
+
+    const checkboxCalidadE = product.querySelector(".CALIDADE");
+    const checkboxCalidadA = product.querySelector(".CALIDADA");
+    
     const cantidad = product.querySelector(".cantidad").value == "" ? 1 : Number(product.querySelector(".cantidad").value);
     const nombreProducto = product.querySelector(".input-group-text.col-10").textContent;
-    const marcaCE = product.querySelectorAll(".qualityName")[0].textContent;
-    const precioUCE = Number(product.querySelectorAll(".price")[0].textContent);
-    const marcaCA = product.querySelectorAll(".qualityName")[1].textContent;
-    const precioUCA = Number(product.querySelectorAll(".price")[1].textContent);
+
+    const marcaCE = checkboxCalidadE.checked ? product.querySelectorAll(".qualityName")[0].textContent : product.querySelectorAll(".qualityName")[1].textContent;
+    const precioUCE = checkboxCalidadE.checked ? Number(product.querySelectorAll(".price")[0].textContent) : Number(product.querySelectorAll(".price")[1].textContent);
+    const marcaCA = checkboxCalidadA.checked ? product.querySelectorAll(".qualityName")[1].textContent : product.querySelectorAll(".qualityName")[0].textContent;
+    const precioUCA = checkboxCalidadA.checked ? Number(product.querySelectorAll(".price")[1].textContent) : Number(product.querySelectorAll(".price")[0].textContent);
 
     datosProducto["cantidad"] = cantidad;
     datosProducto["producto"] = nombreProducto;
@@ -83,13 +90,18 @@ function createTableRow(datosProducto) {
   const tdImporteCA = document.createElement("td");
 
   tdCantidad.textContent = datosProducto["cantidad"];
+  tdCantidad.classList.add("text-center");
   tdNombreProducto.textContent = datosProducto["producto"];
   tdMarcaCE.textContent = datosProducto["MARCA_CE"];
   tdPrecioUCE.textContent = datosProducto["PRECIO_U_CE"];
+  tdPrecioUCE.classList.add("text-end");
   tdImporteCE.textContent = datosProducto["IMPORTE_CE"];
+  tdImporteCE.classList.add("text-end");
   tdMarcaCA.textContent = datosProducto["MARCA_CA"];
   tdPrecioUCA.textContent = datosProducto["PRECIO_U_CA"];
+  tdPrecioUCA.classList.add("text-end");
   tdImporteCA.textContent = datosProducto["IMPORTE_CA"];
+  tdImporteCA.classList.add("text-end");
 
   rowProduct.appendChild(tdCantidad);
   rowProduct.appendChild(tdNombreProducto);

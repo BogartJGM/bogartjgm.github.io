@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { handleButtonClick, handleFocusOut, handleTdInput, handleTdKeyDown } from "./table-events-handlers.js";
-import { dicreaseTotalQualityQuantity, increaseTotalQualityQuantity } from "./modify-total-quality-of-qualities.js";
+import { handleButtonClick, handleCheckedClick, handleFocusOut, handleTdInput, handleTdKeyDown } from "./table-events-handlers.js";
+import { dicreaseTotalQualityA, dicreaseTotalQualityE, dicreaseTotalQualityQuantity, increaseTotalQualityA, increaseTotalQualityE, increaseTotalQualityQuantity } from "./modify-total-quality-of-qualities.js";
 import { givePosition } from "./give-position.js";
 /**
  * Copia el elemento pasado como @productCardDiv y lo añade a la columna de productos seleccionados.
@@ -29,6 +29,15 @@ export function anadirProductSelected(productCardDiv) {
 
       quantityInp.dispatchEvent(event);
 
+      // Animar aumento de cantidad de producto
+      quantityInpAct.classList.remove("changed");
+      setTimeout(() => {
+        quantityInpAct.classList.add("changed");
+      }, 50);
+
+      product.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      
+      // Cambiar el label de precio total en curso
       increaseTotalQualityQuantity(productCardDiv.querySelectorAll(".price"), String(valorASumar));
 
       quantityInp.value = "";
@@ -51,8 +60,9 @@ export function anadirProductSelected(productCardDiv) {
   const buttonsEdit = productCardCopy.querySelectorAll(".buttonEdit");
   const tdsEditable = productCardCopy.querySelectorAll(".search");
   const priceTds = productCardCopy.querySelectorAll(".price");
-  const cantidad = productCardCopy.querySelector(".cantidad");
   const posicion = productCardCopy.querySelector(".posicion");
+  const checkboxs = productCardCopy.querySelectorAll("input[type='checkbox']");
+  const cantidad = productCardCopy.querySelector(".cantidad");
   const actionButtonsContainer = productCardCopy.querySelector(".actionButtonsContainer");
   // Nuevos elementos a ser añadidos en el producto seleccionado
   const btnDown = document.createElement("button");
@@ -115,6 +125,40 @@ export function anadirProductSelected(productCardDiv) {
     productCardCopy.scrollIntoView({ behavior: 'smooth', block: 'start' });
     givePosition(productSelectedContainer);
   });
+  checkboxs.forEach((checkbox) => {
+    checkbox.addEventListener("click", (ev) => {
+      const checkbox = ev.target;
+      const checkboxState = checkbox.checked;
+
+      const qualityTitle = checkbox.parentElement.previousSibling;
+      const qualityContainer = qualityTitle.parentElement.parentElement.parentElement.parentElement.parentElement;
+      const quantity = qualityContainer.parentElement.previousElementSibling.firstChild.lastChild;
+      let quanitytNormalize = quantity.value ? Number(quantity.value) : 1;
+      const qualityPrice = qualityContainer.querySelector(".price");
+      const otherQualityContainer = qualityContainer.nextSibling ? qualityContainer.nextSibling : qualityContainer.previousSibling;
+      const otherQualityPrice = otherQualityContainer.querySelector(".price");
+
+      if (checkboxState) {
+        if (qualityTitle.textContent == "CALIDAD E") {
+          dicreaseTotalQualityE(quanitytNormalize, otherQualityPrice.textContent);
+          increaseTotalQualityE(quanitytNormalize, qualityPrice.textContent);
+        } else {
+          dicreaseTotalQualityA(quanitytNormalize, otherQualityPrice.textContent);
+          increaseTotalQualityA(quanitytNormalize, qualityPrice.textContent);
+        }
+      } else {
+        if (qualityTitle.textContent == "CALIDAD E") {
+          dicreaseTotalQualityE(quanitytNormalize, qualityPrice.textContent);
+          increaseTotalQualityE(quanitytNormalize, otherQualityPrice.textContent);
+        } else {
+          dicreaseTotalQualityA(quanitytNormalize, qualityPrice.textContent);
+          increaseTotalQualityA(quanitytNormalize, otherQualityPrice.textContent);
+        }
+      }
+
+      handleCheckedClick(ev);
+    })
+  })
   buttonsEdit.forEach((buttonEdit) => {
     buttonEdit.addEventListener("click", () => {
       handleButtonClick(buttonEdit.parentElement.previousSibling);
@@ -148,17 +192,42 @@ export function anadirProductSelected(productCardDiv) {
       givePosition(productSelectedContainer);
     }, 100);
   });
-  cantidad.addEventListener("input", (e) => {
-    let cantidadActual = Number(e.target.value) == 0 ? 1 : Number(e.target.value);
-    let cambio = cantidadActual - Number(e.target.dataset.cantidadAnterior);
+  cantidad.addEventListener("input", (ev) => {
+    let productContainer = ev.target.parentElement.parentElement.parentElement;
+    let qualityEPrice = Number(productContainer.querySelectorAll(".price")[0].textContent);
+    let qualityAPrice = Number(productContainer.querySelectorAll(".price")[1].textContent);
+    let checkbox = productContainer.querySelectorAll("input[checked='true']");
+    let cantidadActual = Number(ev.target.value) == 0 ? 1 : Number(ev.target.value);
+    let cambio = cantidadActual - Number(ev.target.dataset.cantidadAnterior);
 
-    if (cambio < 0) {
-      dicreaseTotalQualityQuantity(priceTds, cambio*-1);
-    } else if (cambio > 0) {
-      increaseTotalQualityQuantity(priceTds, cambio);
+    if (checkbox.length == 1) {
+      if (checkbox[0].classList.contains("CALIDADE")) {
+        if (cambio < 0 ) {
+          dicreaseTotalQualityE(qualityEPrice, cambio*-1);
+          dicreaseTotalQualityA(qualityEPrice, cambio*-1);
+        } else if (cambio > 0) {
+          increaseTotalQualityE(qualityEPrice, cambio);
+          increaseTotalQualityA(qualityEPrice, cambio);
+        }
+      } else {
+        if (cambio < 0 ) {
+          dicreaseTotalQualityA(qualityAPrice, cambio*-1);
+          increaseTotalQualityE(qualityAPrice, cambio);
+        } else if (cambio > 0) {
+          increaseTotalQualityA(qualityAPrice, cambio);
+          increaseTotalQualityE(qualityAPrice, cambio);
+        }
+      }
+      ev.target.dataset.cantidadAnterior = cantidadActual;
+    } else {
+      if (cambio < 0) {
+        dicreaseTotalQualityQuantity(priceTds, cambio*-1);
+      } else if (cambio > 0) {
+        increaseTotalQualityQuantity(priceTds, cambio);
+      }
+  
+      ev.target.dataset.cantidadAnterior = cantidadActual;
     }
-
-    e.target.dataset.cantidadAnterior = cantidadActual;
   });
 
   //Añadir producto a la tercera columna

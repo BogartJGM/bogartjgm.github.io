@@ -13,17 +13,17 @@ import { addGlobalShortcuts } from "./globa-shortcuts.js";
 const inputDropdownExcelPicker = document.getElementById("select-excel-file");
 const inputExcelPicker = document.getElementById("select-excel-file-area");
 const inputSearchBar = document.getElementById("product-search-bar");
-const productSelectedSearchBar = document.getElementById("selected-product-search-bar");
+const productSelectedSearchBar = document.getElementById(
+  "selected-product-search-bar"
+);
 const buttonProductSelected = document.getElementById("download-coti");
 const buttonShowImage = document.getElementById("show-image");
 const buttonDownloadImage = document.getElementById("download-image");
 const buttonaddProductToLocalStorage = document.getElementById("add-product");
-const myModal = document.getElementById('expand-create-product')
-const myInput = document.getElementById('product-name')
-
-myModal.addEventListener('shown.bs.modal', () => {
-  myInput.focus()
-})
+const myModal = document.getElementById("expand-create-product");
+const myInput = document.getElementById("product-name");
+const btnAccordion = document.querySelector(".accordion-button");
+const inputClientName = document.getElementById("client-name");
 
 // Inicializa el input selector de excel
 const productsDataString = localStorage.getItem("productsData");
@@ -33,22 +33,18 @@ if (productsDataString) {
     createProductCard(product, "product-container", index);
   });
 }
-initExcelInputs(inputDropdownExcelPicker, inputExcelPicker);
 
-// Inicializa la barra de búsqueda
+myModal.addEventListener("shown.bs.modal", () => myInput.focus());
+buttonProductSelected.addEventListener("click", () => downloadExcel());
+buttonShowImage.addEventListener("click", () => showImage());
+buttonDownloadImage.addEventListener("click", () => descargarImagenCotizacion());
+buttonaddProductToLocalStorage.addEventListener("click", () => addProductToLocalStorage());
+btnAccordion.addEventListener("click", () => {setTimeout(() => {
+  inputClientName.focus();
+}, 100)});
+
 search(inputSearchBar, "div.card.p-2.product");
 search(productSelectedSearchBar, "div.card.p-2.productSelected");
-
-buttonProductSelected.addEventListener("click", () => {
-  downloadExcel();
-});
-
-buttonShowImage.addEventListener("click", () => showImage());
-
-buttonDownloadImage.addEventListener("click", () => descargarImagenCotizacion());
-
-buttonaddProductToLocalStorage.addEventListener("click", () => addProductToLocalStorage());
-
+initExcelInputs(inputDropdownExcelPicker, inputExcelPicker);
 superLoadSearchBar(inputSearchBar);
-
 addGlobalShortcuts();

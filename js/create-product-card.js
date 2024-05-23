@@ -1,6 +1,6 @@
 import { anadirProductSelected } from "./add-selected-product.js";
 import { givePosition } from "./give-position.js";
-import { handleButtonClick, handleFocusOut, handleTdInput, handleTdKeyDown } from "./table-events-handlers.js";
+import { handleButtonClick, handleCheckedClick, handleFocusOut, handleTdInput, handleTdKeyDown } from "./table-events-handlers.js";
 
 /**
  * Creates a product card with its classes for each element, content, and structure in the DOM.
@@ -154,12 +154,14 @@ function createQualityTable(title, name, price, setData) {
   const buttonPen2 = document.createElement("button");
 
   // Adding classes and attributes
-  qualityDiv.classList.add("col-md-6");
-  qualityTable.classList.add("table-responsive");
+  qualityDiv.classList.add("col-md-6", "box", "animated-col");
+  qualityTable.classList.add("table-responsive", "overflow-x-hidden");
   table.classList.add("table");
+  th1.classList.add("title");
   th1.style.textAlign = "center";
+  th1.dataset.originalTitle = title;
   th2.style.textAlign = "center";
-  thInput.classList.add("form-check-input", "bg-success");
+  thInput.classList.add("form-check-input", "custom-checkbox", title.replace(/\s/g, ''));
   thInput.type = "checkbox";
   thInput.setAttribute("checked", "true");
   tdName.dataset.originalName = name;
@@ -182,6 +184,9 @@ function createQualityTable(title, name, price, setData) {
   tdPrice.textContent = setData.definedPrice ? setData.definedPrice : price;
 
   // Adding events
+  thInput.addEventListener("click", (e) => {
+    handleCheckedClick(e);
+  });
   buttonPen.addEventListener("click", function () {
     handleButtonClick(tdName);
   });
