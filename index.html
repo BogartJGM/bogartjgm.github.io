@@ -281,9 +281,11 @@
             <div class="row">
               <div class="btn-group" role="group">
                   <button
-                  id="download-coti"
+                  id="show-download-coti"
                   class="btn btn-success p-0 action-buttons"
                   type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#expand-select-name"
                   disabled
                   >
                     Descargar cotización
@@ -305,6 +307,7 @@
       </div>
     </div>
 
+    <!-- Modal de creación de producto -->
     <div class="modal fade" id="expand-create-product" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered create-product-modal">
         <div class="modal-content create-product-modal">
@@ -372,6 +375,7 @@
       </div>
     </div>
 
+    <!-- Modal de cotización -->
     <div class="modal fade" id="expand-image" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog show-image-modal">
         <div class="modal-content show-image-modal">
@@ -485,6 +489,32 @@
       </div>
     </div>
 
+    <!-- Modal de selección de nombre para archivo a descargar -->
+    <div class="modal fade" id="expand-select-name" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered select-name-modal">
+        <div class="modal-content select-name-modal">
+          <div id="product-data" class="modal-body overflow-y-auto">
+            <div class="container">
+              <div class="col">
+                <div class="mb-3">
+                  <label for="product-name" class="form-label fw-bold">Nombre archivo</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="file-name" placeholder="Nombre de archivo archivito">
+                    <span class="input-group-text">.xlsx</span>
+                  </div>
+                </div>
+              </div>
+            </div>            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button id="download-coti" type="button" class="btn btn-primary" data-bs-dismiss="modal">Descargar excel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popups -->
     <div class="position-fixed top-0 start-50 translate-middle-x p-4" style="z-index: 11">
       <div id="product-toast" class="toast bg-success">
         <div class="toast-body">
