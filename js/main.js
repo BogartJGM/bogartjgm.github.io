@@ -24,6 +24,7 @@ const myModal = document.getElementById("expand-create-product");
 const myInput = document.getElementById("product-name");
 const btnAccordion = document.querySelector(".accordion-button");
 const inputClientName = document.getElementById("client-name");
+const inputQuoteDateStart = document.getElementById("quote-date-start");
 
 // Inicializa el input selector de excel
 const productsDataString = localStorage.getItem("productsData");
@@ -39,9 +40,21 @@ buttonProductSelected.addEventListener("click", () => downloadExcel());
 buttonShowImage.addEventListener("click", () => showImage());
 buttonDownloadImage.addEventListener("click", () => descargarImagenCotizacion());
 buttonaddProductToLocalStorage.addEventListener("click", () => addProductToLocalStorage());
-btnAccordion.addEventListener("click", () => {setTimeout(() => {
-  inputClientName.focus();
-}, 100)});
+btnAccordion.addEventListener("click", () => {setTimeout(() => {inputClientName.focus();}, 100)});
+inputQuoteDateStart.addEventListener("change", (ev) => {
+  const formValidoHasta = document.getElementById("quote-date-end");
+
+  let choosedDate = new Date(ev.target.value + " " + "GMT-0600");
+
+  choosedDate.setUTCHours(choosedDate.getUTCHours() - 6);
+  console.log(choosedDate);
+  let futureDate = new Date(choosedDate);
+  futureDate.setDate(futureDate.getDate() + 30);
+
+  let formattedDate = futureDate.getUTCFullYear() + "-" + ("0" + (futureDate.getUTCMonth() + 1)).slice(-2) + "-" + ("0" + futureDate.getUTCDate()).slice(-2);
+
+  formValidoHasta.value = formattedDate;
+});
 
 search(inputSearchBar, "div.card.p-2.product");
 search(productSelectedSearchBar, "div.card.p-2.productSelected");
