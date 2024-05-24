@@ -25,6 +25,7 @@ const myInput = document.getElementById("product-name");
 const btnAccordion = document.querySelector(".accordion-button");
 const inputClientName = document.getElementById("client-name");
 const inputQuoteDateStart = document.getElementById("quote-date-start");
+const btnShowDownloadCoti = document.getElementById("show-download-coti");
 
 // Inicializa el input selector de excel
 const productsDataString = localStorage.getItem("productsData");
@@ -54,6 +55,15 @@ inputQuoteDateStart.addEventListener("change", (ev) => {
   let formattedDate = futureDate.getUTCFullYear() + "-" + ("0" + (futureDate.getUTCMonth() + 1)).slice(-2) + "-" + ("0" + futureDate.getUTCDate()).slice(-2);
 
   formValidoHasta.value = formattedDate;
+});
+btnShowDownloadCoti.addEventListener("click", () => {
+  const clientName = document.getElementById("client-name");
+  const clientSchool = document.getElementById("client-school-name");
+  const gradeAndGroup = document.getElementById("client-grade-group"); 
+  const inputFileName = document.getElementById("file-name");
+
+
+  inputFileName.value = `${clientName.value} ${clientSchool.value} ${gradeAndGroup.value}`;
 });
 
 search(inputSearchBar, "div.card.p-2.product");

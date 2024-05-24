@@ -32,7 +32,9 @@ export function downloadExcel() {
   XLSX.utils.book_append_sheet(workbook, worksheet, "Datos");
 
   // // Convertir el libro a un archivo Excel y guardarlo
-  let nombreArchivo = "datos.xlsx";
+  const fileName = document.getElementById("file-name");
+
+  let nombreArchivo = `${fileName.value}.xlsx`;
   XLSX.writeFile(workbook, nombreArchivo);
 }
 

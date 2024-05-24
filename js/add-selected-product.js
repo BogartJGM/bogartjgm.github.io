@@ -50,7 +50,7 @@ export function anadirProductSelected(productCardDiv) {
   }
 
   const productSelectedSearchBar = document.getElementById("selected-product-search-bar");
-  const downloadCotiButton = document.getElementById("download-coti");
+  const downloadCotiButton = document.getElementById("show-download-coti");
   const showImage = document.getElementById("show-image");
   const productsSelectedCounter = document.getElementById("selected-product-counter");
   // Copia @productCardDiv (param1) y obtiene elementos dentro de esa copia
