@@ -4,7 +4,6 @@ export function addProductToLocalStorage() {
   // Mostrar notificación de producto agregado
   const toastElement = document.getElementById('product-toast');
   const toast = new bootstrap.Toast(toastElement);
-  toast.show();
 
   // Obtener valores del formulario
   const productName = document.getElementById("product-name").value;
@@ -46,4 +45,9 @@ export function addProductToLocalStorage() {
 
   // Actualizar localStorage con la nueva lista de productos
   localStorage.setItem("productsData", JSON.stringify(productsDataString));
+
+  toast.show();
+  setTimeout(function() {
+    toast.hide();
+  }, 800); // 5000 milisegundos = 5 segundos
 }

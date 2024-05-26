@@ -86,7 +86,7 @@
                 <line x1="16" y1="17" x2="8" y2="17"></line>
                 <polyline points="10 9 9 9 8 9"></polyline>
               </svg>
-              <p>Haz clic para seleccionar el excel</p>
+              <p>Haz click para seleccionar el excel</p>
             </div>
           </div>
           <!-- Contenedor de tarjeta de productos -->
@@ -95,11 +95,11 @@
         <!-- Segunda columna principal -->
         <div class="col-md-4 overflow-y-hidden main-column">
           <!-- Acordeon de formulario para datos de cliente -->
-          <div id="accordion-client-data" class="accordion pt-1">
+          <div id="accordion-client-data" class="accordion accordion-cliente-data pt-1">
             <div class="accordion-item">
               <h2 class="accordion-header">
                 <button
-                  class="accordion-button collapsed p-2"
+                  class="accordion-button collapsed p-2 m-0"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#flush-collapse-form-client"
@@ -207,7 +207,7 @@
           </div>
           <div
             id="select-img-file-area"
-            class="d-flex align-items-center justify-content-center rounded-4 py-5 zoneImagePicker"
+            class="d-flex align-items-center justify-content-center rounded-4 p-5 my-1 zoneImagePicker"
           >
             <div>
               <svg
@@ -223,8 +223,12 @@
                   d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1z"
                 />
               </svg>
-              <p>Haz clic para seleccionar la imagen</p>
+              <p>Haz click para seleccionar la imagen</p>
             </div>
+          </div>
+          <!-- Imagen a fijar -->
+          <div id="image-placeholder" class="image-quote-placeholder overflow-y-auto">
+            <img src="" class="img-fluid image-tag-placeholder can-cut" alt="..." style="display: none;">
           </div>
         </div>
         <!-- Tercera columna principal -->
@@ -515,7 +519,7 @@
     </div>
 
     <!-- Popups -->
-    <div class="position-fixed top-0 start-50 translate-middle-x p-4" style="z-index: 11">
+    <div class="position-fixed top-0 start-50 translate-middle-x p-4">
       <div id="product-toast" class="toast bg-success">
         <div class="toast-body">
           <button type="button" class="btn-close pe-3" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -524,8 +528,9 @@
       </div>
     </div>
 
-    <script src="./js/main.js" type="module"></script>
+    <script src="./js/cropper.min.js"></script>
     <script src="./js_bootstrap/popper.js"></script>
     <script src="./js_bootstrap/bootstrap.js"></script>
+    <script src="./js/main.js" type="module"></script>
   </body>
 </html>

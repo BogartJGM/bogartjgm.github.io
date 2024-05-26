@@ -8,14 +8,15 @@ import { createProductCard } from "./create-product-card.js";
 import { addProductToLocalStorage } from "./add-product-to-local-storage.js";
 import { superLoadSearchBar } from "./super-load-search-bar.js";
 import { addGlobalShortcuts } from "./globa-shortcuts.js";
+import { initImageInput } from "./image-file-handler.js";
+import { recortarImagen } from "./image-cutter.js";
 
 // Elementos del DOM
 const inputDropdownExcelPicker = document.getElementById("select-excel-file");
 const inputExcelPicker = document.getElementById("select-excel-file-area");
 const inputSearchBar = document.getElementById("product-search-bar");
-const productSelectedSearchBar = document.getElementById(
-  "selected-product-search-bar"
-);
+const inputImgPicker = document.getElementById("select-img-file-area");
+const productSelectedSearchBar = document.getElementById("selected-product-search-bar");
 const buttonProductSelected = document.getElementById("download-coti");
 const buttonShowImage = document.getElementById("show-image");
 const buttonDownloadImage = document.getElementById("download-image");
@@ -26,6 +27,8 @@ const btnAccordion = document.querySelector(".accordion-button");
 const inputClientName = document.getElementById("client-name");
 const inputQuoteDateStart = document.getElementById("quote-date-start");
 const btnShowDownloadCoti = document.getElementById("show-download-coti");
+const imgsRecortable = document.querySelectorAll(".can-cut");
+
 
 // Inicializa el input selector de excel
 const productsDataString = localStorage.getItem("productsData");
@@ -69,5 +72,7 @@ btnShowDownloadCoti.addEventListener("click", () => {
 search(inputSearchBar, "div.card.p-2.product");
 search(productSelectedSearchBar, "div.card.p-2.productSelected");
 initExcelInputs(inputDropdownExcelPicker, inputExcelPicker);
+initImageInput(inputImgPicker);
 superLoadSearchBar(inputSearchBar);
 addGlobalShortcuts();
+recortarImagen();

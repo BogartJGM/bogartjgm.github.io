@@ -21,7 +21,6 @@
 }
 
 .zoneExcelPicker {                                              /* Area de selección de excel */
-  margin-top: 50px;
   border: 2px dashed #ccc;
   text-align: center;
   cursor: pointer;
@@ -53,16 +52,34 @@
   height: 80px;
 }
 
-.zoneImagePicker {                                              /* Ára de selección de imagen */
-  margin-top: 50px;
+.image-quote-placeholder {
+  height: 92vh;
+}
+
+.image-quote-placeholder {
+  border-radius: 8px;
+  height: 85vh;
+  overflow: hidden;
+}
+
+.zoneImagePicker {                                             /* Ára de selección de imagen */
   border: 2px dashed #ccc;
   text-align: center;
   cursor: pointer;
+  transition: padding 0.5s ease; /* Establece una transición para la propiedad height durante 0.5 segundos */
+  overflow: hidden;
 }
 
 .zoneImagePicker:hover {
   border: 2px solid #305e8a;
   color: #296bc7;
+}
+
+.image-tag-placeholder {
+  cursor: crosshair; 
+  width: 100%;
+  height: auto; /* Hace que la altura se ajuste automáticamente al ancho */
+  display: block; /* Evita espacio adicional debajo de la imagen */
 }
 
 /* *********Tercera columna********* */
