@@ -20,8 +20,8 @@ export function anadirProductSelected(productCardDiv) {
 
       let valorASumar = quantityInp.value == "" ? 1 : Number(quantityInp.value);
       let valorActual = quantityInpAct.value == "" ? 1 : Number(quantityInpAct.value);
-      quantityInpAct.value =  valorActual + valorASumar;
-      
+      quantityInpAct.value = valorActual + valorASumar;
+
       let event = new Event('input', {
         bubbles: true,
         cancelable: true
@@ -36,7 +36,7 @@ export function anadirProductSelected(productCardDiv) {
       }, 50);
 
       product.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      
+
       // Cambiar el label de precio total en curso
       increaseTotalQualityQuantity(productCardDiv.querySelectorAll(".price"), String(valorASumar));
 
@@ -93,7 +93,6 @@ export function anadirProductSelected(productCardDiv) {
   buttonSelectedCard.classList.remove("btn-success");
   buttonSelectedCard.classList.remove("searched-product");
   buttonSelectedCard.classList.add("btn-danger");
-  buttonSelectedCard.classList.add("btn-danger");
   buttonSelectedCard.textContent = "-";
   buttonSelectedCard.classList.remove("col-md-5");
   buttonSelectedCard.classList.add("col-md-4");
@@ -122,7 +121,7 @@ export function anadirProductSelected(productCardDiv) {
     if (!previousProductCard) {
       return;
     }
-    
+
     productSelectedContainer.insertBefore(productCardCopy, previousProductCard);
     productCardCopy.scrollIntoView({ behavior: 'smooth', block: 'start' });
     givePosition(productSelectedContainer);
@@ -171,10 +170,27 @@ export function anadirProductSelected(productCardDiv) {
     td.addEventListener("input", () => { handleTdInput(td) });
     td.addEventListener("focusout", () => { handleFocusOut(td) });
   });
-  buttonSelectedCard.addEventListener("click", function (e) {
+  buttonSelectedCard.addEventListener("click", function (ev) {
     // Controlar la animación de "quitado"
     productCardCopy.classList.remove("productSelected");
     productCardCopy.classList.add("productRemove");
+
+    const checkbox = ev.target.parentElement.parentElement.nextElementSibling.nextElementSibling.firstChild.firstChild.firstChild.firstChild.lastChild.lastChild.firstChild;
+    const otherCheckbox = ev.target.parentElement.parentElement.nextElementSibling.nextElementSibling.lastChild.firstChild.firstChild.firstChild.lastChild.lastChild.firstChild;
+    const checkboxState = checkbox.checked;
+    const otherCheckboxState = otherCheckbox.checked;
+    const quanitytNormalize = cantidad.value ? Number(cantidad.value) : 1;
+
+    
+    if (checkboxState && otherCheckboxState) {
+      dicreaseTotalQualityQuantity(priceTds, cantidad.value);
+    } else if (checkboxState) {
+      dicreaseTotalQualityE(quanitytNormalize, priceTds[0].textContent);
+      dicreaseTotalQualityA(quanitytNormalize, priceTds[0].textContent);
+    } else {
+      dicreaseTotalQualityE(quanitytNormalize, priceTds[1].textContent);
+      dicreaseTotalQualityA(quanitytNormalize, priceTds[1].textContent);
+    }
 
     setTimeout(function () {
       productCardCopy.remove();
@@ -183,16 +199,14 @@ export function anadirProductSelected(productCardDiv) {
       if (productSelectedContainer.innerHTML == "") {
         productSelectedSearchBar.setAttribute("disabled", "");
         productSelectedSearchBar.value = "";
-
         downloadCotiButton.setAttribute("disabled", "");
         showImage.setAttribute("disabled", "");
       }
 
       // Disminuye el contador de productos seleccionados y disminuye el precio total de ambas calidades
-      productsSelectedCounter.textContent = Number(productsSelectedCounter.textContent) - 1;
-      dicreaseTotalQualityQuantity(priceTds, cantidad.value);
       givePosition(productSelectedContainer);
     }, 100);
+    productsSelectedCounter.textContent = Number(productsSelectedCounter.textContent) - 1;
   });
   cantidad.addEventListener("input", (ev) => {
     let productContainer = ev.target.parentElement.parentElement.parentElement;
@@ -204,16 +218,16 @@ export function anadirProductSelected(productCardDiv) {
 
     if (checkbox.length == 1) {
       if (checkbox[0].classList.contains("CALIDADE")) {
-        if (cambio < 0 ) {
-          dicreaseTotalQualityE(qualityEPrice, cambio*-1);
-          dicreaseTotalQualityA(qualityEPrice, cambio*-1);
+        if (cambio < 0) {
+          dicreaseTotalQualityE(qualityEPrice, cambio * -1);
+          dicreaseTotalQualityA(qualityEPrice, cambio * -1);
         } else if (cambio > 0) {
           increaseTotalQualityE(qualityEPrice, cambio);
           increaseTotalQualityA(qualityEPrice, cambio);
         }
       } else {
-        if (cambio < 0 ) {
-          dicreaseTotalQualityA(qualityAPrice, cambio*-1);
+        if (cambio < 0) {
+          dicreaseTotalQualityA(qualityAPrice, cambio * -1);
           increaseTotalQualityE(qualityAPrice, cambio);
         } else if (cambio > 0) {
           increaseTotalQualityA(qualityAPrice, cambio);
@@ -223,11 +237,11 @@ export function anadirProductSelected(productCardDiv) {
       ev.target.dataset.cantidadAnterior = cantidadActual;
     } else {
       if (cambio < 0) {
-        dicreaseTotalQualityQuantity(priceTds, cambio*-1);
+        dicreaseTotalQualityQuantity(priceTds, cambio * -1);
       } else if (cambio > 0) {
         increaseTotalQualityQuantity(priceTds, cambio);
       }
-  
+
       ev.target.dataset.cantidadAnterior = cantidadActual;
     }
   });
@@ -237,7 +251,7 @@ export function anadirProductSelected(productCardDiv) {
 
   // Aumentar contador de productos seleccionados y precio total de ambas calidades
   productsSelectedCounter.textContent = Number(productsSelectedCounter.textContent) + 1;
- 
+
   productCardCopy.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   increaseTotalQualityQuantity(priceTds, cantidad.value);
