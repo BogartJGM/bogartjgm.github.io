@@ -42,6 +42,7 @@ function handleinputExcelPickerClick() {
  * @param {FileList} fileList - The list of files selected by the user. Typically obtained from the 'change' event of a file input.
  */
 function handleFileChange(fileList) {
+  mostrarModal();
   const file = fileList[0]; // Get the first file from the list
   if (file) {
     const reader = new FileReader(); // Create a new FileReader object
@@ -59,7 +60,8 @@ function handleFileChange(fileList) {
  * @param {Event} fileEvent - The file event containing the loaded file data.
  */
 function handleFileLoad(fileEvent) {
-  const fileData = new Uint8Array(fileEvent.target.result); // Get the file data as an Uint8Array
+  setTimeout(() => {
+    const fileData = new Uint8Array(fileEvent.target.result); // Get the file data as an Uint8Array
   const workbook = XLSX.read(fileData, { type: "array" }); // Read the file as an Excel workbook
   const firstSheetName = workbook.SheetNames[0]; // Get the name of the first sheet
   const firstSheet = workbook.Sheets[firstSheetName]; // Get the first sheet
@@ -100,4 +102,23 @@ function handleFileLoad(fileEvent) {
   });
 
   removeAttributeFromElementById("product-search-bar", "disabled");
+  cerrarModal();
+  }, 500);
+}
+
+function mostrarModal() {
+  const modal = new bootstrap.Modal(document.getElementById('sorting-data-modal'));
+  modal.show();
+}
+
+// Función para cerrar el modal utilizando JavaScript puro
+function cerrarModal() {
+  const modalBackdrop = document.querySelector('.modal-backdrop');
+  const modalContainer = document.querySelector('.modal.fade.show');
+  
+  if (modalBackdrop && modalContainer) {
+    modalBackdrop.parentNode.removeChild(modalBackdrop); // Eliminar el nodo del modal-backdrop
+    modalContainer.classList.remove('show');
+    modalContainer.style.display = 'none';
+  }
 }

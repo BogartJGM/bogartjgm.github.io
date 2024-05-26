@@ -36,32 +36,19 @@
             </button>
             <!-- Dropdown -->
             <button
-              class="btn btn-sm btn-outline-success dropdown-toggle"
+              id="btn-expand-modalconfirmexcelchange"
+              class="btn btn-sm btn-outline-success me-3"
               type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+              data-bs-toggle="modal"
+              data-bs-target="#confirmExcelChange"
             >
-              Excel
+              Elegir Excel
             </button>
-            <ul class="dropdown-menu">
-              <li>
-                <button
-                  id="select-excel-file"
-                  class="dropdown-item"
-                  type="button"
-                >
-                  Elegir excel
-                </button>
-              </li>
-              <li>
-                <button id="reset-to-excel" class="dropdown-item" type="button">
-                  Reestablecer a Excel
-                </button>
-              </li>
-            </ul>
           </div>
+          <!-- Contenedor de tarjeta de productos -->
           <!-- Zona de selección de excel -->
-          <div
+          <div id="product-container" class="overflow-y-scroll overflow-x-hidden products-placeholder">
+            <div
             id="select-excel-file-area"
             class="d-flex align-items-center justify-content-center py-5 rounded-4 zoneExcelPicker"
           >
@@ -89,8 +76,7 @@
               <p>Haz click para seleccionar el excel</p>
             </div>
           </div>
-          <!-- Contenedor de tarjeta de productos -->
-          <div id="product-container" class="overflow-y-scroll overflow-x-hidden products-placeholder"></div>
+          </div>
         </div>
         <!-- Segunda columna principal -->
         <div class="col-md-4 overflow-y-hidden main-column">
@@ -387,6 +373,21 @@
       </div>
     </div>
 
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmExcelChange" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body p-3">
+            <p class="text-center text-danger fw-bolder">Elegir otro excel borrará todos los productos creados manualmente</p>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-warning" data-bs-dismiss="modal">CANCELAR</button>
+            <button type="button" class="btn btn-sm btn-success" data-bs-dismiss="modal" id="select-excel-file">ELEGIR OTRO EXCEL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Modal de cotización -->
     <div class="modal fade" id="expand-image" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog show-image-modal">
@@ -532,6 +533,28 @@
         <div class="toast-body">
           <button type="button" class="btn-close pe-3" data-bs-dismiss="toast" aria-label="Close"></button>
           <span class="span h6 text-light">Producto creado</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de espera -->
+    <div class="modal fade" id="sorting-data-modal" tabindex="-1" aria-labelledby="sorting-data-modal-label" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row justify-content-center">
+                <div class="col-md-1">
+                  <div class="spinner-grow" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <h6 class="h6 m-0 p-2">Pérate, muchacha. El programa tiene que ordenar, crear e insertar los productos</h6>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
