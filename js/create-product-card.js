@@ -39,13 +39,13 @@ export function createProductCard(productJson, containerProductId, index) {
   cardDiv.classList.add("card", "p-2", "product");
   divActionsContainer.classList.add("row", "mb-1");
   divActionsRow.classList.add("input-group", "input-group-sm", "justify-content-between", "actionButtonsContainer");
-  spanPosition.classList.add("input-group-text", "col-md-1", "posicion");
-  deletetThisCard.classList.add("btn", "btn-danger", "col-md-4", "eliminar");
+  spanPosition.classList.add("input-group-text", "col-md-2", "posicion");
+  deletetThisCard.classList.add("btn", "btn-danger", "col-md-5", "eliminar");
   deletetThisCard.textContent = "Eliminar"
   // btnUp.classList.add("btn", "btn-primary", "col-md-4");
   // btnUp.textContent = "subih"
 
-  addButton.classList.add("btn", "btn-success", "col-3", "add-product");
+  addButton.classList.add("btn", "btn-success", "col-5", "add-product");
 
   productNameDiv.classList.add("form", "mb-1");
   inputGroupDiv.classList.add("input-group", "input-group-sm");

@@ -117,17 +117,22 @@
               >
                 <div class="accordion-body p-3">
                   <!-- Formulario -->
-                  <div class="mb-2">
-                    <label class="form-label mb-0" for="client-name">
-                      Nombre cliente
-                    </label>
-                    <input
-                      id="client-name"
-                      class="form-control"
-                      type="text"
-                      placeholder="Nombre"
-                    />
-                  </div>
+                  <form autocomplete="off" id="client-data-form" novalidate>
+                    <div class="mb-2">
+                      <label class="form-label mb-0" for="client-name">
+                        Nombre cliente
+                      </label>
+                      <input
+                        id="client-name"
+                        class="form-control"
+                        type="text"
+                        placeholder="Nombre"
+                        value=""
+                        required
+                      />
+                      <div class="invalid-feedback">Amor, ingresa este dato okyes.</div>
+                    </div>
+                  </form>
                   <div class="mb-2">
                     <label class="form-label mb-0" for="client-school-name">
                       Escuela
@@ -157,6 +162,8 @@
                           id="quote-date-start"
                           class="form-control"
                           type="date"
+                          value=""
+                          required
                         />
                         <label for="quote-date-start">
                           Fecha de cotización
@@ -288,20 +295,18 @@
                   id="show-download-coti"
                   class="btn btn-success p-0 action-buttons"
                   type="button"
-                  data-bs-toggle="modal"
-                  data-bs-target="#expand-select-name"
                   disabled
                   >
                     Descargar cotización
                   </button>
                   <button
                     id="show-image"
-                    class="btn btn-primary p-0 action-buttons"
+                    class="btn btn-primary p-0 action-buttons btn-show-image"
                     type="button"
-                    data-bs-toggle="modal"
-                    data-bs-target="#expand-image"
                     disabled
                   >
+                    <!-- data-bs-toggle="modal"
+                    data-bs-target="#expand-image" -->
                     Ver imagen
                   </button>
               </div>
@@ -318,62 +323,65 @@
           <!-- Modal header -->
           <div class="modal-header">
             <h5 class="m-0">Crear producto</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div id="product-data" class="modal-body overflow-y-auto">
-            <div class="container">
-              <div class="row">
-                <div class="col">
-                  <div class="mb-3">
-                    <label for="product-name" class="form-label fw-bold">Nombre producto</label>
-                    <input type="text" class="form-control" id="product-name" placeholder="Productito productón productote">
-                  </div>
-                  <div class="bg-primary-subtle border rounded-1 container-fluid">
-                    <label for="name-quality-e" class="form-label m-0">Marca calidad Económica</label>
-                  </div>
-                  <div class="row g-2">
-                    <div class="col-md-8">
-                      <div class="form-floating">
-                        <input type="text" class="form-control" id="name-quality-e" placeholder="" value="">
-                        <label for="name-quality-e">Nombre marca</label>
+            <form autocomplete="off" id="create-product-form" novalidate>
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="product-name" class="form-label fw-bold">Nombre producto</label>
+                      <input type="text" class="form-control" id="product-name" placeholder="Productito productón productote" required>
+                      <div class="invalid-feedback">Amor, ingresa el nombre del producto.</div>
+                    </div>
+                    <div class="bg-primary-subtle border rounded-1 container-fluid">
+                      <label for="name-quality-e" class="form-label m-0">Marca calidad Económica</label>
+                    </div>
+                    <div class="row g-2">
+                      <div class="col-md-8">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="name-quality-e" placeholder="" value="" required>
+                          <label for="name-quality-e">Nombre marca</label>
+                          <div class="invalid-feedback">Amor, ingresa el nombre de la marca económica.</div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-floating">
+                          <input type="number" class="form-control" id="price-quality-e" placeholder="" value="" required>
+                          <label for="price-quality-e">Precio</label>
+                          <div class="invalid-feedback">Amor, ingresa el precio de la marca económica.</div>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-4">
-                      <div class="form-floating">
-                        <input type="number" class="form-control" id="price-quality-e" placeholder="" value="">
-                        <label for="price-quality-e">Precio</label>
-                      </div>
+                    <hr class="hr">
+                    <div class="bg-warning-subtle border rounded-1 container-fluid">
+                      <label for="name-quality-a" class="form-label m-0">Marca calidad Alta</label>
                     </div>
-                  </div>
-                  <hr class="hr">
-                  <div class="bg-warning-subtle border rounded-1 container-fluid">
-                    <label for="name-quality-e" class="form-label m-0">Marca calidad Alta</label>
-                  </div>
-                  <div class="row g-2">
-                    <div class="col-md-8">
-                      <div class="form-floating">
-                        <input type="email" class="form-control" id="name-quality-a" placeholder="" value="">
-                        <label for="name-quality-a">Nombre marca</label>
+                    <div class="row g-2">
+                      <div class="col-md-8">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="name-quality-a" placeholder="" value="" required>
+                          <label for="name-quality-a">Nombre marca</label>
+                          <div class="invalid-feedback">Amor, ingresa el nombre de la marca alta.</div>
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-floating">
-                        <input type="email" class="form-control" id="price-quality-a" placeholder="" value="">
-                        <label for="price-quality-a">Precio</label>
+                      <div class="col-md-4">
+                        <div class="form-floating">
+                          <input type="number" class="form-control" id="price-quality-a" placeholder="" value="" required>
+                          <label for="price-quality-a">Precio</label>
+                          <div class="invalid-feedback">Amor, ingresa el precio de la marca alta.</div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>            
+              </div>            
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button id="add-product" type="button" class="btn btn-primary" data-bs-dismiss="modal">Añadir producto</button>
+            <button id="add-product" type="button" class="btn btn-primary">Añadir producto</button>
           </div>
         </div>
       </div>
@@ -528,7 +536,6 @@
       </div>
     </div>
 
-    <script src="./js/cropper.min.js"></script>
     <script src="./js_bootstrap/popper.js"></script>
     <script src="./js_bootstrap/bootstrap.js"></script>
     <script src="./js/main.js" type="module"></script>

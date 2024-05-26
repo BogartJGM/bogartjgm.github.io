@@ -27,8 +27,8 @@ const btnAccordion = document.querySelector(".accordion-button");
 const inputClientName = document.getElementById("client-name");
 const inputQuoteDateStart = document.getElementById("quote-date-start");
 const btnShowDownloadCoti = document.getElementById("show-download-coti");
-const imgsRecortable = document.querySelectorAll(".can-cut");
-
+const formCreateProduct = document.getElementById('create-product-form');
+const formClientData = document.getElementById("client-data-form");
 
 // Inicializa el input selector de excel
 const productsDataString = localStorage.getItem("productsData");
@@ -41,10 +41,36 @@ if (productsDataString) {
 
 myModal.addEventListener("shown.bs.modal", () => myInput.focus());
 buttonProductSelected.addEventListener("click", () => downloadExcel());
-buttonShowImage.addEventListener("click", () => showImage());
+buttonShowImage.addEventListener("click", (ev) => {
+  if (!formClientData.checkValidity()) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    if (!document.getElementById("flush-collapse-form-client").classList.contains("show")) {
+      btnAccordion.click();
+    }
+    formClientData.classList.add("was-validated");
+  } else {
+    const modalShowImage = new bootstrap.Modal(document.getElementById('expand-image'));
+    modalShowImage.show();
+    showImage();
+  }
+});
 buttonDownloadImage.addEventListener("click", () => descargarImagenCotizacion());
-buttonaddProductToLocalStorage.addEventListener("click", () => addProductToLocalStorage());
-btnAccordion.addEventListener("click", () => {setTimeout(() => {inputClientName.focus();}, 100)});
+buttonaddProductToLocalStorage.addEventListener("click", (ev) => {
+  if (!formCreateProduct.checkValidity()) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    formCreateProduct.classList.add('was-validated');
+  } else {
+    addProductToLocalStorage();
+
+    const modalCrateProduct = bootstrap.Modal.getInstance(myModal);
+    modalCrateProduct.hide();
+  }
+});
+btnAccordion.addEventListener("click", () => { setTimeout(() => { inputClientName.focus(); }, 100) });
 inputQuoteDateStart.addEventListener("change", (ev) => {
   const formValidoHasta = document.getElementById("quote-date-end");
 
@@ -59,14 +85,27 @@ inputQuoteDateStart.addEventListener("change", (ev) => {
 
   formValidoHasta.value = formattedDate;
 });
-btnShowDownloadCoti.addEventListener("click", () => {
-  const clientName = document.getElementById("client-name");
-  const clientSchool = document.getElementById("client-school-name");
-  const gradeAndGroup = document.getElementById("client-grade-group"); 
-  const inputFileName = document.getElementById("file-name");
+btnShowDownloadCoti.addEventListener("click", (ev) => {
+  if (!formClientData.checkValidity()) {
+    ev.preventDefault();
+    ev.stopPropagation();
 
+    if (!document.getElementById("flush-collapse-form-client").classList.contains("show")) {
+      btnAccordion.click();
+    }
+    formClientData.classList.add("was-validated");
+  } else {
+    const modalChangeName = new bootstrap.Modal(document.getElementById('expand-select-name'));
 
-  inputFileName.value = `${clientName.value} ${clientSchool.value} ${gradeAndGroup.value}`;
+    const clientName = document.getElementById("client-name");
+    const clientSchool = document.getElementById("client-school-name");
+    const gradeAndGroup = document.getElementById("client-grade-group");
+    const inputFileName = document.getElementById("file-name");
+
+    inputFileName.value = `${clientName.value} ${clientSchool.value} ${gradeAndGroup.value}`;
+
+    modalChangeName.show();
+  }
 });
 
 search(inputSearchBar, "div.card.p-2.product");
