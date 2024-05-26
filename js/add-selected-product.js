@@ -56,7 +56,7 @@ export function anadirProductSelected(productCardDiv) {
   // Copia @productCardDiv (param1) y obtiene elementos dentro de esa copia
   const productCardCopy = productCardDiv.cloneNode(true);
   productCardDiv.querySelector(".cantidad").value = "";
-  const buttonSelectedCard = productCardCopy.querySelectorAll("button.btn.btn-success.col-3")[0];
+  const buttonSelectedCard = productCardCopy.querySelectorAll("button.btn.btn-success.col-md-5")[0];
   const buttonsEdit = productCardCopy.querySelectorAll(".buttonEdit");
   const tdsEditable = productCardCopy.querySelectorAll(".search");
   const priceTds = productCardCopy.querySelectorAll(".price");
@@ -95,9 +95,11 @@ export function anadirProductSelected(productCardDiv) {
   buttonSelectedCard.classList.add("btn-danger");
   buttonSelectedCard.classList.add("btn-danger");
   buttonSelectedCard.textContent = "-";
-  btnDown.classList.add("btn", "btn-primary", "col-md-4");
+  buttonSelectedCard.classList.remove("col-md-5");
+  buttonSelectedCard.classList.add("col-md-4");
+  btnDown.classList.add("btn", "btn-primary", "col-md-3");
   btnDown.textContent = "bajah"
-  btnUp.classList.add("btn", "btn-primary", "col-md-4");
+  btnUp.classList.add("btn", "btn-primary", "col-md-3");
   btnUp.textContent = "subih"
 
   // Modificar elementos dentro de producto

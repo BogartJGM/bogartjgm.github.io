@@ -45,7 +45,7 @@ export function createProductCard(productJson, containerProductId, index) {
   // btnUp.classList.add("btn", "btn-primary", "col-md-4");
   // btnUp.textContent = "subih"
 
-  addButton.classList.add("btn", "btn-success", "col-5", "add-product");
+  addButton.classList.add("btn", "btn-success", "col-md-5", "add-product");
 
   productNameDiv.classList.add("form", "mb-1");
   inputGroupDiv.classList.add("input-group", "input-group-sm");
