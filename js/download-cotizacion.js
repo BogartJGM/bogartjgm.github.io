@@ -15,7 +15,15 @@ export function downloadExcel() {
   const fileName = document.getElementById("file-name");
 
   let nombreArchivo = `${fileName.value.trim()}.xlsx`;
+  let imageLoaded = document.querySelector(".image-tag-placeholder");
+
   XLSX.writeFile(workbook, nombreArchivo);
+  if (imageLoaded.complete && imageLoaded.naturalHeight !== 0) {
+    const imageAnchor = document.createElement("a");
+    imageAnchor.href = imageLoaded.dataset.originalSrc;
+    imageAnchor.download = `${fileName.value.trim()}.jpeg`
+    imageAnchor.click();
+  }
 }
 
 function createJSON() {
