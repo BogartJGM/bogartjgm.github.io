@@ -1,0 +1,130 @@
+import { addProductToLocalStorage } from "./add-product-to-local-storage.js";
+import { addSelectedProduct } from "./add-selected-product.js";
+
+/**
+ *
+ * @param {JSON} productData
+ * @param {HTMLDivElement} productSelectedContainer
+ * @param {Number} index
+ */
+export function createSelectedProductCard(productData) {
+  const productsSelectable = document.querySelectorAll("#product-container div.product");
+  let found = false;
+
+  productsSelectable.forEach((product) => {
+    if (product.querySelector("span.product").textContent == productData["PRODUCTO"]) {
+      const formatteImportedProduct = product.cloneNode(true);
+
+      formatteImportedProduct.querySelector(".cantidad").value = productData["CANTIDAD"]
+      
+      formatteImportedProduct.querySelector("input.CALIDADE").checked = productData["CONTEMPLAR"];
+      formatteImportedProduct.querySelectorAll(".qualityName")[0].textContent = productData["MARCA"];
+      formatteImportedProduct.querySelectorAll(".price")[0].textContent = productData["P UNI"];
+
+      formatteImportedProduct.querySelector("input.CALIDADA").checked = productData["CONTEMPLAR_1"];
+      formatteImportedProduct.querySelectorAll(".qualityName")[1].textContent = productData["MARCA_1"];
+      formatteImportedProduct.querySelectorAll(".price")[1].textContent = productData["P UNI_1"];
+    
+      const calidadE = formatteImportedProduct.querySelector(".row:nth-child(3)").children[0];
+      const calidadA = formatteImportedProduct.querySelector(".row:nth-child(3)").children[1];
+
+      if (formatteImportedProduct.querySelector("input.CALIDADE").checked && formatteImportedProduct.querySelector("input.CALIDADA").checked)  {
+        formatteImportedProduct.querySelector("input.CALIDADE").disabled = "";
+        formatteImportedProduct.querySelector("input.CALIDADA").disabled = "";
+        calidadE.querySelector("tbody").style.opacity = "";
+        calidadA.querySelector("tbody").style.opacity = "";
+        calidadE.querySelector(".title").style.display = "";
+        calidadA.querySelector(".title").style.display = "";
+
+        calidadE.className = "col-md-6 box animated-col";
+        calidadE.querySelector(".title").textContent = "CALIDAD E";
+        calidadA.className = "col-md-6 box animated-col";
+        calidadA.querySelector(".title").textContent = "CALIDAD A";
+      } else if (formatteImportedProduct.querySelector("input.CALIDADE").checked) {
+        formatteImportedProduct.querySelector("input.CALIDADE").disabled = true;
+        calidadE.querySelector("tbody").style.opacity = "";
+        calidadE.querySelector(".title").style.display = "";
+        
+        calidadE.className = "col-md-9 box animated-col";
+        formatteImportedProduct.querySelector("input.CALIDADA").disabled = true;
+        calidadE.querySelector(".title").textContent = "CALIDAD A Y E";
+        calidadA.className = "col-md-2 box animated-col";
+        calidadA.querySelector("tbody").style.opacity = 0.2;
+        calidadA.querySelector(".title").style.display = "none";
+      } else {
+        calidadA.querySelector("tbody").style.opacity = "";
+        calidadA.querySelector(".title").style.display = "";
+
+        calidadE.className = "col-md-2 box animated-col";
+        calidadE.querySelector("tbody").style.opacity = 0.2;
+        calidadE.querySelector(".title").style.display = "none";
+        calidadA.className = "col-md-9 box animated-col";
+        calidadA.querySelector(".title").textContent = "CALIDAD A Y E";
+      }
+
+      addSelectedProduct(formatteImportedProduct);
+
+      found = true;
+    }
+  });
+
+  // Si no existe, se introduce y luego se importa el producto
+  if (!found) {
+    addProductToLocalStorage(productData);
+
+    document.querySelectorAll("#product-container div.product").forEach((product) => {
+      if (product.querySelector("span.product").textContent == productData["PRODUCTO"]) {
+        const formatteImportedProduct = product.cloneNode(true);
+  
+        formatteImportedProduct.querySelector(".cantidad").value = productData["CANTIDAD"]
+        
+        formatteImportedProduct.querySelector("input.CALIDADE").checked = productData["CONTEMPLAR"];
+        formatteImportedProduct.querySelectorAll(".qualityName")[0].textContent = productData["MARCA"];
+        formatteImportedProduct.querySelectorAll(".price")[0].textContent = productData["P UNI"];
+  
+        formatteImportedProduct.querySelector("input.CALIDADA").checked = productData["CONTEMPLAR_1"];
+        formatteImportedProduct.querySelectorAll(".qualityName")[1].textContent = productData["MARCA_1"];
+        formatteImportedProduct.querySelectorAll(".price")[1].textContent = productData["P UNI_1"];
+      
+        const calidadE = formatteImportedProduct.querySelector(".row:nth-child(3)").children[0];
+        const calidadA = formatteImportedProduct.querySelector(".row:nth-child(3)").children[1];
+  
+        if (formatteImportedProduct.querySelector("input.CALIDADE").checked && formatteImportedProduct.querySelector("input.CALIDADA").checked)  {
+          formatteImportedProduct.querySelector("input.CALIDADE").disabled = "";
+          formatteImportedProduct.querySelector("input.CALIDADA").disabled = "";
+          calidadE.querySelector("tbody").style.opacity = "";
+          calidadA.querySelector("tbody").style.opacity = "";
+          calidadE.querySelector(".title").style.display = "";
+          calidadA.querySelector(".title").style.display = "";
+  
+          calidadE.className = "col-md-6 box animated-col";
+          calidadE.querySelector(".title").textContent = "CALIDAD E";
+          calidadA.className = "col-md-6 box animated-col";
+          calidadA.querySelector(".title").textContent = "CALIDAD A";
+        } else if (formatteImportedProduct.querySelector("input.CALIDADE").checked) {
+          formatteImportedProduct.querySelector("input.CALIDADE").disabled = true;
+          calidadE.querySelector("tbody").style.opacity = "";
+          calidadE.querySelector(".title").style.display = "";
+          
+          calidadE.className = "col-md-9 box animated-col";
+          formatteImportedProduct.querySelector("input.CALIDADA").disabled = true;
+          calidadE.querySelector(".title").textContent = "CALIDAD A Y E";
+          calidadA.className = "col-md-2 box animated-col";
+          calidadA.querySelector("tbody").style.opacity = 0.2;
+          calidadA.querySelector(".title").style.display = "none";
+        } else {
+          calidadA.querySelector("tbody").style.opacity = "";
+          calidadA.querySelector(".title").style.display = "";
+  
+          calidadE.className = "col-md-2 box animated-col";
+          calidadE.querySelector("tbody").style.opacity = 0.2;
+          calidadE.querySelector(".title").style.display = "none";
+          calidadA.className = "col-md-9 box animated-col";
+          calidadA.querySelector(".title").textContent = "CALIDAD A Y E";
+        }
+  
+        addSelectedProduct(formatteImportedProduct);
+      }
+    });
+  }
+}

@@ -109,22 +109,18 @@ export function handleTdKeyDown(tdElement, event) {
         const dataChange = JSON.parse(localStorage.getItem("productsData"));
         dataChange[productIndex].definedPriceE = tdElement.textContent;
         localStorage.setItem("productsData", JSON.stringify(dataChange));
-        console.log("Nombre de precio E modificado")
       } else if (tdElement.classList[0] == "price") {
         const dataChange = JSON.parse(localStorage.getItem("productsData"));
         dataChange[productIndex].definedPriceA = tdElement.textContent;
         localStorage.setItem("productsData", JSON.stringify(dataChange));
-        console.log("Nombre de precio A modificado")
       } else if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E" && "CALIDAD E" && tdElement.classList.contains("qualityName")) {
         const dataChange = JSON.parse(localStorage.getItem("productsData"));
         dataChange[productIndex].definedNameE = tdElement.textContent;
         localStorage.setItem("productsData", JSON.stringify(dataChange));
-        console.log("Nombre de calidad E modificado")
       } else {
         const dataChange = JSON.parse(localStorage.getItem("productsData"));
         dataChange[productIndex].definedNameA = tdElement.textContent;
         localStorage.setItem("productsData", JSON.stringify(dataChange));
-        console.log("Nombre de calidad A modificado")
       }
     }
 
@@ -172,22 +168,18 @@ export function handleFocusOut(tdElement) {
       const dataChange = JSON.parse(localStorage.getItem("productsData"));
       dataChange[productIndex].definedPriceE = tdElement.textContent;
       localStorage.setItem("productsData", JSON.stringify(dataChange));
-      console.log("Nombre de precio E modificado")
     } else if (tdElement.classList[0] == "price") {
       const dataChange = JSON.parse(localStorage.getItem("productsData"));
       dataChange[productIndex].definedPriceA = tdElement.textContent;
       localStorage.setItem("productsData", JSON.stringify(dataChange));
-      console.log("Nombre de precio A modificado")
     } else if (tdElement.parentElement.parentElement.parentElement.querySelector("thead").textContent == "CALIDAD E" && "CALIDAD E" && tdElement.classList.contains("qualityName")) {
       const dataChange = JSON.parse(localStorage.getItem("productsData"));
       dataChange[productIndex].definedNameE = tdElement.textContent;
       localStorage.setItem("productsData", JSON.stringify(dataChange));
-      console.log("Nombre de calidad E modificado")
     } else {
       const dataChange = JSON.parse(localStorage.getItem("productsData"));
       dataChange[productIndex].definedNameA = tdElement.textContent;
       localStorage.setItem("productsData", JSON.stringify(dataChange));
-      console.log("Nombre de calidad A modificado")
     }
   }
 

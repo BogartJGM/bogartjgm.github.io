@@ -1,4 +1,4 @@
-import { anadirProductSelected } from "./add-selected-product.js";
+import { addSelectedProduct } from "./add-selected-product.js";
 import { givePosition } from "./give-position.js";
 import { handleButtonClick, handleCheckedClick, handleFocusOut, handleTdInput, handleTdKeyDown } from "./table-events-handlers.js";
 
@@ -64,7 +64,7 @@ export function createProductCard(productJson, containerProductId, index) {
   spanPosition.textContent = String(index + 1);
 
   addButton.addEventListener("click", () => {
-    anadirProductSelected(cardDiv);
+    addSelectedProduct(cardDiv);
   });
   quantityInput.addEventListener("input", () => {
     if (quantityInput.value == "") {

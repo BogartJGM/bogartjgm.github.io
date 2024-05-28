@@ -1,16 +1,29 @@
 import { createProductCard } from "./create-product-card.js";
 
-export function addProductToLocalStorage() {
+export function addProductToLocalStorage(productData) {
   // Mostrar notificación de producto agregado
   const toastElement = document.getElementById('product-toast');
   const toast = new bootstrap.Toast(toastElement);
+  let productName;
+  let brandE;
+  let brandA;
+  let priceE;
+  let priceA;
 
   // Obtener valores del formulario
-  const productName = document.getElementById("product-name").value;
-  const brandE = document.getElementById("name-quality-e").value;
-  const brandA = document.getElementById("name-quality-a").value;
-  const priceE = document.getElementById("price-quality-e").value;
-  const priceA = document.getElementById("price-quality-a").value;
+  if (productData) {
+    productName = productData["PRODUCTO"];
+    brandE = productData["MARCA"];
+    brandA = productData["MARCA_1"];
+    priceE = productData["P UNI"];
+    priceA = productData["P UNI_1"];
+  } else {
+    productName = document.getElementById("product-name").value;
+    brandE = document.getElementById("name-quality-e").value;
+    brandA = document.getElementById("name-quality-a").value;
+    priceE = document.getElementById("price-quality-e").value;
+    priceA = document.getElementById("price-quality-a").value;
+  }
 
   // Crear objeto de producto con valores del formulario
   const product = {

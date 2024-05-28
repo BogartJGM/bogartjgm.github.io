@@ -1,7 +1,3 @@
-/**
- * 
- * @param {JSON} datosJSON - Datos en JSON de los productos seleccionados y los datos del cliente
- */
 export function downloadExcel() {
   let datosJSON = createJSON();
   console.log(datosJSON);
@@ -12,42 +8,26 @@ export function downloadExcel() {
   // // Convertir datos a una hoja de Excel
   let worksheet = XLSX.utils.json_to_sheet(datosJSON);
 
-  // // Ajustar automáticamente el ancho de las columnas
-  let maxWidths = [];
-  datosJSON.forEach((row) => {
-    Object.keys(row).forEach((key, index) => {
-      const cellLength = row[key].toString().length;
-      if (!maxWidths[index] || maxWidths[index] < cellLength) {
-        maxWidths[index] = cellLength;
-      }
-    });
-  });
-
-  maxWidths.forEach((width, index) => {
-    worksheet["!cols"] = worksheet["!cols"] || [];
-    worksheet["!cols"][index] = { width: width + 5 }; // Add some padding for better readability
-  });
-
-  // // Agregar la hoja al libro
+  // Agregar la hoja al libro
   XLSX.utils.book_append_sheet(workbook, worksheet, "Datos");
 
-  // // Convertir el libro a un archivo Excel y guardarlo
+  // Convertir el libro a un archivo Excel y guardarlo
   const fileName = document.getElementById("file-name");
 
-  let nombreArchivo = `${fileName.value}.xlsx`;
+  let nombreArchivo = `${fileName.value.trim()}.xlsx`;
   XLSX.writeFile(workbook, nombreArchivo);
 }
 
 function createJSON() {
   let jsonProductos = [];
-  const productsSelected = document.querySelectorAll("div.card.p-2.productSelected");
+  const productsSelected = document.querySelectorAll("#selected-product-container .productSelected");
   const formulario = document.getElementById("flush-collapse-form-client");
   
   productsSelected.forEach((productSelected, index) => {
     let producto = {};
     
-    producto["cantidad"] = (productSelected.querySelector(".cantidad").value) ? Number(productSelected.querySelector(".cantidad").value) : 1;
-    producto["PRODUCTO"] = productSelected.querySelector("span.input-group-text").textContent;
+    producto["CANTIDAD"] = (productSelected.querySelector(".cantidad").value) ? Number(productSelected.querySelector(".cantidad").value) : 1;
+    producto["PRODUCTO"] = productSelected.querySelector(".product").textContent;
     producto["MARCA"] = productSelected.querySelectorAll("td.qualityName")[0].textContent;
     producto["P UNI"] = productSelected.querySelectorAll("td.price")[0].textContent;
     producto["CONTEMPLAR"] = productSelected.querySelectorAll("input.form-check-input")[0].checked;

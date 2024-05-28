@@ -8,7 +8,7 @@ import { givePosition } from "./give-position.js";
  *
  * @param {HTMLDivElement} productCardDiv - El elemento a ser insertado en la columna de productos seleccionados.
  */
-export function anadirProductSelected(productCardDiv) {
+export function addSelectedProduct(productCardDiv) {
   // DOM
   let founded = false;
   const productSelectedContainer = document.getElementById("selected-product-container");
@@ -63,6 +63,7 @@ export function anadirProductSelected(productCardDiv) {
   const posicion = productCardCopy.querySelector(".posicion");
   const checkboxs = productCardCopy.querySelectorAll("input[type='checkbox']");
   const cantidad = productCardCopy.querySelector(".cantidad");
+  let quanitytNormalize = cantidad.value ? Number(cantidad.value) : 1;
   const actionButtonsContainer = productCardCopy.querySelector(".actionButtonsContainer");
   // Nuevos elementos a ser añadidos en el producto seleccionado
   const btnDown = document.createElement("button");
@@ -133,8 +134,6 @@ export function anadirProductSelected(productCardDiv) {
 
       const qualityTitle = checkbox.parentElement.previousSibling;
       const qualityContainer = qualityTitle.parentElement.parentElement.parentElement.parentElement.parentElement;
-      const quantity = qualityContainer.parentElement.previousElementSibling.firstChild.lastChild;
-      let quanitytNormalize = quantity.value ? Number(quantity.value) : 1;
       const qualityPrice = qualityContainer.querySelector(".price");
       const otherQualityContainer = qualityContainer.nextSibling ? qualityContainer.nextSibling : qualityContainer.previousSibling;
       const otherQualityPrice = otherQualityContainer.querySelector(".price");
@@ -253,6 +252,14 @@ export function anadirProductSelected(productCardDiv) {
   productsSelectedCounter.textContent = Number(productsSelectedCounter.textContent) + 1;
 
   productCardCopy.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  increaseTotalQualityQuantity(priceTds, cantidad.value);
+  
+  if (checkboxs[0].checked && checkboxs[1].checked) {
+    increaseTotalQualityQuantity(priceTds, cantidad.value);
+  } else if (checkboxs[0].checked) {
+    increaseTotalQualityE(quanitytNormalize, priceTds[0].textContent);
+    increaseTotalQualityA(quanitytNormalize, priceTds[0].textContent);
+  } else {
+    increaseTotalQualityE(quanitytNormalize, priceTds[1].textContent);
+    increaseTotalQualityA(quanitytNormalize, priceTds[1].textContent);
+  }
 }

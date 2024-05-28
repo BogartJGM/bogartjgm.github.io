@@ -10,6 +10,7 @@ import { superLoadSearchBar } from "./super-load-search-bar.js";
 import { addGlobalShortcuts } from "./globa-shortcuts.js";
 import { initImageInput } from "./image-file-handler.js";
 import { recortarImagen } from "./image-cutter.js";
+import { initImportExcel } from "./init-import-excel.js";
 
 // Elementos del DOM
 const inputDropdownExcelPicker = document.getElementById("select-excel-file");
@@ -29,6 +30,7 @@ const inputQuoteDateStart = document.getElementById("quote-date-start");
 const btnShowDownloadCoti = document.getElementById("show-download-coti");
 const formCreateProduct = document.getElementById('create-product-form');
 const formClientData = document.getElementById("client-data-form");
+const btnImportCoti = document.getElementById("import-coti");
 
 // Inicializa el input selector de excel
 const productsDataString = localStorage.getItem("productsData");
@@ -77,7 +79,6 @@ inputQuoteDateStart.addEventListener("change", (ev) => {
   let choosedDate = new Date(ev.target.value + " " + "GMT-0600");
 
   choosedDate.setUTCHours(choosedDate.getUTCHours() - 6);
-  console.log(choosedDate);
   let futureDate = new Date(choosedDate);
   futureDate.setDate(futureDate.getDate() + 30);
 
@@ -102,7 +103,15 @@ btnShowDownloadCoti.addEventListener("click", (ev) => {
     const gradeAndGroup = document.getElementById("client-grade-group");
     const inputFileName = document.getElementById("file-name");
 
-    inputFileName.value = `${clientName.value} ${clientSchool.value} ${gradeAndGroup.value}`;
+    if (clientSchool.value && gradeAndGroup.value) {
+      inputFileName.value = `${clientName.value} ${clientSchool.value} ${gradeAndGroup.value}`;
+    } else if (clientSchool.value) {
+      inputFileName.value = `${clientName.value} ${clientSchool.value}`;
+    } else if (gradeAndGroup.value) {
+      inputFileName.value = `${clientName.value} ${gradeAndGroup.value}`;
+    } else {
+      inputFileName.value = `${clientName.value}`;
+    }
 
     modalChangeName.show();
   }
@@ -111,6 +120,7 @@ btnShowDownloadCoti.addEventListener("click", (ev) => {
 search(inputSearchBar, "div.card.p-2.product");
 search(productSelectedSearchBar, "div.card.p-2.productSelected");
 initExcelInputs(inputDropdownExcelPicker, inputExcelPicker);
+initImportExcel(btnImportCoti);
 initImageInput(inputImgPicker);
 superLoadSearchBar(inputSearchBar);
 addGlobalShortcuts();
