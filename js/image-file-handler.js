@@ -28,19 +28,23 @@ function handleFileChange(imgFiles) {
         ".image-tag-placeholder"
       );
       if (imgTagPlaceholder) {
+        imgTagPlaceholder.dataset.originalSrc = event.target.result;
         imgTagPlaceholder.src = event.target.result;
         imgTagPlaceholder.style.display = "";
       }
     };
 
     reader.onloadend = () => {
+      const resetImgSize = document.querySelector(".reset-size-image");
+      resetImgSize.style.display = "";
+      resetImgSize.style.borderStyle = "solid";
+
       const zoneImagePicker = document.querySelector(".zoneImagePicker");
       const svgImage = zoneImagePicker.querySelector("svg");
       const pText = zoneImagePicker.querySelector("p");
       zoneImagePicker.classList.remove("p-5");
       zoneImagePicker.classList.remove("rounded-4");
-      zoneImagePicker.classList.add("p-1");
-      zoneImagePicker.classList.add("rounded-2");
+      zoneImagePicker.classList.add("p-1", "rounded-2");
       zoneImagePicker.style.borderStyle = "solid";
       svgImage.style.width = "12px";
       svgImage.style.height = "12px";

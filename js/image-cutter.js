@@ -20,6 +20,7 @@ export function recortarImagen() {
     if (dragging) {
       const width = e.clientX - startX;
       const height = e.clientY - startY;
+
       rect.style.width = Math.abs(width) + 'px';
       rect.style.height = Math.abs(height) + 'px';
       rect.style.left = (width > 0 ? startX : startX + width) + 'px';
@@ -46,7 +47,10 @@ export function recortarImagen() {
       canvas.height = imgHeight;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, imgX, imgY, imgWidth, imgHeight, 0, 0, imgWidth, imgHeight);
-      img.src = canvas.toDataURL();
+
+      if (canvas.toDataURL() != "data:,") {
+        img.src = canvas.toDataURL();
+      }
     });
     rect.style.width = '0px';
     rect.style.height = '0px';

@@ -31,6 +31,7 @@ const btnShowDownloadCoti = document.getElementById("show-download-coti");
 const formCreateProduct = document.getElementById('create-product-form');
 const formClientData = document.getElementById("client-data-form");
 const btnImportCoti = document.getElementById("import-coti");
+const resetImgSize = document.querySelector(".reset-size-image");
 
 // Inicializa el input selector de excel
 const productsDataString = localStorage.getItem("productsData");
@@ -116,6 +117,9 @@ btnShowDownloadCoti.addEventListener("click", (ev) => {
     modalChangeName.show();
   }
 });
+resetImgSize.addEventListener("click", (ev) => {
+  resetImgSize.nextElementSibling.src = resetImgSize.nextElementSibling.dataset.originalSrc;
+})
 
 search(inputSearchBar, "div.card.p-2.product");
 search(productSelectedSearchBar, "div.card.p-2.productSelected");
