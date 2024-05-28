@@ -7,7 +7,25 @@ import { addSelectedProduct } from "./add-selected-product.js";
  * @param {HTMLDivElement} productSelectedContainer
  * @param {Number} index
  */
-export function createSelectedProductCard(productData) {
+export function createSelectedProductCard(productData, index) {
+
+  if (index == 0) {
+    const formulario = document.getElementById("flush-collapse-form-client");
+    
+    formulario.querySelector("#client-name").value = productData["nombreCliente"] || "";
+    formulario.querySelector("#client-school-name").value = productData["nombreEscuela"] || "";
+    formulario.querySelector("#client-grade-group").value = productData["gradoYGrupo"] || "";
+    formulario.querySelector("#quote-date-start").value = productData["fechaCotizacion"] || "";
+    formulario.querySelector("#quote-date-end").value = productData["validoHasta"] || "";
+    formulario.querySelector("#discount").value = productData["descuento"] || "";
+    formulario.querySelector("#client-notes").value = productData["notas"] || "";
+
+    if (!document.getElementById("flush-collapse-form-client").classList.contains("show")) {
+      const btnAccordion = document.querySelector(".accordion-button");
+      btnAccordion.click();
+    }
+  }
+
   const productsSelectable = document.querySelectorAll("#product-container div.product");
   let found = false;
 

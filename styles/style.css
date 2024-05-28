@@ -53,13 +53,12 @@
 }
 
 .image-quote-placeholder {
-  height: 92vh;
+  height: 86vh;
+  border-radius: 8px;
 }
 
-.image-quote-placeholder {
+.image-tag-placeholder {
   border-radius: 8px;
-  height: 85vh;
-  overflow: hidden;
 }
 
 .zoneImagePicker {                                             /* Ára de selección de imagen */

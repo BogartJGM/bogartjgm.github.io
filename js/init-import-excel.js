@@ -63,8 +63,8 @@ function handleFileLoad(fileEvent) {
   }
 
   // Create product cards and append them to the DOM
-  selectedProductsData.forEach((product) => {
-    createSelectedProductCard(product);
+  selectedProductsData.forEach((product, index) => {
+    createSelectedProductCard(product, index);
   });
 
   removeAttributeFromElementById("product-search-bar", "disabled");
