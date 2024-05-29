@@ -66,8 +66,7 @@ export function addSelectedProduct(productCardDiv) {
   let quanitytNormalize = cantidad.value ? Number(cantidad.value) : 1;
   const actionButtonsContainer = productCardCopy.querySelector(".actionButtonsContainer");
   // Nuevos elementos a ser añadidos en el producto seleccionado
-  const btnDown = document.createElement("button");
-  const btnUp = document.createElement("button");
+  const btnSort = document.createElement("button");
 
   // Determinar posición del producto en la tercera columna
   if (productSelectedContainer.innerHTML) {
@@ -88,6 +87,8 @@ export function addSelectedProduct(productCardDiv) {
   }
 
   // Cambiar atributos del elemento dentro del elemento copiado
+  posicion.classList.remove("col-md-2");
+  posicion.classList.add("col-md-5");
   productCardCopy.querySelector(".eliminar").remove();
   productCardCopy.classList.remove("product");
   productCardCopy.classList.add("productSelected");
@@ -95,38 +96,13 @@ export function addSelectedProduct(productCardDiv) {
   buttonSelectedCard.classList.remove("searched-product");
   buttonSelectedCard.classList.add("btn-danger");
   buttonSelectedCard.textContent = "-";
-  buttonSelectedCard.classList.remove("col-md-5");
-  buttonSelectedCard.classList.add("col-md-4");
-  btnDown.classList.add("btn", "btn-primary", "col-md-3");
-  btnDown.textContent = "bajah"
-  btnUp.classList.add("btn", "btn-primary", "col-md-3");
-  btnUp.textContent = "subih"
+  btnSort.classList.add("btn", "col-md-2", "sort-button", "border", "border-outine-secondary");
+  btnSort.textContent = "≡";
 
   // Modificar elementos dentro de producto
-  actionButtonsContainer.insertBefore(btnDown, buttonSelectedCard);
-  actionButtonsContainer.insertBefore(btnUp, buttonSelectedCard);
+  actionButtonsContainer.prepend(btnSort);
 
   // Listeners
-  btnDown.addEventListener("click", () => {
-    const nextProductCard = productCardCopy.nextSibling;
-    if (!nextProductCard) {
-      return;
-    }
-
-    productSelectedContainer.insertBefore(nextProductCard, productCardCopy);
-    productCardCopy.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    givePosition(productSelectedContainer);
-  });
-  btnUp.addEventListener("click", () => {
-    const previousProductCard = productCardCopy.previousSibling;
-    if (!previousProductCard) {
-      return;
-    }
-
-    productSelectedContainer.insertBefore(productCardCopy, previousProductCard);
-    productCardCopy.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    givePosition(productSelectedContainer);
-  });
   checkboxs.forEach((checkbox) => {
     checkbox.addEventListener("click", (ev) => {
       const checkbox = ev.target;

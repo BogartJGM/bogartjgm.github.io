@@ -233,3 +233,7 @@ input.cantidad.changed {                                        /* Animación pa
 .searched-product {
   outline: 5px solid yellow;
 }
+
+.sortable-ghost, .chosenClass, .sortable-drag {
+  color: red !important;
+}

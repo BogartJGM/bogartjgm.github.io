@@ -11,6 +11,7 @@ import { addGlobalShortcuts } from "./globa-shortcuts.js";
 import { initImageInput } from "./image-file-handler.js";
 import { recortarImagen } from "./image-cutter.js";
 import { initImportExcel } from "./init-import-excel.js";
+import { sortableSelectedProducts } from "./sortable-selected-products.js";
 
 // Elementos del DOM
 const inputDropdownExcelPicker = document.getElementById("select-excel-file");
@@ -129,3 +130,4 @@ initImageInput(inputImgPicker);
 superLoadSearchBar(inputSearchBar);
 addGlobalShortcuts();
 recortarImagen();
+sortableSelectedProducts();
