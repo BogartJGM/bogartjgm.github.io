@@ -39,21 +39,20 @@ export function createProductCard(productJson, containerProductId, index) {
   cardDiv.classList.add("card", "p-2", "product");
   divActionsContainer.classList.add("row", "mb-1");
   divActionsRow.classList.add("input-group", "input-group-sm", "justify-content-between", "actionButtonsContainer");
-  spanPosition.classList.add("input-group-text", "col-md-2", "posicion");
-  deletetThisCard.classList.add("btn", "btn-danger", "col-md-5", "eliminar");
+  spanPosition.classList.add("input-group-text", "col-md-2", "posicion", "py-0", "m-0");
+  deletetThisCard.classList.add("btn", "btn-danger", "col-md-5", "eliminar", "py-0", "m-0");
   deletetThisCard.textContent = "Eliminar"
   // btnUp.classList.add("btn", "btn-primary", "col-md-4");
   // btnUp.textContent = "subih"
-
-  addButton.classList.add("btn", "btn-success", "col-md-5", "add-product");
+  addButton.classList.add("btn", "btn-success", "col-md-5", "add-product", "py-0", "m-0");
 
   productNameDiv.classList.add("form", "mb-1");
   inputGroupDiv.classList.add("input-group", "input-group-sm");
-  productNameSpan.classList.add("input-group-text", "col-10", "search", "product");
+  productNameSpan.classList.add("input-group-text", "col-10", "search", "product", "py-0", "m-0");
   quantityInput.setAttribute("type", "number");
   quantityInput.setAttribute("placeholder", "1");
   quantityInput.dataset.cantidadAnterior = 1;
-  quantityInput.classList.add("form-control", "col-2", "cantidad");
+  quantityInput.classList.add("form-control", "col-2", "cantidad", "py-0", "m-0");
   quantityInput.min = "1";
   rowTable.classList.add("row");
   rowTable.dataset.arrayPosition = index;
@@ -156,27 +155,30 @@ function createQualityTable(title, name, price, setData) {
   // Adding classes and attributes
   qualityDiv.classList.add("col-md-6", "box", "animated-col");
   qualityTable.classList.add("table-responsive", "overflow-x-hidden");
-  table.classList.add("table");
-  th1.classList.add("title");
+  table.classList.add("table", "py-0", "m-0");
+  th1.classList.add("title", "py-0", "m-0");
   th1.style.textAlign = "center";
   th1.dataset.originalTitle = title;
+  th2.classList.add("py-0", "m-0");
   th2.style.textAlign = "center";
   thInput.classList.add("form-check-input", "custom-checkbox", title.replace(/\s/g, ''));
   thInput.type = "checkbox";
   thInput.setAttribute("checked", "true");
   tdName.dataset.originalName = name;
-  tdName.classList.add("search", "qualityName");
+  tdName.classList.add("search", "qualityName", "py-0", "m-0");
   tdName.style.width = "90%";
   tdName.style.overflowWrap = "break-word";
   tdPrice.dataset.originalPrice = price;
   tdPrice.dataset.previousPrice = setData.definedPrice ? setData.definedPrice : price;
-  tdPrice.classList.add("price", "search");
+  tdPrice.classList.add("price", "search", "py-0", "m-0");
   tdPrice.style.width = "90%";
   tdPrice.style.overflowWrap = "break-word";
+  tdButton.classList.add("py-0", "m-0");
   tdButton.style.width = "10%";
+  tdButton2.classList.add("py-0", "m-0");
   tdButton2.style.width = "10%";
-  buttonPen.classList.add("btn", "buttonEdit");
-  buttonPen2.classList.add("btn", "buttonEdit");
+  buttonPen.classList.add("btn", "buttonEdit", "py-0", "m-0");
+  buttonPen2.classList.add("btn", "buttonEdit", "py-0", "m-0");
 
   // Setting content
   th1.textContent = title;

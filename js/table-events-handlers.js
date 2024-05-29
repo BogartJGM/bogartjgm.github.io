@@ -21,7 +21,9 @@ export function handleCheckedClick(ev) {
   const otherQualityCheckbox = otherQualityTitle.nextElementSibling.firstChild;
 
   if (checkboxState) {
-    qualityTitle.style.display = "";
+    setTimeout(() => {
+      qualityTitle.style.display = "";
+    }, 250);
     qualityContainer.classList.remove("col-md-2");
     qualityContainer.classList.add("col-md-6");
     qualityBody.style.opacity = "";
@@ -39,7 +41,7 @@ export function handleCheckedClick(ev) {
     qualityBody.style.opacity = 0.2;
     checkbox.setAttribute("checked", "false");
     
-    otherQualityTitle.textContent = "CALIDAD A Y E";
+    otherQualityTitle.textContent = "CALIDAD E Y A";
     otherQualityContainer.classList.remove("col-md-6");
     otherQualityContainer.classList.add("col-md-9");
     otherQualityCheckbox.disabled = true;

@@ -4,7 +4,8 @@
 
 /* Barras de búsqueda */
 .search-bar {
-  height: 6vh;
+  height: 5vh;
+  margin-bottom: 1vh;
 }
 
 /* Diseño de las tres columnas principales*/
@@ -20,13 +21,13 @@
   height: 93vh;
 }
 
-.zoneExcelPicker {                                              /* Area de selección de excel */
+.zone-excel-picker {                                              /* Area de selección de excel */
   border: 2px dashed #ccc;
-  text-align: center;
   cursor: pointer;
+  text-align: center;
 }
 
-.zoneExcelPicker:hover {
+.zone-excel-picker:hover {
   border: 2px solid #397e58;
   color: #2a724a;
 }
@@ -202,6 +203,10 @@ input.cantidad.changed {                                        /* Animación pa
   animation: achicar 0.12s ease-in-out; /* Duración de 1 segundo con aceleración y desaceleración suave */
 }
 
+.sortable-ghost, .chosenClass, .sortable-drag {
+  color: red !important;
+}
+
 /* *********Modal de imagen a descargar********* */
 /* ********************************************* */
 .modal.fade {
@@ -231,9 +236,7 @@ input.cantidad.changed {                                        /* Animación pa
 }
 
 .searched-product {
-  outline: 5px solid yellow;
-}
-
-.sortable-ghost, .chosenClass, .sortable-drag {
-  color: red !important;
+  border-color: #fbd700;
+  background-color: #fbd700;
+  font-weight: bolder;
 }

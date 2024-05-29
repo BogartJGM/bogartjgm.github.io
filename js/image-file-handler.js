@@ -11,7 +11,7 @@ function handleInputImgPicker() {
   temporaryImgFileInput.setAttribute("type", "file");
   temporaryImgFileInput.setAttribute("multiple", "false");
   temporaryImgFileInput.setAttribute("style", "display: none");
-  temporaryImgFileInput.setAttribute("accept", ".jpg, .png, .jpeg, .webp");
+  temporaryImgFileInput.setAttribute("accept", ".jpg, .png, .jpeg, .gif");
   temporaryImgFileInput.addEventListener("change", (e) => {
     handleFileChange(e.target.files);
   });

@@ -96,7 +96,7 @@ export function addSelectedProduct(productCardDiv) {
   buttonSelectedCard.classList.remove("searched-product");
   buttonSelectedCard.classList.add("btn-danger");
   buttonSelectedCard.textContent = "-";
-  btnSort.classList.add("btn", "col-md-2", "sort-button", "border", "border-outine-secondary");
+  btnSort.classList.add("btn", "col-md-2", "sort-button", "border", "border-outine-secondary", "py-0", "m-0");
   btnSort.textContent = "≡";
 
   // Modificar elementos dentro de producto
