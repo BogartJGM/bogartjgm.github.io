@@ -99,7 +99,7 @@
 }
 
 .col-md-4.main-column .selected-product-placeholder {           /* Tamaño del contenedor de los productos que se seleccoinen*/
-  height: 79vh;
+  height: 80vh;
 }
 
 @keyframes borderChange {
@@ -139,12 +139,10 @@ input.cantidad.changed {                                        /* Animación pa
   font-size: 2vh;
 }
 
-#prices {
+.current-price-container {
   /* position: fixed;
   bottom: 4vh; */
-  height: 5vh;
-  width: 30vw;
-  border-radius: 5px 5px 0 0;
+  height: 4vh;
   color: white;
   z-index: 5;
 }
@@ -153,17 +151,20 @@ input.cantidad.changed {                                        /* Animación pa
   font-size: 2dvh;
 }
 
+#prices div.col-md-6 {
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;   
+}
+
 .action-buttons-container {
-  height: 5vh;
+  height: 4vh;
   /* width: 30vw; */
-  border-radius: 5px 5px 0 0;
   color: white;
   z-index: 5;
 }
 
 .action-buttons {
   width: 50%;
-  height: 4vh;
   font-size: 2dvh;
 }
 

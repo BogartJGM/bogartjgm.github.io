@@ -257,30 +257,30 @@
               </div>
             </div>
           </div>
-          <!-- Contenedor de productos seleccionados -->
-          <div id="selected-product-container" class="selected-product-placeholder overflow-y-scroll overflow-x-hidden"></div>
           <!-- Label de total para calidad E y calidad A -->
           <div id="prices" class="justify-content-center container-fluid current-price-container">
             <div class="row">
               <div class="input-group p-0">
-                <div class="col-md-6 bg-secondary p-1 text-white form-control text-center">
+                <div class="col-md-6 bg-secondary p-0 text-white form-control text-center rounded-1">
                   <span>Calidad E: $</span>
                   <span id="economic-quality-sum">0</span>
                 </div>
-                <div class="col-md-6 bg-warning p-1 text-white form-control text-center">
+                <div class="col-md-6 bg-warning p-0 text-white form-control text-center rounded-1">
                   <span>Calidad A: $</span>
                   <span id="high-quality-sum">0</span>
                 </div>
               </div>
             </div>
           </div>
+          <!-- Contenedor de productos seleccionados -->
+          <div id="selected-product-container" class="selected-product-placeholder overflow-y-scroll overflow-x-hidden"></div>
           <!-- Botones para descargar cotización y para ver imagen -->
           <div class="justify-content-center container-fluid action-buttons-container">
             <div class="row">
-              <div class="btn-group" role="group">
+              <div class="btn-group p-0" role="group">
                   <button
                   id="show-download-coti"
-                  class="btn btn-success p-0 action-buttons"
+                  class="btn btn-sm btn-success p-0 action-buttons rounded-1"
                   type="button"
                   disabled
                   >
@@ -288,7 +288,7 @@
                   </button>
                   <button
                     id="show-image"
-                    class="btn btn-primary p-0 action-buttons btn-show-image"
+                    class="btn btn-sm btn-primary p-0 action-buttons btn-show-image rounded-1"
                     type="button"
                     disabled
                   >
@@ -309,7 +309,7 @@
         <div class="modal-content create-product-modal">
           <!-- Modal header -->
           <div class="modal-header">
-            <h5 class="m-0">Crear producto</h5>
+            <h6 class="h6 m-0">Crear producto</h6>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div id="product-data" class="modal-body overflow-y-auto">
@@ -367,8 +367,8 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button id="add-product" type="button" class="btn btn-primary">Añadir producto</button>
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button id="add-product" type="button" class="btn btn-sm btn-primary">Añadir producto</button>
           </div>
         </div>
       </div>
@@ -393,15 +393,6 @@
     <div class="modal fade" id="expand-image" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog show-image-modal">
         <div class="modal-content show-image-modal">
-          <!-- Modal header -->
-          <div class="modal-header">
-            <h3>Cotización</h3>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
           <!-- Cuerpo del modal -->
           <div class="modal-body overflow-y-auto">
             <div id="quote-image" class="row">
@@ -493,7 +484,7 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer p-0">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             <button id="download-image" class="btn btn-success">
               Descargar en imagen
@@ -520,9 +511,9 @@
               </div>
             </div>            
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button id="download-coti" type="button" class="btn btn-primary" data-bs-dismiss="modal">Descargar excel</button>
+          <div class="modal-footer p-0">
+            <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button id="download-coti" type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Descargar excel</button>
           </div>
         </div>
       </div>
