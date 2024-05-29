@@ -2,7 +2,8 @@ import "../js/html2canvas.min.js"
 
 export function descargarImagenCotizacion() {
   const quoteImageElement = document.getElementById("quote-image");
-  
+  const quoteImgName = document.getElementById("customer-data-table");
+
   // Clonar el elemento
   const clone = quoteImageElement.cloneNode(true);
   
@@ -32,7 +33,7 @@ export function descargarImagenCotizacion() {
   html2canvas(imgClonContainer, { scale: 1 }).then(function (canvas) {
     // Crea un enlace para descargar la imagen
     let link = document.createElement("a");
-    link.download = "imagen_cotizacion.png";
+    link.download = `${quoteImgName.textContent}.jpg`;
     link.href = canvas.toDataURL();
     link.click();
     

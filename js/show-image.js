@@ -58,11 +58,14 @@ export function showImage() {
     tablaCotizacionProducts.appendChild(productRow);
 
     // Añadir información en header de tabla
-    if (!formNombreCliente == "") {
-      tablaDatosCliente.textContent = formNombreCliente.value + " | " + formNombreEscuela.value + " - " + formGradoYGrupo.value;
+    if (formNombreEscuela.value && formGradoYGrupo.value) {
+      tablaDatosCliente.textContent = formNombreCliente.value + " " + formNombreEscuela.value + " - " + formGradoYGrupo.value;
+    } else if (formNombreEscuela.value) {
+      tablaDatosCliente.textContent = formNombreCliente.value + " " + formNombreEscuela.value;
     } else {
-      tablaDatosCliente.textContent = formNombreEscuela.value + " - " + formGradoYGrupo.value;
+      tablaDatosCliente.textContent = formNombreCliente.value + " - " + formGradoYGrupo.value;
     }
+
     tablaCotizadoEn.textContent = formFechaCotizacion.value;
     tablaValidoHasta.textContent = formValidoHasta.value;
     tablaApartadoCA.textContent = formValidoHasta.value;
