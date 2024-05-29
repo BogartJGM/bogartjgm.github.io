@@ -6,18 +6,30 @@ export function descargarImagenCotizacion() {
   // Clonar el elemento
   const clone = quoteImageElement.cloneNode(true);
   
+  const imgClonContainer = document.createElement("div");
+  const imgTagContainer = document.createElement("div");
+  const imgTagMembrete = document.createElement("img");
+  const clonContainer = document.createElement("div");
+
+  imgTagMembrete.style.width = "100%";
+  imgTagContainer.classList.add("contailer-fluid");
+  imgTagMembrete.src = "../assets/membrete_coti.jpg";
+  imgTagMembrete.alt = "Membrete de imagen";
+  clonContainer.classList.add("container-fluid", "p-2", "img-to-download", "px-5");
+  
   // Asegurarse de que el clon esté fuera de la pantalla y visible
-  clone.style.position = 'absolute';
-  clone.style.top = '0';
-  clone.style.left = '0';
-  clone.style.width = `${quoteImageElement.scrollWidth}px`;
-  clone.style.height = `${quoteImageElement.scrollHeight}px`;
-  clone.style.overflow = 'visible';
   clone.style.zIndex = '-1';
-  document.body.appendChild(clone);
+  clone.querySelectorAll("table")[0].className = "";
+  clone.querySelectorAll("table")[1].className = "";
+
+  clonContainer.appendChild(clone);
+  imgTagContainer.appendChild(imgTagMembrete);
+  imgClonContainer.appendChild(imgTagContainer);
+  imgClonContainer.appendChild(clonContainer);
+  document.body.appendChild(imgClonContainer);
 
   // Usar html2canvas para capturar el clon
-  html2canvas(clone).then(function (canvas) {
+  html2canvas(imgClonContainer, { scale: 1 }).then(function (canvas) {
     // Crea un enlace para descargar la imagen
     let link = document.createElement("a");
     link.download = "imagen_cotizacion.png";
@@ -25,6 +37,6 @@ export function descargarImagenCotizacion() {
     link.click();
     
     // Limpiar el DOM removiendo el clon
-    document.body.removeChild(clone);
+    document.body.removeChild(imgClonContainer);
   });
 }

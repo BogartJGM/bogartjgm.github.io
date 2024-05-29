@@ -241,3 +241,34 @@ input.cantidad.changed {                                        /* Animación pa
   background-color: #fbd700;
   font-weight: bolder;
 }
+
+/* *********ESTILOS DE IMAGEN********* */
+/* ********************************************* */
+.img-to-download table {
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.img-to-download table td, .img-to-download table th {
+  border: 1px solid rgb(63, 60, 60);
+  padding: 2px;
+}
+
+.img-to-download .advertencia {
+  border: none;
+  color: red;
+  font-weight: 600;
+}
+
+.img-to-download .quoting-foot {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.economic-quality {
+  background-color: #ddeed8d7;
+}
+
+.high-quality {
+  background-color: #dbe6f4d7;
+}

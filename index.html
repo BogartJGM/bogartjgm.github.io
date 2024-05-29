@@ -392,33 +392,47 @@
     <!-- Modal de cotización -->
     <div class="modal fade" id="expand-image" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog show-image-modal">
-        <div class="modal-content show-image-modal">
+        <div class="modal-content show-image-modal img-to-download">
           <!-- Cuerpo del modal -->
           <div class="modal-body overflow-y-auto">
             <div id="quote-image" class="row">
               <!-- Datos de cliente -->
-              <div class="col-md-5">
-                <table class="table table-sm table-bordered p-0 client-table">
-                  <tr>
-                    <th scope="col">Datos cliente</th>
-                    <th scope="col">Cotizada el</th>
-                    <th scope="col">Validez hasta</th>
-                  </tr>
-                  <tr>
-                    <td id="customer-data-table">Datos cliente</td>
-                    <td id="customer-quote-start-table">Datos cotizada el</td>
-                    <td id="customer-quote-end-table">Dato validez hasta</td>
-                  </tr>
-                </table>
-              </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-5">
-                Después de esta fecha, no serán válidos los precios de la
-                cotización actual en caso de que estos hayan cambiado
+              <div class="col-md-12">
+                <div class="row justify-content-between">
+                  <div class="col-md-5">
+                    <table class="p-0 client-table" width="100%">
+                      <tr>
+                        <th scope="col">Datos cliente</th>
+                        <th scope="col">Cotizada el</th>
+                        <th scope="col">Validez hasta</th>
+                      </tr>
+                      <tr>
+                        <td id="customer-data-table">Datos cliente</td>
+                        <td id="customer-quote-start-table">Datos cotizada el</td>
+                        <td id="customer-quote-end-table">Dato validez hasta</td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="col-md-6">
+                    <table class="p-0 client-table">
+                      <tr rowspan="2">
+                        <td class="text-center advertencia">
+                          Después de esta fecha, no serán válidos los precios de la
+                          cotización actual en caso de que estos hayan cambiado
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
               </div>
               <!-- Cotización -->
               <div class="col-md-12">
-                <table class="table table-bordered">
+                <table>
+                  <colgroup>
+                    <col span="2">
+                    <col span="3" class="economic-quality">
+                    <col span="3" class="high-quality">
+                  </colgroup>
                   <thead class="text-center">
                     <tr>
                       <th class="quote-amount-column"></th>
@@ -431,7 +445,7 @@
                       </th>
                     </tr>
                     <tr>
-                      <th>CANTIDAD</th>
+                      <th>CANT</th>
                       <th>PRODUCTO</th>
                       <th>MARCA</th>
                       <th>P UNI</th>
@@ -442,14 +456,14 @@
                     </tr>
                   </thead>
                   <tbody id="selected-products-table"></tbody>
-                  <tfoot class="text-end">
+                  <tfoot class="text-end quoting-foot">
                     <tr>
                       <td colspan="2">COSTO TOTAL</td>
-                      <td></td>
-                      <td></td>
+                      <td style="background-color: white;"></td>
+                      <td style="background-color: white;"></td>
                       <td id="total-economic-quality-cost"></td>
-                      <td></td>
-                      <td></td>
+                      <td style="background-color: white;"></td>
+                      <td style="background-color: white;"></td>
                       <td id="total-high-quality-cost"></td>
                     </tr>
                     <tr>
@@ -457,14 +471,14 @@
                         CON DESCUENTO DE
                         <span id="table-cell-discount">10</span>%
                       </td>
-                      <td></td>
-                      <td></td>
+                      <td style="background-color: white;"></td>
+                      <td style="background-color: white;"></td>
                       <td
                         id="total-economic-quality-cost-discount"
                         class="text-danger"
                       ></td>
-                      <td></td>
-                      <td></td>
+                      <td style="background-color: white;"></td>
+                      <td style="background-color: white;"></td>
                       <td
                         id="total-high-quality-cost-discount"
                         class="text-danger"
@@ -472,11 +486,11 @@
                     </tr>
                     <tr>
                       <td colspan="2">PUEDES APARTARLA CON</td>
-                      <td></td>
-                      <td></td>
+                      <td style="background-color: white;"></td>
+                      <td style="background-color: white;"></td>
                       <td id="initial-economic-quality-deposit"></td>
-                      <td></td>
-                      <td></td>
+                      <td style="background-color: white;"></td>
+                      <td style="background-color: white;"></td>
                       <td id="initial-high-quality-deposit"></td>
                     </tr>
                   </tfoot>
