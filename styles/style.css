@@ -272,3 +272,7 @@ input.cantidad.changed {                                        /* Animación pa
 .high-quality {
   background-color: #dbe6f4d7;
 }
+
+.notes-table {
+  width: 100%;
+}

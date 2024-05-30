@@ -26,10 +26,25 @@ export function showImage() {
   const tablaCostoTDescuentoCA = document.getElementById("total-high-quality-cost-discount");
   const tablaApartadoCE = document.getElementById("initial-economic-quality-deposit");
   const tablaApartadoCA = document.getElementById("initial-high-quality-deposit");
+  const tablaClientsNote = document.getElementById("client-notes-cell");
+
+  tablaClientsNote.parentElement.parentElement.parentElement.style.display = "none";
+  
+  // Añadir información en header de tabla
+  if (formNombreEscuela.value && formGradoYGrupo.value) {
+    tablaDatosCliente.textContent = formNombreCliente.value + " " + formNombreEscuela.value + " - " + formGradoYGrupo.value;
+  } else if (formNombreEscuela.value) {
+    tablaDatosCliente.textContent = formNombreCliente.value + " " + formNombreEscuela.value;
+  } else if (formFechaCotizacion.textContent) {
+    tablaDatosCliente.textContent = formNombreCliente.value + " - " + formGradoYGrupo.value;
+  } else {
+    tablaDatosCliente.textContent = formNombreCliente.value;
+  }
+  tablaCotizadoEn.textContent = formFechaCotizacion.value;
+  tablaValidoHasta.textContent = formValidoHasta.value;
 
   // Vaciar tabla antes de añadir de nuevo los productos
   tablaCotizacionProducts.innerHTML = "";
-
   selectedProducts.forEach((product) => {
     const datosProducto = {};
 
@@ -56,30 +71,22 @@ export function showImage() {
     const productRow = createTableRow(datosProducto);
 
     tablaCotizacionProducts.appendChild(productRow);
-
-    // Añadir información en header de tabla
-    if (formNombreEscuela.value && formGradoYGrupo.value) {
-      tablaDatosCliente.textContent = formNombreCliente.value + " " + formNombreEscuela.value + " - " + formGradoYGrupo.value;
-    } else if (formNombreEscuela.value) {
-      tablaDatosCliente.textContent = formNombreCliente.value + " " + formNombreEscuela.value;
-    } else if (formFechaCotizacion.textContent) {
-      tablaDatosCliente.textContent = formNombreCliente.value + " - " + formGradoYGrupo.value;
-    } else {
-      tablaDatosCliente.textContent = formNombreCliente.value;
-    }
-
-    tablaCotizadoEn.textContent = formFechaCotizacion.value;
-    tablaValidoHasta.textContent = formValidoHasta.value;
-    tablaApartadoCA.textContent = formValidoHasta.value;
-    tablaDescuento.textContent = formDescuento.value;
-    // Añadir costos en footer de la tabla
-    tablaCostoTotalCE.textContent = spanTotalQualityE.textContent;
-    tablaCostoTDescuentoCE.textContent = Math.round(Number(spanTotalQualityE.textContent) * (1 - Number(formDescuento.value) / 100)); // Cambiar ese 0.9 por el precio descuento real (según el formulario)
-    tablaApartadoCE.textContent = Number(spanTotalQualityE.textContent) * 0.25; 
-    tablaCostoTotalCA.textContent = spanTotalQualityA.textContent;
-    tablaCostoTDescuentoCA.textContent = Math.round(Number(spanTotalQualityA.textContent) * (1 - Number(formDescuento.value) / 100)); // Cambiar ese 0.9 por el precio descuento real (según el formulario)
-    tablaApartadoCA.textContent = Math.round(Number(spanTotalQualityA.textContent) * 0.25);
   });
+
+  tablaApartadoCA.textContent = formValidoHasta.value;
+  tablaDescuento.textContent = formDescuento.value;
+  // Añadir costos en footer de la tabla
+  tablaCostoTotalCE.textContent = spanTotalQualityE.textContent;
+  tablaCostoTDescuentoCE.textContent = Math.round(Number(spanTotalQualityE.textContent) * (1 - Number(formDescuento.value) / 100)); // Cambiar ese 0.9 por el precio descuento real (según el formulario)
+  tablaApartadoCE.textContent = Number(spanTotalQualityE.textContent) * 0.25; 
+  tablaCostoTotalCA.textContent = spanTotalQualityA.textContent;
+  tablaCostoTDescuentoCA.textContent = Math.round(Number(spanTotalQualityA.textContent) * (1 - Number(formDescuento.value) / 100)); // Cambiar ese 0.9 por el precio descuento real (según el formulario)
+  tablaApartadoCA.textContent = Math.round(Number(spanTotalQualityA.textContent) * 0.25);
+
+  if (formNotas.value) {
+    tablaClientsNote.parentElement.parentElement.parentElement.style.display = "";
+    tablaClientsNote.textContent = formNotas.value;
+  }
 }
 
 function createTableRow(datosProducto) {
