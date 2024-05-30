@@ -62,8 +62,10 @@ export function showImage() {
       tablaDatosCliente.textContent = formNombreCliente.value + " " + formNombreEscuela.value + " - " + formGradoYGrupo.value;
     } else if (formNombreEscuela.value) {
       tablaDatosCliente.textContent = formNombreCliente.value + " " + formNombreEscuela.value;
-    } else {
+    } else if (formFechaCotizacion.textContent) {
       tablaDatosCliente.textContent = formNombreCliente.value + " - " + formGradoYGrupo.value;
+    } else {
+      tablaDatosCliente.textContent = formNombreCliente.value;
     }
 
     tablaCotizadoEn.textContent = formFechaCotizacion.value;
