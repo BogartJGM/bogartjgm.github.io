@@ -1,108 +1,139 @@
 /**
- * Adds input event listener to a text input field.
- * Retrieves product cards with .search class and compares their text content with the input text.
- * Calls a function to compare input text with card text content and determines visibility of cards based on score.
+ * Añade un evento a un input para controlar la búsqueda de productos.
+ * Recupera tarjetas de productos con la clase .search y compara su contenido de texto con el texto de un input.
+ * Llama a una función para comparar el texto ingresado con el contenido del texto de la tarjeta y determina la visibilidad de las tarjetas según la puntuación.
  *
- * @param {HTMLInputElement} inputSearchBar - The input element to which the event listener is added.
- * @param {String} cardsClasses - Las clase de los productos. Puede ser productos seleccionados o productos
+ * @param {HTMLInputElement} inputSearchBar - El elemento input al que se agrega el evento.
+ * @param {String} cardsClasses - La clase de los productos. Puede ser productos seleccionados o productos.
  */
 export function search(inputSearchBar, cardsClasses) {
-  let productCards;
-
-  inputSearchBar.addEventListener("input", (e) => {
+  inputSearchBar.addEventListener("input", handleSearchInput);
+  
+  function handleSearchInput(e) {
     const inputSearchBarValue = e.target.value;
 
-    // Words commonly removed from search terms
-    const inputArrayWords = inputSearchBarValue.trim().split(" ");
-    const alphabet = Array.from("abcdefghijklmnopqrstuvwxyz");
-    let wordsToRemove = ["de"];
-    wordsToRemove = [...wordsToRemove, ...alphabet]; // Add alphabet characters to words to remove
+    /**
+     * Arreglo de letras y palabras. Es usado para filtrar inputArrayWords.
+     * @type {Set<string>}
+     */
+    const wordsToRemove = new Set(["", "de", ..."abcdefghijklmnopqrstuvwxyzñ", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZÑ"]);
 
-    // Remove common words from input search terms
-    inputArrayWords.forEach((inputArrayWord, index) => {
-      if (wordsToRemove.includes(inputArrayWord)) {
-        inputArrayWords.splice(index, 1);
-      }
-    });
+    /**
+     * Arreglo con las palabras de un input después de filtrarlo.
+     * @type {string[]}
+     */
+    const inputArrayWords = inputSearchBarValue.trim().split(" ").filter(word => !wordsToRemove.has(word));
 
-    // Get product cards
-    productCards = document.querySelectorAll(cardsClasses);
+    /**
+     * Valor mínimo requerido para considerar a un producto en una búsqueda.
+     * @type {number}
+     */
+    const minThresholdValue = Math.round(inputArrayWords.length / 2 + inputArrayWords.length / 4);
 
-    // Iterate through product cards and adjust visibility based on input search terms
-    productCards.forEach((productCard) => {
-      if (inputSearchBarValue != "") {
-        const cardWords = [];
-        const elementsWithString = productCard.querySelectorAll(".search");
-        elementsWithString.forEach((elementWithString) => {
-          cardWords.push(elementWithString.textContent);
-        });
+    /**
+     * Cartas de producto que se filtrarán.
+     * @type {NodeListOf<HTMLDivElement>}
+     */
+    const productCards = document.querySelectorAll(cardsClasses);
 
-        const productWordScore = searchWord(inputArrayWords, cardWords);
-        // Si el producto tiene menor socre según el Math.round, se oculta, si no, se muestra
-        if (productWordScore < Math.round((inputArrayWords.length / 5) * 4)) {
-          productCard.style.display = "none"; // Hide card if score is below threshold
-          productCard.classList.add("hided");
-        } else {
-          if (productCard.style.display) {
-            productCard.removeAttribute("style"); // Show card if score is above threshold
-            productCard.classList.remove("hided");
-          }
-        }
-      } else {
-        if (productCard.style.display) {
-          productCard.removeAttribute("style"); // Show all cards if search input is empty
-          productCard.classList.remove("hided");
-        }
-      }
-    });
+    productCards.forEach((productCard) => filterProductCard(productCard, inputArrayWords, minThresholdValue));
 
-    if (cardsClasses == "div.card.p-2.product") {
-      if (inputSearchBarValue != "") {
-        const previousProductoBuscado = document.querySelector(".searched-product");
-        if (previousProductoBuscado) {
-          previousProductoBuscado.classList.remove("searched-product");
-        }
-
-        const primerProductBuscado = document.querySelector("" + cardsClasses + ":not(.hided)");
-        if (primerProductBuscado) {
-          primerProductBuscado.querySelector(".add-product").classList.add("searched-product");
-          primerProductBuscado.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      } else {
-        const previousProductoBuscado = document.querySelector(".searched-product");
-        if (previousProductoBuscado) {
-          previousProductoBuscado.classList.remove("searched-product");
-        }
-      }
+    if (cardsClasses === "div.card.p-2.product" && inputSearchBarValue !== "") {
+      highlightFirstSearchedProduct();
+    } else {
+      clearHighlightedProduct();
     }
-  });
+  }
+
+  /**
+   * Filtra una tarjeta de producto basado en las palabras de entrada.
+   *
+   * @param {HTMLDivElement} productCard - La tarjeta de producto a filtrar.
+   * @param {string[]} inputArrayWords - Arreglo de palabras del input de búsqueda.
+   * @param {number} minThresholdValue - Valor mínimo requerido para considerar a un producto en una búsqueda.
+   */
+  function filterProductCard(productCard, inputArrayWords, minThresholdValue) {
+    if (inputArrayWords.length) {
+      /**
+       * Arreglo que contiene las palabras importantes de la tarjeta de producto.
+       * Estas palabras son las que se contemplarán en la búsqueda.
+       * @type {string[]}
+       */
+      const cardWords = Array.from(productCard.querySelectorAll(".search")).map(element => element.textContent);
+
+      const productWordScore = searchWord(inputArrayWords, cardWords);
+
+      // Si el producto tiene menor score que minThresholdValue, se oculta; si no, se muestra.
+      if (productWordScore < minThresholdValue) {
+        productCard.style.display = "none";
+        productCard.classList.add("hided");
+      } else {
+        productCard.removeAttribute("style");
+        productCard.classList.remove("hided");
+      }
+    } else {
+      productCard.removeAttribute("style");
+      productCard.classList.remove("hided");
+    }
+  }
+
+  /**
+   * Resalta el primer producto buscado.
+   */
+  function highlightFirstSearchedProduct() {
+    const previousProductoBuscado = document.querySelector(".searched-product");
+    if (previousProductoBuscado) {
+      previousProductoBuscado.classList.remove("searched-product");
+    }
+
+    const primerProductBuscado = document.querySelector(`${cardsClasses}:not(.hided)`);
+    if (primerProductBuscado) {
+      primerProductBuscado.querySelector(".add-product").classList.add("searched-product");
+      primerProductBuscado.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  /**
+   * Elimina la clase resaltada de un producto.
+   */
+  function clearHighlightedProduct() {
+    const previousProductoBuscado = document.querySelector(".searched-product");
+    if (previousProductoBuscado) {
+      previousProductoBuscado.classList.remove("searched-product");
+    }
+  }
 }
 
 /**
- * Compares two arrays of words and returns a score based on the number of matches.
+ * Compara dos arreglos de palabras y retorna un puntaje basado en el número de coincidencias.
  *
- * @param {string[]} inputArrayWords - Array of words from the input search terms.
- * @param {string[]} cardWords - Array of words from the product card text content.
- * @returns {number} - The score based on the number of matches between the two arrays.
+ * @param {string[]} inputArrayWords - Arreglo de palabras del input de búsqueda.
+ * @param {string[]} cardWords - Arreglo de palabras dentro de una tarjeta de producto.
+ * @returns {number} - Puntaje basado en el número de coincidencias entre los dos arreglos.
  */
 function searchWord(inputArrayWords, cardWords) {
   let score = 0;
 
-  // Function to remove diacritics from words
+  /**
+   * Remueve tildes de una palabra.
+   *
+   * @param {string} word - La palabra de la que se eliminarán las tildes.
+   * @returns {string} - La palabra sin tildes.
+   */
   function removeDiacritics(word) {
     return word.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
-  // Compare each word in input search terms with words in product card text content
-  inputArrayWords.forEach(function (inputArrayWord) {
-    cardWords.forEach(function (cardWord) {
+  inputArrayWords.forEach((inputArrayWord) => {
+    cardWords.forEach((cardWord) => {
       const inputArrayWordWithoutDiacritics = removeDiacritics(inputArrayWord.toLowerCase());
       const cardWordWithoutDiacritics = removeDiacritics(cardWord.toLowerCase());
 
       if (cardWordWithoutDiacritics.includes(inputArrayWordWithoutDiacritics)) {
-        score++; // Increment score for each match found
+        score++; // Incrementa el puntaje si una palabra coincide.
       }
     });
   });
+
   return score;
 }

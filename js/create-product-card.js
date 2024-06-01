@@ -84,20 +84,18 @@ export function createProductCard(productJson, containerProductId, index) {
 
     setTimeout(function () {
       cardDiv.remove();
+      
       // Comprobar si existen elementos seleccionados. Si no existen, desactivar barra de búsqueda y botones
-
       const productsDataString = JSON.parse(localStorage.getItem("productsData")) || [];
-
-      productsDataString.forEach((product, index) => {
-
+      productsDataString.some((product, index) => {
         if (product["PRODUCTO"] == productNameSpan.textContent) {
-          productsDataString.splice(index, 1);
-          
-          localStorage.setItem("productsData", JSON.stringify(productsDataString));
-          return;
+            productsDataString.splice(index, 1);
+            localStorage.setItem("productsData", JSON.stringify(productsDataString));
+            return true;  // Detener el bucle
         }
-      });
-      givePosition(document.getElementById(containerProductId));
+        return false;
+    });    
+      givePosition(document.getElementById("product-container"));
     }, 100);
   });
   
