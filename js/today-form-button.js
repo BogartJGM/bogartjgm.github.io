@@ -16,7 +16,7 @@ function getDay() {
 
   // Sumarle 30 días
   const futureDate = new Date(today);
-  futureDate.setDate(futureDate.getDate() + 30);
+  futureDate.setDate(futureDate.getDate() + 10);
 
   // Formatear la fecha en formato "yyyy-MM-dd"
   const formattedDate = futureDate.getUTCFullYear() + "-" + ("0" + (futureDate.getUTCMonth() + 1)).slice(-2) + "-" + ("0" + futureDate.getUTCDate()).slice(-2);
