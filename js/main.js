@@ -12,6 +12,7 @@ import { initImageInput } from "./image-file-handler.js";
 import { recortarImagen } from "./image-cutter.js";
 import { initImportExcel } from "./init-import-excel.js";
 import { sortableSelectedProducts } from "./sortable-selected-products.js";
+import { deleteAllSelectedProducts } from "./delete-all-selected-products.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Elementos del DOM
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const formClientData = document.getElementById("client-data-form");
   const btnImportCoti = document.getElementById("import-coti");
   const resetImgSize = document.querySelector(".reset-size-image");
+  const btnDeletedSelected = document.querySelector(".btn-delete-selected");
 
   // Inicializa el input selector de excel
   const productsDataString = localStorage.getItem("productsData");
@@ -45,8 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   myModal.addEventListener("shown.bs.modal", () => myInput.focus());
+  btnDeletedSelected.addEventListener("click", deleteAllSelectedProducts);
   buttonProductSelected.addEventListener("click", () => downloadExcel());
-  buttonShowImage.addEventListener("click", (ev) => {
+  buttonShowImage.addEventListener("click", (evt) => {
     if (!formClientData.checkValidity()) {
       ev.preventDefault();
       ev.stopPropagation();

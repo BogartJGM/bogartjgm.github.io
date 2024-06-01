@@ -98,6 +98,13 @@
   height: 4vh;
 }
 
+.btn-delete-selected {
+width: 100%; /* Asegura que el botón tenga el tamaño completo de su contenedor */
+white-space: nowrap; /* Evita que el texto del botón se rompa */
+overflow: hidden; /* Oculta el contenido que se desborde */
+text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es demasiado largo */
+}
+
 .col-md-4.main-column .selected-product-placeholder {           /* Tamaño del contenedor de los productos que se seleccoinen*/
   height: 80vh;
 }

@@ -50,6 +50,7 @@ export function addSelectedProduct(productCardDiv) {
   }
 
   const productSelectedSearchBar = document.getElementById("selected-product-search-bar");
+  const btnDeletedSelected = document.querySelector(".btn-delete-selected");
   const downloadCotiButton = document.getElementById("show-download-coti");
   const showImage = document.getElementById("show-image");
   const productsSelectedCounter = document.getElementById("selected-product-counter");
@@ -84,6 +85,9 @@ export function addSelectedProduct(productCardDiv) {
   }
   if (showImage.attributes["disabled"]) {
     showImage.removeAttribute("disabled");
+  }
+  if (btnDeletedSelected.attributes["disabled"]) {
+    btnDeletedSelected.removeAttribute("disabled");
   }
 
   // Cambiar atributos del elemento dentro del elemento copiado
