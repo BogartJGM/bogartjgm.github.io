@@ -51,8 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
   buttonProductSelected.addEventListener("click", () => downloadExcel());
   buttonShowImage.addEventListener("click", (evt) => {
     if (!formClientData.checkValidity()) {
-      ev.preventDefault();
-      ev.stopPropagation();
+      evt.preventDefault();
+      evt.stopPropagation();
 
       if (!document.getElementById("flush-collapse-form-client").classList.contains("show")) {
         btnAccordion.click();
