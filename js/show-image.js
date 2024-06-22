@@ -28,7 +28,7 @@ export function showImage() {
   const tablaApartadoCA = document.getElementById("initial-high-quality-deposit");
   const tablaClientsNote = document.getElementById("client-notes-cell");
 
-  tablaClientsNote.parentElement.parentElement.parentElement.style.display = "none";
+  tablaClientsNote.closest(".notes-table").style.display = "none";
   
   // Añadir información en header de tabla
   if (formNombreEscuela.value && formGradoYGrupo.value) {
@@ -77,14 +77,14 @@ export function showImage() {
   tablaDescuento.textContent = formDescuento.value;
   // Añadir costos en footer de la tabla
   tablaCostoTotalCE.textContent = spanTotalQualityE.textContent;
-  tablaCostoTDescuentoCE.textContent = Math.round(Number(spanTotalQualityE.textContent) * (1 - Number(formDescuento.value) / 100)); // Cambiar ese 0.9 por el precio descuento real (según el formulario)
-  tablaApartadoCE.textContent = Number(spanTotalQualityE.textContent) * 0.25; 
+  tablaCostoTDescuentoCE.textContent = roundToHalfOrWhole(Number(spanTotalQualityE.textContent) * (1 - Number(formDescuento.value) / 100));
+  tablaApartadoCE.textContent = roundToHalfOrWhole(Number(spanTotalQualityE.textContent) * 0.25);
   tablaCostoTotalCA.textContent = spanTotalQualityA.textContent;
-  tablaCostoTDescuentoCA.textContent = Math.round(Number(spanTotalQualityA.textContent) * (1 - Number(formDescuento.value) / 100)); // Cambiar ese 0.9 por el precio descuento real (según el formulario)
-  tablaApartadoCA.textContent = Math.round(Number(spanTotalQualityA.textContent) * 0.25);
+  tablaCostoTDescuentoCA.textContent = roundToHalfOrWhole(Number(spanTotalQualityA.textContent) * (1 - Number(formDescuento.value) / 100));
+  tablaApartadoCA.textContent = roundToHalfOrWhole(Number(spanTotalQualityA.textContent) * 0.25);
 
   if (formNotas.value) {
-    tablaClientsNote.parentElement.parentElement.parentElement.style.display = "";
+    tablaClientsNote.closest(".notes-table").style.display = "";
     tablaClientsNote.textContent = formNotas.value;
   }
 }
@@ -125,4 +125,17 @@ function createTableRow(datosProducto) {
   rowProduct.appendChild(tdImporteCA);
 
   return rowProduct;
+}
+
+function roundToHalfOrWhole(value) {
+  const floorValue = Math.floor(value);
+  const ceilValue = Math.ceil(value);
+
+  if (value - floorValue < 0.25) {
+    return floorValue;
+  } else if (value - floorValue < 0.75) {
+    return floorValue + 0.5;
+  } else {
+    return ceilValue;
+  }
 }

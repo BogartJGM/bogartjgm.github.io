@@ -249,6 +249,10 @@ input.cantidad.changed {                                        /* Animación pa
   font-weight: bolder;
 }
 
+#selected-products-table > tr:hover {
+  background-color: rgb(255, 158, 158);
+}
+
 /* *********ESTILOS DE IMAGEN********* */
 /* ********************************************* */
 .img-to-download table {
@@ -282,4 +286,14 @@ input.cantidad.changed {                                        /* Animación pa
 
 .notes-table {
   width: 100%;
+}
+
+.img-coti-table-warning {
+  font-size: 12px;
+}
+
+.img-coti-table, .img-coti-table td, .img-coti-table th {
+  border-collapse: collapse !important;
+  border: 0.5px solid rgb(99, 99, 99) !important;
+  border-color: rgb(99, 99, 99) !important;
 }
