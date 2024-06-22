@@ -49,6 +49,8 @@ function handleFileChange(imgFiles) {
       svgImage.style.width = "12px";
       svgImage.style.height = "12px";
       pText.style.display = "inline";
+
+      document.getElementById("download-img-excel").disabled = "";
     }
     reader.readAsDataURL(imgFile);
   }

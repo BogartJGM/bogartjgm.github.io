@@ -1,4 +1,8 @@
-export function downloadExcel() {
+/**
+ * 
+ * @param {boolean} wantImage Especificar si se quiere intentar descargar la imagen o no
+ */
+export function downloadExcelAndImg(wantImage) {
   let datosJSON = createJSON();
   console.log(datosJSON);
 
@@ -18,7 +22,7 @@ export function downloadExcel() {
   let imageLoaded = document.querySelector(".image-tag-placeholder");
 
   XLSX.writeFile(workbook, nombreArchivo);
-  if (imageLoaded.complete && imageLoaded.naturalHeight !== 0) {
+  if (imageLoaded.complete && imageLoaded.naturalHeight !== 0 && wantImage) {
     const imageAnchor = document.createElement("a");
     imageAnchor.href = imageLoaded.dataset.originalSrc;
     imageAnchor.download = `${fileName.value.trim()}.jpeg`

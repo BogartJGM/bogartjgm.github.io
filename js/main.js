@@ -1,7 +1,7 @@
 // Importando funciones desde clases externas
 import { initExcelInputs } from "./excel-file-handler.js";
 import { search } from "./search-bar.js";
-import { downloadExcel } from "./download-cotizacion.js";
+import { downloadExcelAndImg} from "./download-cotizacion.js";
 import { showImage } from "./show-image.js";
 import { descargarImagenCotizacion } from "./button-download-coti.js";
 import { createProductCard } from "./create-product-card.js";
@@ -21,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputSearchBar = document.getElementById("product-search-bar");
   const inputImgPicker = document.getElementById("select-img-file-area");
   const productSelectedSearchBar = document.getElementById("selected-product-search-bar");
-  const buttonProductSelected = document.getElementById("download-coti");
+  const buttonProductSelected = document.getElementById("download-img-excel");
+  const btnDownloadOnlyExcel = document.getElementById("download-coti");
   const buttonShowImage = document.getElementById("show-image");
   const buttonDownloadImage = document.getElementById("download-image");
   const buttonaddProductToLocalStorage = document.getElementById("add-product");
@@ -48,7 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   myModal.addEventListener("shown.bs.modal", () => myInput.focus());
   btnDeletedSelected.addEventListener("click", deleteAllSelectedProducts);
-  buttonProductSelected.addEventListener("click", () => downloadExcel());
+  btnDownloadOnlyExcel.addEventListener("click", () => downloadExcelAndImg(false));
+  buttonProductSelected.addEventListener("click", () => downloadExcelAndImg(true));
   buttonShowImage.addEventListener("click", (evt) => {
     if (!formClientData.checkValidity()) {
       evt.preventDefault();
