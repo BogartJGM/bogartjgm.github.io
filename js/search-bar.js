@@ -63,10 +63,6 @@ export function search(inputSearchBar, cardsClasses) {
 
       const productWordBool = searchWord(inputArrayWords, cardWords);
 
-      console.log(inputArrayWords);
-      console.log(cardWords);
-      console.log(productWordBool);
-
       // Si el producto tiene menor score que minThresholdValue, se oculta; si no, se muestra.
       if (!productWordBool) {
         productCard.style.display = "none";

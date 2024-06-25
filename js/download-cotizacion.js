@@ -4,7 +4,6 @@
  */
 export function downloadExcelAndImg(wantImage) {
   let datosJSON = createJSON();
-  console.log(datosJSON);
 
   // Crear un nuevo libro de Excel
   let workbook = XLSX.utils.book_new();
