@@ -139,9 +139,13 @@ export function search(inputSearchBar, cardsClasses) {
 function searchWord(inputArrayWords, cardWords) {
   return inputArrayWords.every(element1 => 
     cardWords.some(element2 => 
-      element2.toLowerCase().includes(element1.toLowerCase())
+      removeAccents(element2.toLowerCase()).includes(removeAccents(element1.toLowerCase()))
     )
   );
+}
+
+function removeAccents(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
 // function searchWord(inputArrayWords, cardWords) {
