@@ -28,8 +28,9 @@ export function search(inputSearchBar, cardsClasses) {
      * Valor mínimo requerido para considerar a un producto en una búsqueda.
      * @type {number}
      */
-    const minThresholdValue = Math.round(inputArrayWords.length / 2 + inputArrayWords.length / 4);
-
+    // const minThresholdValue = Math.round(inputArrayWords.length / 2 + inputArrayWords.length / 4);
+    const minThresholdValue = inputArrayWords.length;
+    
     /**
      * Cartas de producto que se filtrarán.
      * @type {NodeListOf<HTMLDivElement>}
