@@ -61,10 +61,14 @@ export function search(inputSearchBar, cardsClasses) {
        */
       const cardWords = Array.from(productCard.querySelectorAll(".search")).map(element => element.textContent);
 
-      const productWordScore = searchWord(inputArrayWords, cardWords);
+      const productWordBool = searchWord(inputArrayWords, cardWords);
+
+      console.log(inputArrayWords);
+      console.log(cardWords);
+      console.log(productWordBool);
 
       // Si el producto tiene menor score que minThresholdValue, se oculta; si no, se muestra.
-      if (productWordScore < minThresholdValue) {
+      if (!productWordBool) {
         productCard.style.display = "none";
         productCard.classList.add("hided");
       } else {
@@ -76,6 +80,31 @@ export function search(inputSearchBar, cardsClasses) {
       productCard.classList.remove("hided");
     }
   }
+
+  // function filterProductCard(productCard, inputArrayWords, minThresholdValue) {
+  //   if (inputArrayWords.length) {
+  //     /**
+  //      * Arreglo que contiene las palabras importantes de la tarjeta de producto.
+  //      * Estas palabras son las que se contemplarán en la búsqueda.
+  //      * @type {string[]}
+  //      */
+  //     const cardWords = Array.from(productCard.querySelectorAll(".search")).map(element => element.textContent);
+
+  //     const productWordScore = searchWord(inputArrayWords, cardWords);
+
+  //     // Si el producto tiene menor score que minThresholdValue, se oculta; si no, se muestra.
+  //     if (productWordScore < minThresholdValue) {
+  //       productCard.style.display = "none";
+  //       productCard.classList.add("hided");
+  //     } else {
+  //       productCard.removeAttribute("style");
+  //       productCard.classList.remove("hided");
+  //     }
+  //   } else {
+  //     productCard.removeAttribute("style");
+  //     productCard.classList.remove("hided");
+  //   }
+  // }
 
   /**
    * Resalta el primer producto buscado.
@@ -112,28 +141,36 @@ export function search(inputSearchBar, cardsClasses) {
  * @returns {number} - Puntaje basado en el número de coincidencias entre los dos arreglos.
  */
 function searchWord(inputArrayWords, cardWords) {
-  let score = 0;
-
-  /**
-   * Remueve tildes de una palabra.
-   *
-   * @param {string} word - La palabra de la que se eliminarán las tildes.
-   * @returns {string} - La palabra sin tildes.
-   */
-  function removeDiacritics(word) {
-    return word.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  }
-
-  inputArrayWords.forEach((inputArrayWord) => {
-    cardWords.forEach((cardWord) => {
-      const inputArrayWordWithoutDiacritics = removeDiacritics(inputArrayWord.toLowerCase());
-      const cardWordWithoutDiacritics = removeDiacritics(cardWord.toLowerCase());
-
-      if (cardWordWithoutDiacritics.includes(inputArrayWordWithoutDiacritics)) {
-        score++; // Incrementa el puntaje si una palabra coincide.
-      }
-    });
-  });
-
-  return score;
+  return inputArrayWords.every(element1 => 
+    cardWords.some(element2 => 
+      element2.toLowerCase().includes(element1.toLowerCase())
+    )
+  );
 }
+
+// function searchWord(inputArrayWords, cardWords) {
+//   let score = 0;
+
+//   /**
+//    * Remueve tildes de una palabra.
+//    *
+//    * @param {string} word - La palabra de la que se eliminarán las tildes.
+//    * @returns {string} - La palabra sin tildes.
+//    */
+//   function removeDiacritics(word) {
+//     return word.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+//   }
+
+//   inputArrayWords.forEach((inputArrayWord) => {
+//     cardWords.forEach((cardWord) => {
+//       const inputArrayWordWithoutDiacritics = removeDiacritics(inputArrayWord.toLowerCase());
+//       const cardWordWithoutDiacritics = removeDiacritics(cardWord.toLowerCase());
+
+//       if (cardWordWithoutDiacritics.includes(inputArrayWordWithoutDiacritics)) {
+//         score++; // Incrementa el puntaje si una palabra coincide.
+//       }
+//     });
+//   });
+
+//   return score;
+// }
