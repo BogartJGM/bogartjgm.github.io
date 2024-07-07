@@ -64,6 +64,17 @@ export function createProductCard(productJson, containerProductId, index) {
 
   addButton.addEventListener("click", () => {
     addSelectedProduct(cardDiv);
+    
+    const searchBar = document.getElementById("product-search-bar");
+
+    searchBar.value = "";
+            let eventito = new Event("input", {
+              bubbles: true,
+              cancelable: true,
+              value: "",
+            });
+
+    searchBar.dispatchEvent(eventito);
   });
   quantityInput.addEventListener("input", () => {
     if (quantityInput.value == "") {
