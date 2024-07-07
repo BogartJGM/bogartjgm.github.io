@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     choosedDate.setUTCHours(choosedDate.getUTCHours() - 6);
     let futureDate = new Date(choosedDate);
-    futureDate.setDate(futureDate.getDate() + 10);
+    futureDate.setDate(futureDate.getDate() + 15);
 
     let formattedDate = futureDate.getUTCFullYear() + "-" + ("0" + (futureDate.getUTCMonth() + 1)).slice(-2) + "-" + ("0" + futureDate.getUTCDate()).slice(-2);
 
