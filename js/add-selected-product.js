@@ -13,6 +13,7 @@ export function addSelectedProduct(productCardDiv) {
   let founded = false;
   const productSelectedContainer = document.getElementById("selected-product-container");
 
+  /* Aumentar  cant producto si este ya ha sido seleccionado. Evita productos duplicados
   productSelectedContainer.querySelectorAll(".productSelected").forEach((product) => {
     if (product.querySelector(".product").textContent == productCardDiv.querySelector(".product").textContent) {
       const quantityInp = productCardDiv.querySelector(".cantidad");
@@ -48,6 +49,7 @@ export function addSelectedProduct(productCardDiv) {
   if (founded) {
     return;
   }
+  */
 
   const productSelectedSearchBar = document.getElementById("selected-product-search-bar");
   const btnDeletedSelected = document.querySelector(".btn-delete-selected");
