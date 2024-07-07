@@ -163,12 +163,12 @@ function createQualityTable(title, name, price, setData) {
   thInput.type = "checkbox";
   thInput.setAttribute("checked", "true");
   tdName.dataset.originalName = name;
-  tdName.classList.add("search", "qualityName", "py-0", "m-0");
+  tdName.classList.add("search", "td-editable", "qualityName", "py-0", "m-0");
   tdName.style.width = "90%";
   tdName.style.overflowWrap = "break-word";
   tdPrice.dataset.originalPrice = price;
   tdPrice.dataset.previousPrice = setData.definedPrice ? setData.definedPrice : price;
-  tdPrice.classList.add("price", "py-0", "m-0");
+  tdPrice.classList.add("price", "td-editable", "py-0", "m-0");
   tdPrice.style.width = "90%";
   tdPrice.style.overflowWrap = "break-word";
   tdButton.classList.add("py-0", "m-0");

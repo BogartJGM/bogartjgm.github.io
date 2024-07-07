@@ -59,7 +59,7 @@ export function addSelectedProduct(productCardDiv) {
   productCardDiv.querySelector(".cantidad").value = "";
   const buttonSelectedCard = productCardCopy.querySelectorAll("button.btn.btn-success.col-md-5")[0];
   const buttonsEdit = productCardCopy.querySelectorAll(".buttonEdit");
-  const tdsEditable = productCardCopy.querySelectorAll(".search");
+  const tdsEditable = productCardCopy.querySelectorAll(".td-editable");
   const priceTds = productCardCopy.querySelectorAll(".price");
   const posicion = productCardCopy.querySelector(".posicion");
   const checkboxs = productCardCopy.querySelectorAll("input[type='checkbox']");
