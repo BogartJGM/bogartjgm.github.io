@@ -12,6 +12,7 @@ export function createSelectedProductCard(productData, index) {
   if (index == 0) {
     const formulario = document.getElementById("flush-collapse-form-client");
     
+    // Se llena la información del formulario del cliente
     formulario.querySelector("#client-name").value = productData["nombreCliente"] || "";
     formulario.querySelector("#client-school-name").value = productData["nombreEscuela"] || "";
     formulario.querySelector("#client-grade-group").value = productData["gradoYGrupo"] || "";
@@ -26,9 +27,21 @@ export function createSelectedProductCard(productData, index) {
     }
   }
 
+  /*************************** ZONA DE IMPORTACIÓN DE EXCEL***********************************/
   const productsSelectable = document.querySelectorAll("#product-container div.product");
   let found = false;
 
+  // Si encuentra un producto con el mismo nombre, lo utiliza como plantilla y cambie los datos que sean necesarios:
+  /*
+    Los datos que sean necesarios son:
+    - Cantidad
+    Para ambas calidades:
+    - Checkbox desmarcados
+    - Nombre de la calidad
+    - Precio
+
+    Luego hace las operaciones necesarias para los checkboxs desmarcads y finalmente se agrega el producto.
+  */
   productsSelectable.forEach((product) => {
     if (product.querySelector("span.product").textContent == productData["PRODUCTO"]) {
       const formatteImportedProduct = product.cloneNode(true);
@@ -86,7 +99,7 @@ export function createSelectedProductCard(productData, index) {
     }
   });
 
-  // Si no existe, se introduce y luego se importa el producto
+  // Si no existe, se introduce copia uno que ya existe, se clona y se importa
   if (!found) {
     addProductToLocalStorage(productData);
 

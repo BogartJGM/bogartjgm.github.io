@@ -58,11 +58,13 @@ function handleFileLoad(fileEvent) {
   input references the new elements. */
   const productSelectedContainer = document.getElementById("selected-product-container");
 
-  if (productSelectedContainer) {
+  //Vaciar información de totales y cantidad de productos
+  if (productSelectedContainer.innerHTML != "") {
+    document.querySelector(".btn-delete-selected").click();
     productSelectedContainer.innerHTML = "";
   }
 
-  // Create product cards and append them to the DOM
+  // Selecciona los productos que existen en el excel.
   selectedProductsData.forEach((product, index) => {
     createSelectedProductCard(product, index);
   });
