@@ -21,8 +21,15 @@ export function descargarImagenCotizacion() {
 
   // Asegurarse de que el clon esté fuera de la pantalla y visible
   clone.style.zIndex = "-1";
+  // Tabla de datos de cliente
   clone.querySelectorAll("table")[0].className = "img-coti-table";
+  clone.querySelectorAll("table")[0].parentElement.className = "col-md-8";
+  const colDatosCliente = clone.querySelectorAll("table")[0].querySelectorAll("th[scope=col]");
+  colDatosCliente[1].style.width = "25%";
+  colDatosCliente[2].style.width = "25%";
+
   clone.querySelectorAll("table")[1].className = "img-coti-table-warning";
+  clone.querySelectorAll("table")[1].parentElement.className = "col-md-4";
   clone.querySelectorAll("table")[2].className = "img-coti-table";
   clone.querySelectorAll("table")[3].className = "img-coti-table";
 

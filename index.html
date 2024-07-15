@@ -339,7 +339,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-floating">
-                          <input type="number" class="form-control" id="price-quality-e" placeholder="" value="" required>
+                          <input type="number" class="form-control" id="price-quality-e" placeholder="" value="" min="0.5" step="0.5" required>
                           <label for="price-quality-e">Precio</label>
                           <div class="invalid-feedback">Ingresa el precio de la marca económica.</div>
                         </div>
@@ -359,7 +359,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-floating">
-                          <input type="number" class="form-control" id="price-quality-a" placeholder="" value="" required>
+                          <input type="number" class="form-control" id="price-quality-a" placeholder="" value="" min="0.5" step="0.5" required>
                           <label for="price-quality-a">Precio</label>
                           <div class="invalid-feedback">Ingresa el precio de la marca alta.</div>
                         </div>
@@ -505,7 +505,7 @@
                   <tbody>
                     <tr>
                       <th class="notes-table-th col-md-2">Notas</th>
-                      <td class="notes-table-text col-md-9"><pre id="client-notes-cell"></pre></td>
+                      <td class="notes-table-text col-md-9"><span id="client-notes-cell" style="white-space: pre;"></span></td>
                     </tr>
                   </tbody>
                 </table>

@@ -32,13 +32,13 @@ export function showImage() {
   
   // Añadir información en header de tabla
   if (formNombreEscuela.value && formGradoYGrupo.value) {
-    tablaDatosCliente.textContent = formNombreCliente.value + " " + formNombreEscuela.value + " - " + formGradoYGrupo.value;
+    tablaDatosCliente.innerHTML = formNombreCliente.value + "<br>" + formNombreEscuela.value + " - " + formGradoYGrupo.value;
   } else if (formNombreEscuela.value) {
-    tablaDatosCliente.textContent = formNombreCliente.value + " " + formNombreEscuela.value;
+    tablaDatosCliente.innerHTML = formNombreCliente.value + "<br>" + formNombreEscuela.value;
   } else if (formFechaCotizacion.textContent) {
-    tablaDatosCliente.textContent = formNombreCliente.value + " - " + formGradoYGrupo.value;
+    tablaDatosCliente.innerHTML = formNombreCliente.value + "<br>" + formGradoYGrupo.value;
   } else {
-    tablaDatosCliente.textContent = formNombreCliente.value;
+    tablaDatosCliente.innerHTML = formNombreCliente.value;
   }
   tablaCotizadoEn.textContent = formFechaCotizacion.value;
   tablaValidoHasta.textContent = formValidoHasta.value;
