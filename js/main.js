@@ -6,7 +6,7 @@ import { showImage } from "./show-image.js";
 import { descargarImagenCotizacion } from "./button-download-coti.js";
 import { createProductCard } from "./create-product-card.js";
 import { addProductToLocalStorage } from "./add-product-to-local-storage.js";
-import { superLoadSearchBar } from "./super-load-search-bar.js";
+import { highlightSelectedProductsSearchBar, superLoadSearchBar } from "./super-load-search-bar.js";
 import { addGlobalShortcuts } from "./globa-shortcuts.js";
 import { initImageInput } from "./image-file-handler.js";
 import { recortarImagen } from "./image-cutter.js";
@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputDropdownExcelPicker = document.getElementById("select-excel-file");
   const inputExcelPicker = document.getElementById("select-excel-file-area");
   const inputSearchBar = document.getElementById("product-search-bar");
+  const inputSelectedProductSearchBar = document.getElementById("selected-product-search-bar");
   const inputImgPicker = document.getElementById("select-img-file-area");
   const productSelectedSearchBar = document.getElementById("selected-product-search-bar");
   const buttonProductSelected = document.getElementById("download-img-excel");
@@ -135,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initImportExcel(btnImportCoti);
   initImageInput(inputImgPicker);
   superLoadSearchBar(inputSearchBar);
+  highlightSelectedProductsSearchBar(inputSelectedProductSearchBar);
   addGlobalShortcuts();
   recortarImagen();
   sortableSelectedProducts();

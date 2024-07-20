@@ -1,0 +1,10 @@
+.hightLightedProduct {
+  background-color: rgb(48, 47, 47) !important;
+  color: white;
+  border-color: black;
+}
+
+.hightLightedProductQuantity {
+  border-color: rgb(29, 29, 29);
+  border-width: 3px;
+}
