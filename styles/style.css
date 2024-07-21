@@ -296,4 +296,9 @@ input.cantidad.changed {                                        /* Animación pa
   border-collapse: collapse !important;
   border: 0.5px solid rgb(99, 99, 99) !important;
   border-color: rgb(99, 99, 99) !important;
+  padding: 2px !important;
+}
+
+th.notes-table-th.col-md-2 {
+  align-items: center;
 }

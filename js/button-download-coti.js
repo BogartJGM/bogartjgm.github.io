@@ -32,6 +32,7 @@ export function descargarImagenCotizacion() {
   clone.querySelectorAll("table")[1].parentElement.className = "col-md-4";
   clone.querySelectorAll("table")[2].className = "img-coti-table";
   clone.querySelectorAll("table")[3].className = "img-coti-table";
+  clone.querySelectorAll("table")[3].classList.add("table");
 
   clonContainer.appendChild(clone);
   imgTagContainer.appendChild(imgTagMembrete);
