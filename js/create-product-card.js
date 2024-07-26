@@ -105,7 +105,7 @@ export function createProductCard(productJson, containerProductId, index) {
             return true;  // Detener el bucle
         }
         return false;
-    });    
+      });
       givePosition(document.getElementById("product-container"));
     }, 100);
   });

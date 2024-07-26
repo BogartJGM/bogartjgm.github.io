@@ -13,6 +13,8 @@ import { recortarImagen } from "./image-cutter.js";
 import { initImportExcel } from "./init-import-excel.js";
 import { sortableSelectedProducts } from "./sortable-selected-products.js";
 import { deleteAllSelectedProducts } from "./delete-all-selected-products.js";
+import { generateExcelFromJson } from "./export-products/export-products.js";
+import { removeAttributeFromElementById } from "./utils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Elementos del DOM
@@ -38,10 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnImportCoti = document.getElementById("import-coti");
   const resetImgSize = document.querySelector(".reset-size-image");
   const btnDeletedSelected = document.querySelector(".btn-delete-selected");
+  const buttonExportProducts = document.getElementById("export-products-to-excel");
 
   // Inicializa el input selector de excel
   const productsDataString = localStorage.getItem("productsData");
   if (productsDataString) {
+    removeAttributeFromElementById("export-products-to-excel", "disabled");
+    removeAttributeFromElementById("product-search-barproduct-search-bar", "disabled");
     inputExcelPicker.remove();
     JSON.parse(productsDataString).forEach((product, index) => {
       createProductCard(product, "product-container", index);
@@ -75,9 +80,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
       formCreateProduct.classList.add('was-validated');
     } else {
+      // Habilitar botón de descargar excel
+      if (!document.querySelectorAll(".card.product")) {
+        document.getElementById("export-products-to-excel").removeAttribute("disabled");
+      }
+
+      // Esta función toma los datos del formulario de crear producto y los añade
       addProductToLocalStorage();
       formCreateProduct.reset();
 
+      // Cerrar el modal
       const modalCrateProduct = bootstrap.Modal.getInstance(myModal);
       modalCrateProduct.hide();
     }
@@ -129,6 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
   resetImgSize.addEventListener("click", (ev) => {
     resetImgSize.nextElementSibling.src = resetImgSize.nextElementSibling.dataset.originalSrc;
   })
+  buttonExportProducts.addEventListener("click", generateExcelFromJson);
 
   search(inputSearchBar, "div.card.p-2.product");
   search(productSelectedSearchBar, "div.card.p-2.productSelected");
