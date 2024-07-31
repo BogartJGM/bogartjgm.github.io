@@ -13,6 +13,7 @@ export function superLoadSearchBar(searchBar) {
         if (Number(event.key) > 0) {
           const inputCantidad = searchedProduct.parentElement.parentElement.nextSibling.firstChild.lastChild;
           inputCantidad.value = Number(event.key);
+          inputQuantity.dataset.cantidadAnterior = Number(event.key);
         }
       } else {
         switch (event.key) {
@@ -88,17 +89,18 @@ export function superLoadSearchBar(searchBar) {
             break;
           case "+":
             event.preventDefault();
-            inputQuantity.value = inputQuantity.value
-              ? Number(inputQuantity.value) + 1
-              : 2;
+            inputQuantity.value = inputQuantity.value ? Number(inputQuantity.value) + 1 : 2;
+
+            inputQuantity.dataset.cantidadAnterior++;
             break;
           case "-":
             event.preventDefault();
             if (inputQuantity.value != "") {
-              inputQuantity.value =
-                inputQuantity.value - 1 != 0 || inputQuantity.value == ""
-                  ? Number(inputQuantity.value) - 1
-                  : "";
+              inputQuantity.value = inputQuantity.value - 1 != 0 || inputQuantity.value == "" ? Number(inputQuantity.value) - 1 : "";
+
+              if (inputQuantity.dataset.cantidadAnterior - 1 != 0) {
+                inputQuantity.dataset.cantidadAnterior--;
+              }
             }
             break;
           case "Enter":
@@ -112,6 +114,8 @@ export function superLoadSearchBar(searchBar) {
               cancelable: true,
               value: "",
             });
+
+            inputQuantity.dataset.cantidadAnterior = 1;
 
             searchBar.dispatchEvent(eventito);
             break;

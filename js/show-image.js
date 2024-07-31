@@ -76,12 +76,14 @@ export function showImage() {
   tablaApartadoCA.textContent = formValidoHasta.value;
   tablaDescuento.textContent = formDescuento.value;
   // Añadir costos en footer de la tabla
-  tablaCostoTotalCE.textContent = spanTotalQualityE.textContent;
-  tablaCostoTDescuentoCE.textContent = roundToHalfOrWhole(Number(spanTotalQualityE.textContent) * (1 - Number(formDescuento.value) / 100));
-  tablaApartadoCE.textContent = roundToHalfOrWhole(Number(spanTotalQualityE.textContent) * 0.25);
-  tablaCostoTotalCA.textContent = spanTotalQualityA.textContent;
-  tablaCostoTDescuentoCA.textContent = roundToHalfOrWhole(Number(spanTotalQualityA.textContent) * (1 - Number(formDescuento.value) / 100));
-  tablaApartadoCA.textContent = roundToHalfOrWhole(Number(spanTotalQualityA.textContent) * 0.25);
+  let { totalCostLowQuality, totalCostHighQuality } = getTotalCost();
+
+  tablaCostoTotalCE.textContent = totalCostLowQuality;
+  tablaCostoTDescuentoCE.textContent = roundToHalfOrWhole(totalCostLowQuality * (1 - Number(formDescuento.value) / 100));
+  tablaApartadoCE.textContent = roundToHalfOrWhole(totalCostLowQuality * 0.25);
+  tablaCostoTotalCA.textContent = totalCostHighQuality;
+  tablaCostoTDescuentoCA.textContent = roundToHalfOrWhole(totalCostHighQuality * (1 - Number(formDescuento.value) / 100));
+  tablaApartadoCA.textContent = roundToHalfOrWhole(totalCostHighQuality * 0.25);
 
   if (formNotas.value) {
     tablaClientsNote.closest(".notes-table").style.display = "";
@@ -138,4 +140,22 @@ function roundToHalfOrWhole(value) {
   } else {
     return ceilValue;
   }
+}
+
+function getTotalCost() {
+  let totalCostLowQuality = 0;
+  let totalCostHighQuality = 0;
+
+  const selectedProducts = document.querySelectorAll(".productSelected");
+
+  selectedProducts.forEach((product) => {
+    let quantity = Number(product.querySelector(".cantidad").value) || 1;
+    let unitPriceLowQuality = Number(product.querySelectorAll(".price")[0].textContent);
+    let unitPriceHighQuality = Number(product.querySelectorAll(".price")[1].textContent);
+
+    totalCostLowQuality += quantity * unitPriceLowQuality;
+    totalCostHighQuality += quantity * unitPriceHighQuality;
+  });
+
+  return { totalCostLowQuality, totalCostHighQuality };
 }

@@ -75,6 +75,8 @@ export function createProductCard(productJson, containerProductId, index) {
             });
 
     searchBar.dispatchEvent(eventito);
+
+    quantityInput.dataset.cantidadAnterior = 1;
   });
   quantityInput.addEventListener("input", () => {
     if (quantityInput.value == "") {
@@ -87,6 +89,7 @@ export function createProductCard(productJson, containerProductId, index) {
     if (event.key == "Enter") {
       event.preventDefault();
       addButton.click();
+      quantityInput.dataset.cantidadAnterior = 1;
     }
   });
   deletetThisCard.addEventListener("click", () => {
