@@ -148,13 +148,26 @@ function getTotalCost() {
 
   const selectedProducts = document.querySelectorAll(".productSelected");
 
+
+  
   selectedProducts.forEach((product) => {
     let quantity = Number(product.querySelector(".cantidad").value) || 1;
     let unitPriceLowQuality = Number(product.querySelectorAll(".price")[0].textContent);
     let unitPriceHighQuality = Number(product.querySelectorAll(".price")[1].textContent);
 
-    totalCostLowQuality += quantity * unitPriceLowQuality;
-    totalCostHighQuality += quantity * unitPriceHighQuality;
+    let checkboxCalidadE = product.querySelector(".CALIDADE").checked;
+    let checkboxCalidadA = product.querySelector(".CALIDADA").checked;
+    
+    if (checkboxCalidadE && checkboxCalidadA) {
+      totalCostLowQuality += quantity * unitPriceLowQuality;
+      totalCostHighQuality += quantity * unitPriceHighQuality;
+    } else if (checkboxCalidadE) {
+      totalCostLowQuality += quantity * unitPriceLowQuality;
+      totalCostHighQuality += quantity * unitPriceLowQuality;
+    } else {
+      totalCostLowQuality += quantity * unitPriceHighQuality;
+      totalCostHighQuality += quantity * unitPriceHighQuality;
+    }
   });
 
   return { totalCostLowQuality, totalCostHighQuality };
